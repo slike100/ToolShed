@@ -1,5 +1,8 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 const functions = require('firebase-functions');
 const firebase = require('firebase');
 // const admin = require('firebase-admin');
@@ -10,3 +13,6 @@ var config = {
 };
 
 firebase.initializeApp(config);
+// admin.initializeApp(functions.config().firebase);
+
+var db = exports.db = firebase.firestore();

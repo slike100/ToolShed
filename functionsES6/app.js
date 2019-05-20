@@ -8,3 +8,6 @@ var config = {
 }
 
 firebase.initializeApp(config);
+// admin.initializeApp(functions.config().firebase);
+
+export var db = firebase.firestore();
