@@ -30,4 +30,89 @@ toolController.post('/newTool', (req, res) => {
   }
 });
 
+
+
+//START DELETE TOOL ENDPOINT//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//START DELETE TOOL ENDPOINT//
+
+
+
+
+//START UPDATE TOOL ENDPOINT//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//END UPDATE TOOL ENDPOINT//
+
+
+
+
+//START GET TOOLS BY LAT & LONG AND OPTIONALLY BY NAME OF TOOL ENDPOINT//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//START GET TOOLS BY LAT & LONG AND OPTIONALLY BY NAME OF TOOL ENDPOINT//
+
+
 module.exports = toolController;
