@@ -92,7 +92,27 @@ toolController.post('/newTool', (req, res) => {
 
 
 //START GET TOOLS BY LAT & LONG AND OPTIONALLY BY NAME OF TOOL ENDPOINT//
-
+toolController.get('/searchTools', (req, res) => {
+  console.log('We are in the get tool info route!');
+  console.log('this is req.query', req.query);
+  var toolsRef = db.collection('Tools');
+  try {
+    toolsRef().where('name', '==', req.query.name).get()
+      .then((snapshot) => {
+        if(snapshot.empty){
+          console.log('No matching documents.');
+          return res.send('No matching tools!');
+        }
+        snapshot.forEach(doc => {
+          console.log(doc.id, '=>', doc.data());
+          return;
+          // return res.status(200).send('we are in the confirm, we found tools');
+      })
+    });
+  } catch (error) {
+    return res.status(500).send('This is the error. Our Search did not work', error);
+  }
+});
 
 
 
