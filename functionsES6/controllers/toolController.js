@@ -97,20 +97,20 @@ toolController.get('/searchTools', (req, res) => {
   console.log('this is req.query', req.query);
   var toolsRef = db.collection('Tools');
   try {
-    toolsRef().where('name', '==', req.query.name).get()
+    db.collection('Tools').where('name', '==', req.query.name).get()
       .then((snapshot) => {
+        console.log("this is the snapshot Sam S", snapshot)
         if(snapshot.empty){
-          console.log('No matching documents.');
-          return res.send('No matching tools!');
-        }
-        snapshot.forEach(doc => {
-          console.log(doc.id, '=>', doc.data());
+          console.log('No matching documents. Sam S');
           return;
-          // return res.status(200).send('we are in the confirm, we found tools');
+        }
+        snapshot.docs.forEach(doc => {
+          console.log(doc.id, '=>', doc.data());
+          return res.status(200).send('we are in the confirm, we found tools');
       })
     });
-  } catch (error) {
-    return res.status(500).send('This is the error. Our Search did not work', error);
+  } catch (err) {
+    return res.status(500).send('This is the error. Our Search did not work', err);
   }
 });
 
