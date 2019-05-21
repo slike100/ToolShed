@@ -8,9 +8,10 @@ const userController = express();
 
 userController.use(cors({ origin: true }));
 
-userController.get("/", (req, res) => {
-  res.send("sup");
-});
+// userController.get("/", (req, res) => {
+//   res.send("sup");
+// });
+
 
 //START NEW USER POST ENDPOINT//
 userController.post('/newUser', (req, res) => {
@@ -79,7 +80,25 @@ userController.put('/updateUser', (req, res) => {
 
 
 //START GET ONE USER BY USERID//
-
+userController.get('userData/:id', (req, res) => {
+  console.log("DB: Hitting the get userData endpoint");
+  console.log("DB: This is the userId: ", req.params.id);
+  const userData = db.collection('User').doc('req.params.id');
+  try {
+    userData.get().then(userDoc => {
+      if (!userDoc.exists) {
+        console.log('DB: No such document!');
+      } else {
+        console.log(userDoc.data);
+        return res.status.apply(200).send(userDoc.data());
+      }
+    }).catch(err => {
+      console.log('DB: Error getting document', err);
+    });
+  } catch (err) {
+    return res.status(500).send('DB: Could not connect to database', err);
+  };
+});
 
 //END GET ONE USER BY USERID//
 
