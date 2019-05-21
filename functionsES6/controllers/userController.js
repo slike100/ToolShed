@@ -10,8 +10,6 @@ userController.get("/", (req, res) => {
   res.send("sup");
 });
 
-
-
 //START NEW USER POST ENDPOINT//
 userController.post('/newUser', (req, res) => {
   console.log('We are in the add new user route!');
@@ -31,28 +29,7 @@ userController.post('/newUser', (req, res) => {
     return res.status(500).send('could not add new user', err);
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //END NEW USER POST ENDPOINT//
-
-
-
 
 //START DELETE USER ENPOINT//
 userController.delete('/deleteUser', (req, res) => {
@@ -68,31 +45,9 @@ userController.delete('/deleteUser', (req, res) => {
     return res.status(500).send(`/deleteUser encountered an error: `, err);
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //END DELETE USER ENDPOINT//
 
-
-
-
 //START UPDATE USER ENDPOINT//
-
 userController.put('/updateUser', (req, res) => {
   let FieldValue = require('firebase-admin').firestore.FieldValue;
   console.log('We are in the update user route!');
@@ -113,27 +68,7 @@ userController.put('/updateUser', (req, res) => {
     return res.status(500).send('could not update user', error);
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//SEND UPDATE USER ENDPOINT//
-
-
-
+//END UPDATE USER ENDPOINT//
 
 //START GET ONE USER BY USERID//
 userController.get('userData/:id', (req, res) => {
@@ -157,26 +92,6 @@ userController.get('userData/:id', (req, res) => {
     return res.status(500).send('DB: Could not connect to database', err);
   };
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //END GET ONE USER BY USERID//
-
-
 
 module.exports = userController;
