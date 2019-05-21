@@ -33,6 +33,19 @@ toolController.post('/newTool', (req, res) => {
 
 //START DELETE TOOL ENDPOINT//
 
+toolController.delete('/deleteTool', (req, res) => {
+  console.log('Julio, We are in the delete tool route!');
+  console.log('this is req.body.id', req.body);
+  const toolId = 'ya6jnRMOmESc8p0oqL94';  // hard code to test the delete endpoint
+  try {
+    db.collection('Tools').doc(`${toolId}`).delete()
+    .then(() => {
+      return res.status(200).send('we are in the confirm, we deleted a tool', toolId);
+    });
+  } catch (error) {
+    return res.status(500).send("Error removing Tool: ", error);
+  }
+});
 
 
 
@@ -60,8 +73,7 @@ toolController.post('/newTool', (req, res) => {
 
 
 
-
-//START DELETE TOOL ENDPOINT//
+//END DELETE TOOL ENDPOINT//
 
 
 
