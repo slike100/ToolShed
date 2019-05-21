@@ -39,7 +39,27 @@ toolController.post('/newTool', (req, res) => {
 
 
 //START UPDATE TOOL ENDPOINT//
-
+toolController.put('/updateTool', (req, res) => {
+  let FieldValue = require('firebase-admin').firestore.FieldValue;
+  console.log('Samantha, We are in the update tool route!');
+  console.log('Samantha, this is req.body', req.body);
+  try {
+    db.collection('Tools').doc(req.body.toolId).update({
+      name: req.body.name,
+      description: req.body.description,
+      isRented: req.body.isRented,
+      owner: req.body.owner,
+      photo: req.body.photo,
+      priceRatePerDay: req.body.priceRatePerDay,
+      rentalDurationInDays: req.body.rentalDurationInDays,
+      timestamp: FieldValue.serverTimestamp()
+    }).then(() => {
+      return res.status(200).send('we are in the confirm, we updated a tool');
+    });
+  } catch (error) {
+    return res.status(500).send('could not update tool', error);
+  }
+});
 
 //END UPDATE TOOL ENDPOINT//
 
