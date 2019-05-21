@@ -13,7 +13,24 @@ userController.get("/", (req, res) => {
 
 
 //START NEW USER POST ENDPOINT//
-
+userController.post('/newUser', (req, res) => {
+  console.log('We are in the add new user route!');
+  console.log('this is req.body', req.body);
+  try {
+    db.collection('User').add({
+      userName: req.body.userName,
+      location: req.body.location,
+      avatar: req.body.avatar,
+      toolsOwned: [],
+      toolsBeingRented: [],
+      token: req.body.token
+    }).then(() => {
+      return res.status(200).send('we are in the confirm, added new user');
+    });
+  } catch (error) {
+    return res.status(500).send('could not add new user', error);
+  }
+});
 
 
 
