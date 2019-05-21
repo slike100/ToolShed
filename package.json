@@ -1,0 +1,28 @@
+{
+  "name": "toolshed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "prebuild": "node node_modules/rimraf/bin functions",
+  "build": "babel functionsES6 --out-dir functions --copy-files --ignore functionsES6/node_modules",
+  "postbuild": "cd functions && npm i -s",
+  "deploy": "npm run build && firebase deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechtonicAcademy/ToolShed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TechtonicAcademy/ToolShed/issues"
+  },
+  "homepage": "https://github.com/TechtonicAcademy/ToolShed#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "rimraf": "^2.6.3"
+  }
+}

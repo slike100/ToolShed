@@ -1,0 +1,21 @@
+{
+  "name": "functionses6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "10"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.0",
+    "firebase": "^6.0.2",
+    "firebase-admin": "^7.3.0",
+    "firebase-functions": "^2.3.1"
+  }
+}
