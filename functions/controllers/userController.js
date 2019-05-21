@@ -24,11 +24,11 @@ userController.post('/newUser', (req, res) => {
       toolsOwned: [],
       toolsBeingRented: [],
       token: req.body.token
-    }).then(() => {
+    }).then(res => {
       return res.status(200).send('we are in the confirm, added new user');
     });
-  } catch (error) {
-    return res.status(500).send('could not add new user', error);
+  } catch (err) {
+    return res.status(500).send('could not add new user', err);
   }
 });
 
@@ -36,7 +36,18 @@ userController.post('/newUser', (req, res) => {
 
 
 //START DELETE USER ENPOINT//
-
+userController.delete('/deleteUser', (req, res) => {
+  console.log('We are in the /deleteUser route!');
+  console.log('this is the /deleteUser req.body: ', req.body);
+  const userID = 'TQFaQh51Rd3fgQHginMg';
+  try {
+    db.collection('User').doc(`${userID}`).delete().then(res => {
+      return res.status(200).send(`/deleteUser was successful! `, res);
+    });
+  } catch (err) {
+    return res.status(500).send(`/deleteUser encountered an error: `, err);
+  }
+});
 
 //END DELETE USER ENDPOINT//
 
