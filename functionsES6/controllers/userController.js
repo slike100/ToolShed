@@ -17,12 +17,13 @@ userController.post('/newUser', (req, res) => {
   try {
     db.collection('User').add({
       userName: req.body.userName,
-      location: req.body.location,
+      lat: req.body.lat,
+      long: req.body.long,
       avatar: req.body.avatar,
       toolsOwned: [],
       toolsBeingRented: [],
       token: req.body.token
-    }).then((res) => {
+    }).then(() => {
       return res.status(200).send('we are in the confirm, added new user');
     });
   } catch (err) {
@@ -35,54 +36,52 @@ userController.post('/newUser', (req, res) => {
 userController.delete('/deleteUser', (req, res) => {
   console.log('We are in the /deleteUser route!');
   console.log('this is the /deleteUser req.body: ', req.body);
-  const userID = 'TQFaQh51Rd3fgQHginMg';
   try {
-    db.collection('User').doc(`${userID}`).delete()
-      .then((res) => {
-        return res.status(200).send(`/deleteUser was successful! `, res);
+    db.collection('User').doc(req.body.id).delete()
+      .then(() => {
+        return res.status(200).send(`/deleteUser was successful! `);
       });
   } catch (err) {
-    return res.status(500).send(`/deleteUser encountered an error: `, err);
+    return res.status(500).send(`/deleteUser encountered an error: `);
   }
 });
 //END DELETE USER ENDPOINT//
 
 //START UPDATE USER ENDPOINT//
-userController.put('/updateUser', (req, res) => {
-  let FieldValue = require('firebase-admin').firestore.FieldValue;
+userController.put('/updateUser/:id', (req, res) => {
   console.log('We are in the update user route!');
   console.log('this is req.body', req.body);
-  try {
-    db.collection('User').doc(req.body.uid).update({
-      userName: req.body.userName,
-      location: req.body.location,
-      avatar: req.body.avatar,
-      toolsOwned: [],
-      toolsBeingRented: [],
-      token: req.body.token,
-      timestamp: FieldValue.serverTimestamp()
-    }).then(() => {
-      return res.status(200).send('we are in the confirm, updated user');
+  var user;
+  var docRef = db.collection('User').doc(req.params.id);
+  docRef.set(req.body, { merge: true }).then(() => {
+    docRef.get().then((doc) => {
+      if(doc.exists) {
+        user = doc.data();
+        } else {
+          user = ("document not found.");
+        };
+          res.status(200).send(user);
+        }).catch(function (err) {
+            res.status(500).send(err);
+        });
+    }).catch(function (err) {
+        res.status(500).send(err);
     });
-  } catch (error) {
-    return res.status(500).send('could not update user', error);
-  }
-});
+  });
 //END UPDATE USER ENDPOINT//
 
 //START GET ONE USER BY USERID//
-userController.get('userData/:id', (req, res) => {
+userController.get('/userData', (req, res) => {
   console.log("DB: Hitting the get userData endpoint");
-  console.log("DB: This is the userId: ", req.params.id);
-  const userData = db.collection('User').doc('req.params.id');
+  console.log("DB: This is the userId: ", req.query.id);
   try {
-    userData.get()
+    db.collection('User').doc(req.query.id).get()
       .then(userDoc => {
         if (!userDoc.exists) {
           console.log('DB: No such document!');
         } else {
           console.log(userDoc.data)
-          return res.status.apply(200).send(userDoc.data());
+          return res.status(200).send(userDoc.data());
         }
       })
       .catch(err => {

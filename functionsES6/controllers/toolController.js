@@ -6,88 +6,151 @@ const toolController = express();
 
 toolController.use(cors({ origin: true }))
 
-toolController.get('/', (req, res) => {
-  res.send('sup');
-});
-
 toolController.post('/newTool', (req, res) => {
   console.log('We are in the add tool route!');
-  console.log('this is req.body', req.body);
+  console.log('this is req.body for add tool route', req.body);
+  const name = req.body.name.toLowerCase();
+  var tool = Object.assign({}, {
+    name: name,
+    description: req.body.description,
+    isRented: req.body.isRented,
+    owner: req.body.owner,
+    photo: req.body.photo,
+    priceRatePerDay: req.body.priceRatePerDay,
+    rentalDurationInDays: req.body.rentalDurationInDays,
+    lat: req.body.lat,
+    long: req.body.long,
+  })
   try {
-    db.collection('Tools').add({
-      name: req.body.name,
-      description: req.body.description,
-      isRented: req.body.isRented,
-      owner: req.body.owner,
-      photo: req.body.photo,
-      priceRatePerDay: req.body.priceRatePerDay,
-      rentalDurationInDays: req.body.rentalDurationInDays
-    }).then(() => {
+    db.collection('Tools').add(tool).then(() => {
       return res.status(200).send('we are in the confirm, we added a tool');
     });
-  } catch (error) {
-    return res.status(500).send(error);
+  } catch (err) {
+    return res.status(500).send(err);
   }
 });
 
 //START DELETE TOOL ENDPOINT//
 toolController.delete('/deleteTool', (req, res) => {
   console.log('Julio, We are in the delete tool route!');
-  console.log('this is req.body.id', req.body);
-  const toolId = 'ya6jnRMOmESc8p0oqL94';  // hard code to test the delete endpoint
+  console.log('this is req.body.id for the delete tool', req.body.id);
   try {
-    db.collection('Tools').doc(`${toolId}`).delete()
+    db.collection('Tools').doc(req.body.id).delete()
       .then(() => {
-        return res.status(200).send('we are in the confirm, we deleted a tool', toolId);
+        return res.status(200).send('we are in the confirm, we deleted a tool');
       });
-  } catch (error) {
-    return res.status(500).send("Error removing Tool: ", error);
+  } catch (err) {
+    return res.status(500).send("Error removing Tool: ", err);
   }
 });
 //END DELETE TOOL ENDPOINT//
 
 //START UPDATE TOOL ENDPOINT//
-toolController.put('/updateTool', (req, res) => {
-  let FieldValue = require('firebase-admin').firestore.FieldValue;
-  console.log('Samantha, We are in the update tool route!');
-  console.log('Samantha, this is req.body', req.body);
-  try {
-    db.collection('Tools').doc(req.body.toolId).update({
-      name: req.body.name,
-      description: req.body.description,
-      isRented: req.body.isRented,
-      owner: req.body.owner,
-      photo: req.body.photo,
-      priceRatePerDay: req.body.priceRatePerDay,
-      rentalDurationInDays: req.body.rentalDurationInDays,
-      timestamp: FieldValue.serverTimestamp()
-    }).then(() => {
-      return res.status(200).send('we are in the confirm, we updated a tool');
+toolController.put('/updateTool/:id', (req, res) => {
+  console.log('We are in the update tool route!');
+  console.log('this is req.body', req.body);
+  var tool;
+  var docRef = db.collection('Tools').doc(req.params.id);
+  docRef.set(req.body, { merge: true }).then(() => {
+    docRef.get().then((doc) => {
+      if(doc.exists) {
+        tool = doc.data();
+        } else {
+          user = ("document not found.");
+        };
+          res.status(200).send(tool);
+        }).catch(function (err) {
+            res.status(500).send(err);
+        });
+    }).catch(function (err) {
+        res.status(500).send(err);
     });
-  } catch (error) {
-    return res.status(500).send('could not update tool', error);
-  }
-});
+  });
 //END UPDATE TOOL ENDPOINT//
 
 //START GET TOOLS BY LAT & LONG AND OPTIONALLY BY NAME OF TOOL ENDPOINT//
 toolController.get('/searchTools', (req, res) => {
   console.log('We are in the get tool info route!');
   console.log('this is req.query', req.query);
-  var toolsRef = db.collection('Tools');
+  const distanceInDegrees = ((req.query.distance/69)/2);
+  console.log(distanceInDegrees, 'distance in degrees');
+  const addLat = parseFloat((req.query.lat)) + parseFloat((distanceInDegrees));
+  const subLat = parseFloat((req.query.lat)) - parseFloat((distanceInDegrees));
+  const addLong = parseFloat((req.query.long)) + parseFloat((distanceInDegrees));
+  const subLong = parseFloat((req.query.long)) - parseFloat((distanceInDegrees));
   try {
-    db.collection('Tools').where('name', '==', req.query.name).get()
+    if(req.query.lat && req.query.long && req.query.distance && !req.query.name){
+      console.log('we are in the first if statement');
+      console.log(subLat, addLat, "this is sublat addlong")
+      console.log(addLong, subLong, 'this is the sublong addLong');
+      var docRef = db.collection('Tools');
+      docRef
+      .where('lat', '>=', subLat)
+      .where('lat', '<=', addLat)
+      .get()
       .then((snapshot) => {
-        console.log("this is the snapshot Sam S", snapshot)
         if (snapshot.empty) {
-          console.log('No matching documents. Sam S');
+          console.log('first No matching documents. Sam S');
           return;
-        }
-        snapshot.docs.forEach(doc => {
+        } else
+        docRef
+        .where('long', '<=', addLong)
+        .where('long', '>=', subLong)
+        .get()
+        .then((snapshot1) => {
+          if (snapshot1.empty) {
+            console.log('second No matching documents. Sam S');
+            return;
+          } else 
+          var matchingTools = [];
+          snapshot1.docs.forEach(doc => {
           console.log(doc.id, '=>', doc.data());
-          return res.status(200).send('we are in the confirm, we found tools');
+          matchingTools.push(doc.data());
         })
-      });
+          return res.status(200).send(matchingTools);
+      })
+    })
+    } else if (req.query.lat && req.query.long && req.query.distance && req.query.name) {
+      console.log('we are in the second if statement');
+      console.log(subLat, addLat, "this is sublat addlong")
+      console.log(addLong, subLong, 'this is the sublong addLong');
+      var docRef = db.collection('Tools');
+      docRef
+      .where('lat', '>=', subLat)
+      .where('lat', '<=', addLat)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.empty) {
+          console.log('first No matching documents. Sam S');
+          return;
+        } else
+        docRef
+        .where('long', '<=', addLong)
+        .where('long', '>=', subLong)
+        .get()
+        .then((snapshot1) => {
+          if (snapshot1.empty) {
+            console.log('second No matching documents. Sam S');
+            return;
+          } else 
+            docRef
+            .where('name', '==', req.query.name)
+            .get()
+            .then(snapshot2 => {
+              if(snapshot2.empty){
+                console.log('second no matching tools')
+                return;
+              } else
+              var matchingTools = [];
+              snapshot2.docs.forEach(doc => {
+              console.log(doc.id, '=> in second if', doc.data());
+              matchingTools.push(doc.data());
+            })
+            return res.status(200).send(matchingTools);
+        })
+      })
+    })
+  }
   } catch (err) {
     return res.status(500).send('This is the error. Our Search did not work', err);
   }
