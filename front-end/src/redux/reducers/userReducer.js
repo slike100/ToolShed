@@ -1,17 +1,15 @@
-import {
-    //Import TYPES here
-} from "../types/userTypes";
+import //Import TYPES here
+"../types/userTypes";
 
 const initialState = {
-    //Specify initial tool state here if needed
-}
+  //Specify initial tool state here if needed
+};
 
 export default function userReducer(state = initialState, action) {
-    switch (action.type) {
+  switch (action.type) {
+    //add switch cases here
 
-        //add switch cases here
-
-        default:
-            return state
-    }
+    default:
+      return state;
+  }
 }

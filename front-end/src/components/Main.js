@@ -4,35 +4,28 @@ import { connect } from "react-redux";
 // import actions here if needed
 
 class Main extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            //local React state here
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      //local React state here
     };
+  }
 
-    render() {
-        console.log(this.props);
-        return (
-            <div>
-                {/* components to be rendered will go here */}
-            </div>
-        )
-    };
+  render() {
+    console.log(this.props);
+    return <div>{/* components to be rendered will go here */}</div>;
+  }
 }
 
 function mapStateToProps(state) {
-    return {
-        count: state.tool.count,
-    };
+  return {
+    count: state.tool.count
+  };
 }
 
-const mapDispatchToProps = {
-
-}
-
+const mapDispatchToProps = {};
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Main);
