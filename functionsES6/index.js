@@ -50,13 +50,14 @@ async function sendEmailToUser(arr){
   for (let i = 0; i < arr.length; i++) {
     var startDate = arr[i].rentalStartTime.toMillis()
     var dueDate = arr[i].dueDate.toMillis();
+    console.log(Math.ceil(((dueDate - today))/(1000*60*60*24)), "math for second condition?");
     console.log(startDate, 'startDate');
     console.log(dueDate, 'due date');
     console.log(today, 'this is today date');
     if(today > dueDate){
       var timeOver = (today - dueDate);
       console.log(timeOver, 'timeOver');
-      var days = timeOver/(1000*60*60*24)
+      var days = Math.ceil(timeOver/(1000*60*60*24))
       console.log(days, 'days');
       console.log("STARTING NEW PART")
       await db.collection('User').doc(arr[i].ownerId).get()
@@ -68,7 +69,6 @@ async function sendEmailToUser(arr){
           console.log(`Your tool has not been checked in yet. It is currently overdue by ${days}days!!`);
           var ownerMessage = `Your tool has not been checked in yet. It is currently overdue by ${days}days!!`
           sendEmail(userDoc.data(), ownerMessage)
-          return;
         }
       })
       .catch(err => {
@@ -84,13 +84,49 @@ async function sendEmailToUser(arr){
         } else {
           console.log(userDoc.data(), 'userData - in rental user');
           console.log(`The tool you are renting is currently overdue by ${days}days!!`);
-          var renterMessage = `Your tool has not been checked in yet. It is currently overdue by ${days}days!!`
+          var renterMessage = `Your tool has not been checked in yet. It is currently overdue by ${days} days!!`
           sendEmail(userDoc.data(), renterMessage)
-          return;
         }
       })
       .catch(err => {
         console.log('DB: Error getting document - in rental user', err);
+      });
+    } 
+    else 
+    if 
+    (Math.ceil((dueDate - today)/(1000*60*60*24)) === 1 || Math.ceil((dueDate - today)/(1000*60*60*24)) === 2) {
+      console.log(Math.ceil((dueDate - today)/(1000*60*60*24)), "math?");
+      console.log("STARTING NEW PART - one or two days left")
+      await db.collection('User').doc(arr[i].ownerId).get()
+      .then(userDoc => {
+        if (!userDoc.exists) {
+          console.log('DB: No such document! - one or two days left');
+        } else {
+          console.log(userDoc.data(), 'userData for one or two days left');
+          console.log(`Your tool has is scheduled to be checked in tomorrow.`);
+          var ownerMessage = `Your tool has is scheduled to be checked in tomorrow.`
+          sendEmail(userDoc.data(), ownerMessage)
+        }
+      })
+      .catch(err => {
+        console.log('DB: Error getting document', err);
+      });
+
+      console.log(arr[i].rentalUserId, 'rentalUserId');
+
+      await db.collection('User').doc(arr[i].rentalUserId).get()
+      .then( userDoc => {
+        if (!userDoc.exists) {
+          console.log('Rental User: no such doc exists');
+        } else {
+          console.log(userDoc.data(), 'userData - in rental user for one or two days left');
+          console.log(`The tool you are renting is scheduled to be checked in tomorrow.`);
+          var renterMessage = `The tool you are renting is scheduled to be checked in tomorrow.`
+          sendEmail(userDoc.data(), renterMessage)
+        }
+      })
+      .catch(err => {
+        console.log('DB: Error getting document - in rental user fo the one or two day condition', err);
       });
     }
   }

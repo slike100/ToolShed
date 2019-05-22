@@ -14,7 +14,7 @@ function sendEmail(user, message) {
   console.log(user, 'user');
   console.log(message, "message");
   const mailOptions = {
-    from: '"Julio" <david.brown@techtonic.com>',
+    from: '"Cache Money" <david.brown@techtonic.com>',
     to: user.email,
     subject: 'You are LAAATE!',
     html: `<p>${message}</p>`

@@ -17,6 +17,7 @@ userController.post('/newUser', (req, res) => {
   try {
     db.collection('User').add({
       userName: req.body.userName,
+      email: req.body.email,
       lat: req.body.lat,
       long: req.body.long,
       avatar: req.body.avatar,
