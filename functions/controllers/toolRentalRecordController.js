@@ -3,6 +3,7 @@
 const express = require("express");
 const cors = require("cors");
 const { db } = require("../app");
+const firebase = require('firebase');
 
 const toolRecordRentalController = express();
 
@@ -15,10 +16,10 @@ toolRecordRentalController.get("/", (req, res) => {
 toolRecordRentalController.post('/newRentalRecord', (req, res) => {
   console.log('We are in the add rental record route!');
   console.log('this is req.body for rental record route', req.body);
-  var timestamp = firebase.firestore.Timestamp.now();
-  console.log(timestamp, 'this is the timestamp');
+  var timestamp = firebase.firestore.Timestamp.now().toDate();
+  console.log(timestamp, "timeObject");
   var toolRentalRecord = Object.assign({}, {
-    OwnerId: req.body.ownerId,
+    ownerId: req.body.ownerId,
     rentalUserId: req.body.rentalUserId,
     toolId: req.body.toolId,
     rentalStartTime: timestamp,
@@ -27,12 +28,37 @@ toolRecordRentalController.post('/newRentalRecord', (req, res) => {
     pricePerDay: req.body.pricePerDay
   });
   try {
-    db.collection('Tools').add(tool).then(() => {
-      return res.status(200).send('we are in the confirm, we added a tool');
+    db.collection('RentalRecords').add(toolRentalRecord).then(() => {
+      return res.status(200).send('we have entered a tool rental record');
     });
   } catch (err) {
     return res.status(500).send(err);
   }
+});
+
+toolRecordRentalController.put('/updateToolRentalRecord/:id', (req, res) => {
+  console.log('We are in the update tool rental record route!');
+  console.log('this is req.body', req.body);
+  var timestamp = firebase.firestore.Timestamp.now().toDate();
+  var obj = { timeCheckedIn: timestamp };
+  console.log(timestamp, "timestamp");
+  console.log(obj, "obj being passed in");
+  var record;
+  var docRef = db.collection('RentalRecords').doc(req.params.id);
+  docRef.set(obj, { merge: true }).then(() => {
+    docRef.get().then(doc => {
+      if (doc.exists) {
+        record = doc.data();
+      } else {
+        record = "document not found.";
+      };
+      res.status(200).send(record);
+    }).catch(function (err) {
+      res.status(500).send(err);
+    });
+  }).catch(function (err) {
+    res.status(500).send(err);
+  });
 });
 
 module.exports = toolRecordRentalController;
