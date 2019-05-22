@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": "10"
+    "node": "8"
   },
   "dependencies": {
     "cors": "^2.8.5",

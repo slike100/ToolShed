@@ -57,7 +57,7 @@ toolController.put('/updateTool/:id', (req, res) => {
       if (doc.exists) {
         tool = doc.data();
       } else {
-        user = "document not found.";
+        tool = "document not found.";
       };
       res.status(200).send(tool);
     }).catch(function (err) {
