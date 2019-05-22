@@ -17,7 +17,7 @@ toolController.post('/newTool', (req, res) => {
     owner: req.body.owner,
     photo: req.body.photo,
     priceRatePerDay: req.body.priceRatePerDay,
-    rentalDurationInDays: req.body.rentalDurationInDays,
+    // rentalDurationInDays: req.body.rentalDurationInDays,
     lat: req.body.lat,
     long: req.body.long,
   })

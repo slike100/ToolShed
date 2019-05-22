@@ -13,6 +13,5 @@ var config = {
 };
 
 firebase.initializeApp(config);
-// admin.initializeApp(functions.config().firebase);
 
 var db = exports.db = firebase.firestore();
