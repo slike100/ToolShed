@@ -8,9 +8,9 @@ stripeController.use(cors({ origin: true }));
 stripeController.post('/', async (req, res) => {
 try {
   let { payment } = await stripe.charges.create({
-    amount: 2000,
+    amount: req.body.amount,
     currency: "usd",
-    description: "An example charge",
+    description: req.body.description,
     source: req.body.token
   });
   console.log('payment', {payment});

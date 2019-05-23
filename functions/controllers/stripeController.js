@@ -13,9 +13,9 @@ stripeController.post('/', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
     try {
       let { payment } = yield stripe.charges.create({
-        amount: 2000,
+        amount: req.body.amount,
         currency: "usd",
-        description: "An example charge",
+        description: req.body.description,
         source: req.body.token
       });
       console.log('payment', { payment });
