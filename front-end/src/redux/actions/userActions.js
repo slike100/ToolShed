@@ -50,7 +50,7 @@ export function deleteUser(userId) {
 
     return dispatch => {
         return axios
-            .post(`${userBaseUrl}/deleteUser/`, userId)
+            .delete(`${userBaseUrl}/deleteUser/`, userId)
             .then(res => {
                 if (res.status === 200 && res.data === "successfully deleted user") {
 
