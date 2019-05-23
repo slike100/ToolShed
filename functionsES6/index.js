@@ -9,3 +9,4 @@ exports.tool = functions.https.onRequest((req, res) => {
 exports.user = functions.https.onRequest((req, res) => {
   return userController(req, res);
 });
+
