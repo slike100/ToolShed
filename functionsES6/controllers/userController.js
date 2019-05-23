@@ -89,11 +89,9 @@ userController.get('/userData', (req, res) => {
 });
 //END GET ONE USER BY USERID//
 
-
-
-
 //START GET ALL TOOLS FOR ONE USER//
 userController.get('/allToolsForOneUser', (req, res) => {
+  console.log('inside of the get all tools per user')
   try {
     db.collection('User').doc(req.body.uid).get()
       .then(userDoc => {
@@ -106,9 +104,6 @@ userController.get('/allToolsForOneUser', (req, res) => {
           userTools.rented = userDoc.data().toolsBeingRented
           console.log("here is the obj we shall return:", userTools)
           return res.status(500).send(userTools);
-          
-          
-
         }
       })
       .catch(err => {
@@ -117,10 +112,14 @@ userController.get('/allToolsForOneUser', (req, res) => {
   } catch (err) {
     return res.status(500).send('DB: Could not connect to database', err);
   };
-
-})
+});
   
 //END GET ALL TOOLS FOR ONE USER//
+
+
+
+
+
 
 
 

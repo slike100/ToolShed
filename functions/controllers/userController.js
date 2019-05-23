@@ -67,6 +67,31 @@ userController.put('/updateUser/:id', (req, res) => {
 });
 //END UPDATE USER ENDPOINT//
 
+//START GET ALL TOOLS FOR ONE USER//
+userController.get('/allToolsForOneUser', (req, res) => {
+  try {
+    db.collection('User').doc(req.body.uid).get().then(userDoc => {
+      if (!userDoc.exists) {
+        console.log('No user found');
+      } else {
+        console.log(userDoc.data);
+        let userTools = {};
+        useTools.owned = userDoc.data().toolsOwned;
+        userTools.rented = userDoc.data().toolsBeingRented;
+        console.log("here is the obj we shall return:", userTools);
+        return res.status(500).send(userTools);
+      }
+    }).catch(err => {
+      console.log('DB: Error getting document', err);
+    });
+  } catch (err) {
+    return res.status(500).send('DB: Could not connect to database', err);
+  };
+});
+
+//END GET ALL TOOLS FOR ONE USER/
+
+
 //START GET ONE USER BY USERID//
 userController.get('/userData', (req, res) => {
   console.log("DB: Hitting the get userData endpoint");
@@ -87,10 +112,6 @@ userController.get('/userData', (req, res) => {
   };
 });
 //END GET ONE USER BY USERID//
-
-
-//START GET ALL TOOLS FOR ONE USER//
-//END GET ALL TOOLS FOR ONE USER//
 
 
 //START GET ALL TOOLS BEING RENTED FOR ONE USER//
