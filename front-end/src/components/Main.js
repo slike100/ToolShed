@@ -3,17 +3,11 @@ import { connect } from "react-redux";
 import CheckoutForm from "./stripe";
 import {Elements, StripeProvider} from 'react-stripe-elements';
 
+import Navbar from "./Navbar";
+
 // import actions here if needed
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      //local React state here
-    };
-  }
-
-  render() {
     console.log(this.props);
     return (
       <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
@@ -24,13 +18,16 @@ class Main extends React.Component {
           </Elements>
         </div>
       </StripeProvider>
-    );
+      <div>
+        <Navbar />
+      </div>
+    )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    count: state.tool.count
+    // count: state.tool.count
   };
 }
 
