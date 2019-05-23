@@ -68,27 +68,5 @@ toolRecordRentalController.post('/newRentalRecord', (req, res) => {
       });
     });
 
-    // toolRecordRentalController.get('/record', (req, res) => {
-    //   console.log("DB: Hitting the get userData endpoint");
-    //   console.log("DB: This is the userId: ", req.query.id);
-    //   try {
-    //     db.collection('RentalRecords').doc(req.query.id).get()
-    //       .then(userDoc => {
-    //         if (!userDoc.exists) {
-    //           console.log('DB: No such document!');
-    //         } else {
-    //           console.log(userDoc.data)
-    //           return res.status(200).send(userDoc.data());
-    //         }
-    //       })
-    //       .catch(err => {
-    //         console.log('DB: Error getting document', err);
-    //       });
-    //   } catch (err) {
-    //     return res.status(500).send('DB: Could not connect to database', err);
-    //   };
-    // });
-
-
 
 module.exports = toolRecordRentalController;
