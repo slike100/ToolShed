@@ -3,7 +3,7 @@ const cors = require('cors');
 const stripe = require("stripe")(functions.config().stripe.key);
 const stripeController = express();
 
-stripeController.use(cors({ origin: true }))
+stripeController.use(cors({ origin: true }));
 stripeController.get('/', (req, res) => {
 try {
   let { status } = await stripe.charges.create({
