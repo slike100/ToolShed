@@ -1,13 +1,22 @@
-import //Import TYPES here
-"../types/userTypes";
+import {
+  PAY_STRIPE,
+} from "../types/userTypes";
 
 const initialState = {
-  //Specify initial tool state here if needed
+  stripeToken: '',
 };
 
 export default function userReducer(state = initialState, action) {
-  switch (action.type) {
-    //add switch cases here
+  const { type, payload } = action;
+
+  switch (type) {
+    case PAY_STRIPE:
+      console.log('We are in the Pay Stripe Reducer');
+      console.log(payload);
+    return {
+      ...state,
+      stripeToken: '',
+    }
 
     default:
       return state;

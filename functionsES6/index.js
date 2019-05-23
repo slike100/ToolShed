@@ -11,6 +11,6 @@ exports.user = functions.https.onRequest((req, res) => {
   return userController(req, res);
 });
 
-exports.stripeController = functions.https.onRequest((req, res) => {
-  return userController(req, res);
+exports.stripe = functions.https.onRequest((req, res) => {
+  return stripeController(req, res);
 });
