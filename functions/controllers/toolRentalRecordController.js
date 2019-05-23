@@ -12,7 +12,7 @@ toolRecordRentalController.use(cors({ origin: true }));
 toolRecordRentalController.post('/newRentalRecord', (req, res) => {
   console.log('We are in the add rental record route!');
   console.log('this is req.body for rental record route', req.body);
-  var timestamp = firebase.firestore.Timestamp.now().toDate();
+  var timestamp = firebase.firestore.Timestamp.now().toMillis();
   console.log(timestamp, "timeObject");
   var toolRentalRecord = Object.assign({}, {
     ownerId: req.body.ownerId,
@@ -24,8 +24,16 @@ toolRecordRentalController.post('/newRentalRecord', (req, res) => {
     pricePerDay: req.body.pricePerDay
   });
   try {
-    db.collection('RentalRecords').add(toolRentalRecord).then(() => {
-      return res.status(200).send('we have entered a tool rental record');
+    db.collection('RentalRecords').add(toolRentalRecord).then(docRef => {
+      docRef.get().then(ref => {
+        console.log(ref.data(), 'record reference');
+        var data = ref.data();
+        console.log(data, 'data variable');
+        return res.status(200).send(data);
+      }).catch(err => {
+        console.log(err, 'errrrrrr');
+        return res.status(200).send(err);
+      });
     });
   } catch (err) {
     return res.status(500).send(err);
@@ -56,5 +64,27 @@ toolRecordRentalController.put('/updateToolRentalRecord/:id', (req, res) => {
     res.status(500).send(err);
   });
 });
+
+// toolRecordRentalController.get('/record', (req, res) => {
+//   console.log("DB: Hitting the get userData endpoint");
+//   console.log("DB: This is the userId: ", req.query.id);
+//   try {
+//     db.collection('RentalRecords').doc(req.query.id).get()
+//       .then(userDoc => {
+//         if (!userDoc.exists) {
+//           console.log('DB: No such document!');
+//         } else {
+//           console.log(userDoc.data)
+//           return res.status(200).send(userDoc.data());
+//         }
+//       })
+//       .catch(err => {
+//         console.log('DB: Error getting document', err);
+//       });
+//   } catch (err) {
+//     return res.status(500).send('DB: Could not connect to database', err);
+//   };
+// });
+
 
 module.exports = toolRecordRentalController;

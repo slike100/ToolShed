@@ -38,11 +38,28 @@ toolController.post('/newTool', (req, res) => {
 
 //START DELETE TOOL ENDPOINT//
 toolController.delete('/deleteTool', (req, res) => {
-  console.log('Julio, We are in the delete tool route!');
+  console.log('We are in the delete tool route!');
   console.log('this is req.body.id for the delete tool', req.body.id);
   try {
     db.collection('Tools').doc(req.body.id).delete()
       .then(() => {
+        //do a get to the user collection and find the toolsOwned array
+        //get the array back & filter out the matching id
+        //filter returns a copy of this array
+        //then we do an update on that user again for the toolsOwned field 
+        db.collection('User').doc(req.body.uid).get()
+        .then((docRef) => {
+          var data = docRef.data()
+          var newArr = data.toolsOwned.filter(toolId => toolId != req.body.id)
+          console.log("here is the data:", data)
+          console.log("here is the datanewArr:", newArr)
+          db.collection('User').doc(req.body.uid).update(
+            {toolsOwned: newArr} 
+          )
+            .then(() => {
+              return res.status(200).send(`The tool was deleted from the user's toolsOwned array)`
+            }) 
+        })
         return res.status(200).send('The tool was successfully deleted');
       });
   } catch (err) {
