@@ -9,10 +9,6 @@ const toolRecordRentalController = express();
 
 toolRecordRentalController.use(cors({ origin: true }));
 
-toolRecordRentalController.get("/", (req, res) => {
-  res.send("sup");
-});
-
 toolRecordRentalController.post('/newRentalRecord', (req, res) => {
   console.log('We are in the add rental record route!');
   console.log('this is req.body for rental record route', req.body);

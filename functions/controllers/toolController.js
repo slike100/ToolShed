@@ -2,6 +2,7 @@
 
 const express = require('express');
 const cors = require('cors');
+const firebase = require("firebase");
 const { db } = require('../app');
 
 const toolController = express();
@@ -19,13 +20,21 @@ toolController.post('/newTool', (req, res) => {
     owner: req.body.owner,
     photo: req.body.photo,
     priceRatePerDay: req.body.priceRatePerDay,
-    // rentalDurationInDays: req.body.rentalDurationInDays,
+    rentalDurationInDays: req.body.rentalDurationInDays,
     lat: req.body.lat,
     long: req.body.long
   });
   try {
-    db.collection('Tools').add(tool).then(() => {
-      return res.status(200).send('we are in the confirm, we added a tool');
+    db.collection('Tools').add(tool).then(ref => {
+      console.log("added a tool", ref.id);
+      // /({toolsOwned:[ref.id]},  { merge: true })
+      //get toolsOwned array from the user object in the req body
+      req.body.toolsOwned.push(ref.id);
+      console.log('THIS IS THE NEW ARRAY', req.body.toolsOwned);
+      db.collection('User').doc(req.body.uid).update({ toolsOwned: req.body.toolsOwned }).then(() => {
+        console.log('added a tool and added it to your current user account');
+        return res.status(200).send('added a tool and added it to your current user account');
+      });
     });
   } catch (err) {
     return res.status(500).send(err);

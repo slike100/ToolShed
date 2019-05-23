@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const firebase = require("firebase");
 const { db } = require('../app');
 
 const toolController = express();
@@ -7,8 +8,6 @@ const toolController = express();
 toolController.use(cors({ origin: true }))
 
 toolController.post('/newTool', (req, res) => {
-  console.log('We are in the add tool route!');
-  console.log('this is req.body for add tool route', req.body);
   const name = req.body.name.toLowerCase();
   var tool = Object.assign({}, {
     name: name,
@@ -17,13 +16,19 @@ toolController.post('/newTool', (req, res) => {
     owner: req.body.owner,
     photo: req.body.photo,
     priceRatePerDay: req.body.priceRatePerDay,
-    // rentalDurationInDays: req.body.rentalDurationInDays,
+    rentalDurationInDays: req.body.rentalDurationInDays,
     lat: req.body.lat,
     long: req.body.long,
   })
   try {
-    db.collection('Tools').add(tool).then(() => {
-      return res.status(200).send('we are in the confirm, we added a tool');
+    db.collection('Tools').add(tool).then((ref) => {
+      req.body.toolsOwned.push(ref.id)
+      db.collection('User').doc(req.body.uid).update(
+        {toolsOwned: req.body.toolsOwned} 
+      )
+        .then(() => {
+          return res.status(200).send("Added a tool and added it to your current user account")
+        }) 
     });
   } catch (err) {
     return res.status(500).send(err);
