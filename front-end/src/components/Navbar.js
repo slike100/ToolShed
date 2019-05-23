@@ -61,7 +61,7 @@ class Navbar extends React.Component {
             {this.state.user ?
               <React.Fragment>
                 <li><NavLink to='/' className="grey-text text-darken-3" onClick={this.logout}>Logout</NavLink></li>
-
+                <li><NavLink to='/' className='btn btn-floating blue lighten-1'>NW</NavLink></li>
               </React.Fragment>
               :
               <li><img className="loginBtn" src={loginButton} onClick={this.login} /></li>
