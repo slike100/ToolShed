@@ -27,7 +27,7 @@ toolController.post('/newTool', (req, res) => {
         {toolsOwned: req.body.toolsOwned} 
       )
         .then(() => {
-          return res.status(200).send("Added a tool and added it to your current user account")
+          return res.status(200).send('Added a tool and added it to your current user account')
         }) 
     });
   } catch (err) {
@@ -42,7 +42,7 @@ toolController.delete('/deleteTool', (req, res) => {
   try {
     db.collection('Tools').doc(req.body.id).delete()
       .then(() => {
-        return res.status(200).send('we are in the confirm, we deleted a tool');
+        return res.status(200).send('The tool was successfully deleted');
       });
   } catch (err) {
     return res.status(500).send("Error removing Tool: ", err);
@@ -52,8 +52,6 @@ toolController.delete('/deleteTool', (req, res) => {
 
 //START UPDATE TOOL ENDPOINT//
 toolController.put('/updateTool/:id', (req, res) => {
-  console.log('We are in the update tool route!');
-  console.log('this is req.body', req.body);
   var tool;
   var docRef = db.collection('Tools').doc(req.params.id);
   docRef.set(req.body, { merge: true }).then(() => {
@@ -75,19 +73,13 @@ toolController.put('/updateTool/:id', (req, res) => {
 
 //START GET TOOLS BY LAT & LONG AND OPTIONALLY BY NAME OF TOOL ENDPOINT//
 toolController.get('/searchTools', (req, res) => {
-  console.log('We are in the get tool info route!');
-  console.log('this is req.query', req.query);
   const distanceInDegrees = ((req.query.distance/69)/2);
-  console.log(distanceInDegrees, 'distance in degrees');
   const addLat = parseFloat((req.query.lat)) + parseFloat((distanceInDegrees));
   const subLat = parseFloat((req.query.lat)) - parseFloat((distanceInDegrees));
   const addLong = parseFloat((req.query.long)) + parseFloat((distanceInDegrees));
   const subLong = parseFloat((req.query.long)) - parseFloat((distanceInDegrees));
   try {
     if(req.query.lat && req.query.long && req.query.distance && !req.query.name){
-      console.log('we are in the first if statement');
-      console.log(subLat, addLat, "this is sublat addlong")
-      console.log(addLong, subLong, 'this is the sublong addLong');
       var docRef = db.collection('Tools');
       docRef
       .where('lat', '>=', subLat)
@@ -127,7 +119,8 @@ toolController.get('/searchTools', (req, res) => {
       .then((snapshot) => {
         if (snapshot.empty) {
           console.log('first No matching documents. Sam S');
-          return;
+          // return;
+          return res.status(500).send('No matching tools');
         } else
         docRef
         .where('long', '<=', addLong)
@@ -136,7 +129,8 @@ toolController.get('/searchTools', (req, res) => {
         .then((snapshot1) => {
           if (snapshot1.empty) {
             console.log('second No matching documents. Sam S');
-            return;
+            // return;
+            return res.status(500).send('No matching tools');
           } else 
             docRef
             .where('name', '==', req.query.name)
@@ -144,7 +138,7 @@ toolController.get('/searchTools', (req, res) => {
             .then(snapshot2 => {
               if(snapshot2.empty){
                 console.log('second no matching tools')
-                return;
+                return res.status(500).send('No matching tools');
               } else
               var matchingTools = [];
               snapshot2.docs.forEach(doc => {
