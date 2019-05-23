@@ -91,7 +91,7 @@ userController.get('/userData', (req, res) => {
 //END GET ONE USER BY USERID//
 
 //START GET ALL TOOLS FOR ONE USER//
-userController.get('/allToolsForOneUser', (req, res) => {
+userController.get('/allToolsOwnedForOneUser', (req, res) => {
   console.log('inside of the get all tools per user');
   console.log(req.query.uid, 'uid');
   try {
@@ -137,6 +137,48 @@ userController.get('/allToolsForOneUser', (req, res) => {
 
 
 //START GET ALL TOOLS BEING RENTED FOR ONE USER//
+
+userController.get('/allToolsRentedForOneUser', (req, res) => {
+  console.log('inside of the get all tools per user');
+  console.log(req.query.uid, 'uid');
+  try {
+    db.collection('User').doc(req.query.uid).get().then((() => {
+      var _ref2 = _asyncToGenerator(function* (userDoc) {
+        if (!userDoc.exists) {
+          console.log('No user found');
+        } else {
+          console.log(userDoc.data());
+          let data = userDoc.data();
+          console.log(data, 'data variable');
+          let userTools = [];
+          console.log("here is the obj we shall return:", userTools);
+          console.log(data.toolsBeingRented.length, 'length of data');
+          console.log(data.toolsBeingRented[0], 'first index of tools owned');
+          for (let i = 0; i < data.toolsBeingRented.length; i++) {
+            yield db.collection('Tools').doc(data.toolsBeingRented[i]).get().then(function (toolDoc) {
+              if (!toolDoc.exists) {
+                console.log('No user found');
+              } else {
+                var data = toolDoc.data();
+                userTools.push(data);
+              }
+            });
+          }
+          console.log(userTools, 'UserTools');
+          return res.status(200).send(userTools);
+        }
+      });
+
+      return function (_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    })()).catch(err => {
+      console.log('DB: Error getting document', err);
+    });
+  } catch (err) {
+    return res.status(500).send('DB: Could not connect to database', err);
+  };
+});
 //END GET ALL TOOLS BEING RENTED FOR ONE USER//
 
 
