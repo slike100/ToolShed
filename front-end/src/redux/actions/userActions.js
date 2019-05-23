@@ -22,9 +22,10 @@ export const payStripe = (tokenCard) => {
         return axios.post('https://us-central1-toolshed-1dd98.cloudfunctions.net/stripe', {token: tokenCard})
         .then(res => {
             console.log(res);
+            console.log(tokenCard);
             const action = {
                 type: PAY_STRIPE,
-                payload: res
+                payload: tokenCard
             }
             dispatch(action)
         })

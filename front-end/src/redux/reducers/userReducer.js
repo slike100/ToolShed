@@ -15,7 +15,7 @@ export default function userReducer(state = initialState, action) {
       console.log(payload);
     return {
       ...state,
-      stripeToken: '',
+      stripeToken: payload,
     }
 
     default:
