@@ -1,7 +1,7 @@
-import store from '../store';
+import axios from "axios";
 
 import {
-    //TYPES HERE
+    PAY_STRIPE,
 } from "../user/userTypes";
 
 
@@ -17,3 +17,9 @@ import {
 //     }
 //     return action;
 // }
+
+export const payStripe = () => {
+    return dispatch => {
+        return axios.post('');
+    }
+}

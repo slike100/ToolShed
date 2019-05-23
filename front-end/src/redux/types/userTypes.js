@@ -1,1 +1,1 @@
-// export const USER_TYPE = "USER_TYPE";
+export const PAY_STRIPE = "PAY_STRIPE";
