@@ -28,7 +28,7 @@ export function addNewUser(userObj) {
                         type: NEW_USER,
                         payload: res.data,
                     };
-                    dispatch(action);
+                    return action;
                 }
             })
             .catch(err => {
@@ -38,7 +38,7 @@ export function addNewUser(userObj) {
                     type: NEW_USER,
                     payload: []
                 };
-                dispatch(action);
+                return action;
             });
     }
 }
@@ -58,7 +58,7 @@ export function deleteUser(userId) {
                         type: DELETE_USER,
                         // payload: res.data,
                     };
-                    dispatch(action);
+                    return action;
                 }
             })
             .catch(err => {
@@ -68,7 +68,7 @@ export function deleteUser(userId) {
                     type: DELETE_USER,
                     // payload: []
                 };
-                dispatch(action);
+                return action;
             });
     }
 }
@@ -90,7 +90,7 @@ export function UpdateUser(userObj) {
                         type: EDIT_USER,
                         payload: res.data,
                     };
-                    dispatch(action);
+                    return action;
                 }
             })
             .catch(err => {
@@ -100,7 +100,7 @@ export function UpdateUser(userObj) {
                     type: EDIT_USER,
                     payload: []
                 };
-                dispatch(action);
+                return action;
             });
     }
 }
@@ -118,7 +118,7 @@ export function getUserData(id) {
                         type: GET_USER_DATA,
                         payload: res.data,
                     };
-                    dispatch(action);
+                    return action;
                 }
             })
             .catch(err => {
@@ -128,7 +128,7 @@ export function getUserData(id) {
                     type: GET_USER_DATA,
                     payload: []
                 };
-                dispatch(action);
+                return action;
             });
     }
 }
