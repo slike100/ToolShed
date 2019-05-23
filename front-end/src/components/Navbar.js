@@ -57,9 +57,9 @@ class Navbar extends React.Component {
         <div className="container">
           <img className="siteLogo" src={logo} />
           <ul className="right nav-list">
-            <li><NavLink to='/' className="grey-text text-darken-3">Post a Tool</NavLink></li>
             {this.state.user ?
               <React.Fragment>
+                <li><NavLink to='/' className="grey-text text-darken-3">Post a Tool</NavLink></li>
                 <li><NavLink to='/' className="grey-text text-darken-3" onClick={this.logout}>Logout</NavLink></li>
                 <li><NavLink to='/' className='btn btn-floating blue lighten-1'>NW</NavLink></li>
               </React.Fragment>
