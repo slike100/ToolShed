@@ -1,25 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import Navbar from "./Navbar";
+
 // import actions here if needed
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      //local React state here
-    };
-  }
 
   render() {
-    console.log(this.props);
-    return <div>{/* components to be rendered will go here */}</div>;
+    // console.log(this.props);
+    return (
+      <div>
+        <Navbar />
+      </div>
+    )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    count: state.tool.count
+    // count: state.tool.count
   };
 }
 
