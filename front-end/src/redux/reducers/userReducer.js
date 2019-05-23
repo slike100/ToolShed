@@ -18,7 +18,7 @@ export default function userReducer(state = initialState, action) {
       return { ...state, auth: payload, user: payload };
 
     case DELETE_USER:
-      return { ...state, auth: null };
+      return { ...state, auth: null, user: null };
 
     case EDIT_USER:
       return { ...state, auth: payload, user: payload };
