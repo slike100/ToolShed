@@ -6,7 +6,7 @@ import {
 } from "../types/toolTypes";
 
 const initialState = {
-  isRented: false
+  tools: []
   //Not sure what else needs to be set in initial state
 };
 
@@ -15,16 +15,16 @@ export default function toolReducer(state = initialState, action) {
 
   switch (type) {
     case CREATE_TOOL:
-      return { ...state, auth: payload, user: payload };
+      return { ...state, tools: payload };
 
     case TOOL_DATA:
-      return { ...state, auth: null, user: null };
+      return { ...state, tools: payload };
 
     case DELETE_TOOL:
-      return { ...state, auth: payload, user: payload };
+      return { ...state, tools: payload };
 
     case EDIT_TOOL:
-      return { ...state, auth: payload, user: payload };
+      return { ...state, tools: payload };
 
     default:
       return state;
