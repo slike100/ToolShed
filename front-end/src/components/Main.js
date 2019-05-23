@@ -8,8 +8,10 @@ import Navbar from "./Navbar";
 // import actions here if needed
 
 class Main extends React.Component {
-    console.log(this.props);
+
+  render(){
     return (
+      <div>
       <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
         <div className="example">
           <h1>React Stripe Elements Example</h1>
@@ -18,8 +20,10 @@ class Main extends React.Component {
           </Elements>
         </div>
       </StripeProvider>
+    
       <div>
         <Navbar />
+      </div>
       </div>
     )
   }
