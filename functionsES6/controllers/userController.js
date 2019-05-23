@@ -1,21 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const { db } = require("../app");
-
 const userController = express();
 
 userController.use(cors({ origin: true }));
-
-userController.get("/", (req, res) => {
-  res.send("sup");
-});
 
 //START NEW USER POST ENDPOINT//
 userController.post('/newUser', (req, res) => {
   console.log('We are in the add new user route!');
   console.log('this is req.body', req.body);
   try {
-    db.collection('User').add({
+    db.collection('User').doc(req.body.uid).set({
       userName: req.body.userName,
       email: req.body.email,
       lat: req.body.lat,
@@ -23,7 +18,7 @@ userController.post('/newUser', (req, res) => {
       avatar: req.body.avatar,
       toolsOwned: [],
       toolsBeingRented: [],
-      token: req.body.token
+      stripeToken: req.body.stripeToken || ""
     }).then(() => {
       return res.status(200).send('we are in the confirm, added new user');
     });
@@ -93,5 +88,17 @@ userController.get('/userData', (req, res) => {
   };
 });
 //END GET ONE USER BY USERID//
+
+
+
+
+//START GET ALL TOOLS FOR ONE USER//
+//END GET ALL TOOLS FOR ONE USER//
+
+
+
+//START GET ALL TOOLS BEING RENTED FOR ONE USER//
+//END GET ALL TOOLS BEING RENTED FOR ONE USER//
+
 
 module.exports = userController;

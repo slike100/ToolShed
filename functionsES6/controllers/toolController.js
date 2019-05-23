@@ -2,11 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const firebase = require("firebase");
 const { db } = require('../app');
-
 const toolController = express();
 
 toolController.use(cors({ origin: true }))
 
+//START POST NEW TOOL//
 toolController.post('/newTool', (req, res) => {
   const name = req.body.name.toLowerCase();
   var tool = Object.assign({}, {
@@ -34,6 +34,7 @@ toolController.post('/newTool', (req, res) => {
     return res.status(500).send(err);
   }
 });
+//END POST NEW TOOL//
 
 //START DELETE TOOL ENDPOINT//
 toolController.delete('/deleteTool', (req, res) => {
@@ -48,6 +49,7 @@ toolController.delete('/deleteTool', (req, res) => {
     return res.status(500).send("Error removing Tool: ", err);
   }
 });
+//ALSO NEED TO ADD FUNCTIONALITY TO DELETE THIS TOOL FROM THE USER'S TOOLS RENTED
 //END DELETE TOOL ENDPOINT//
 
 //START UPDATE TOOL ENDPOINT//
