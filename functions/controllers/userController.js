@@ -1,5 +1,7 @@
 "use strict";
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 const express = require("express");
 const cors = require("cors");
 const { db } = require("../app");
@@ -67,31 +69,6 @@ userController.put('/updateUser/:id', (req, res) => {
 });
 //END UPDATE USER ENDPOINT//
 
-//START GET ALL TOOLS FOR ONE USER//
-userController.get('/allToolsForOneUser', (req, res) => {
-  try {
-    db.collection('User').doc(req.body.uid).get().then(userDoc => {
-      if (!userDoc.exists) {
-        console.log('No user found');
-      } else {
-        console.log(userDoc.data);
-        let userTools = {};
-        useTools.owned = userDoc.data().toolsOwned;
-        userTools.rented = userDoc.data().toolsBeingRented;
-        console.log("here is the obj we shall return:", userTools);
-        return res.status(500).send(userTools);
-      }
-    }).catch(err => {
-      console.log('DB: Error getting document', err);
-    });
-  } catch (err) {
-    return res.status(500).send('DB: Could not connect to database', err);
-  };
-});
-
-//END GET ALL TOOLS FOR ONE USER/
-
-
 //START GET ONE USER BY USERID//
 userController.get('/userData', (req, res) => {
   console.log("DB: Hitting the get userData endpoint");
@@ -112,6 +89,51 @@ userController.get('/userData', (req, res) => {
   };
 });
 //END GET ONE USER BY USERID//
+
+//START GET ALL TOOLS FOR ONE USER//
+userController.get('/allToolsForOneUser', (req, res) => {
+  console.log('inside of the get all tools per user');
+  console.log(req.query.uid, 'uid');
+  try {
+    db.collection('User').doc(req.query.uid).get().then((() => {
+      var _ref = _asyncToGenerator(function* (userDoc) {
+        if (!userDoc.exists) {
+          console.log('No user found');
+        } else {
+          console.log(userDoc.data());
+          let data = userDoc.data();
+          console.log(data, 'data variable');
+          let userTools = [];
+          console.log("here is the obj we shall return:", userTools);
+          console.log(data.toolsOwned.length, 'length of data');
+          console.log(data.toolsOwned[0], 'first index of tools owned');
+          for (let i = 0; i < data.toolsOwned.length; i++) {
+            yield db.collection('Tools').doc(data.toolsOwned[i]).get().then(function (toolDoc) {
+              if (!toolDoc.exists) {
+                console.log('No user found');
+              } else {
+                var data = toolDoc.data();
+                userTools.push(data);
+              }
+            });
+          }
+          console.log(userTools, 'UserTools');
+          return res.status(200).send(userTools);
+        }
+      });
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    })()).catch(err => {
+      console.log('DB: Error getting document', err);
+    });
+  } catch (err) {
+    return res.status(500).send('DB: Could not connect to database', err);
+  };
+});
+
+//END GET ALL TOOLS FOR ONE USER//
 
 
 //START GET ALL TOOLS BEING RENTED FOR ONE USER//

@@ -92,18 +92,33 @@ userController.get('/userData', (req, res) => {
 //START GET ALL TOOLS FOR ONE USER//
 userController.get('/allToolsForOneUser', (req, res) => {
   console.log('inside of the get all tools per user')
+  console.log(req.query.uid, 'uid');
   try {
-    db.collection('User').doc(req.body.uid).get()
-      .then(userDoc => {
+    db.collection('User').doc(req.query.uid).get()
+      .then(async userDoc => {
         if (!userDoc.exists) {
           console.log('No user found')
         } else {
-          console.log(userDoc.data)
-          let userTools = {}
-          useTools.owned = userDoc.data().toolsOwned
-          userTools.rented = userDoc.data().toolsBeingRented
+          console.log(userDoc.data())
+          let data = userDoc.data()
+          console.log(data, 'data variable')
+          let userTools = [];
           console.log("here is the obj we shall return:", userTools)
-          return res.status(500).send(userTools);
+          console.log(data.toolsOwned.length, 'length of data');
+          console.log(data.toolsOwned[0], 'first index of tools owned');
+          for (let i = 0; i < data.toolsOwned.length; i++) {
+            await db.collection('Tools').doc(data.toolsOwned[i]).get()
+              .then(toolDoc => {
+                if (!toolDoc.exists) {
+                  console.log('No user found')
+                } else {
+                  var data = toolDoc.data();
+                  userTools.push(data);
+                }
+              });
+          }
+          console.log(userTools, 'UserTools');
+          return res.status(200).send(userTools);
         }
       })
       .catch(err => {
