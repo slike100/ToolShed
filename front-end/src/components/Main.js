@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import CheckoutForm from "./stripe";
+import {Elements, StripeProvider} from 'react-stripe-elements';
 
 // import actions here if needed
 
@@ -13,7 +15,16 @@ class Main extends React.Component {
 
   render() {
     console.log(this.props);
-    return <div>{/* components to be rendered will go here */}</div>;
+    return (
+      <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
+        <div className="example">
+          <h1>React Stripe Elements Example</h1>
+          <Elements>
+            <CheckoutForm />
+          </Elements>
+        </div>
+      </StripeProvider>
+    );
   }
 }
 
