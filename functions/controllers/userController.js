@@ -181,5 +181,4 @@ userController.get('/allToolsRentedForOneUser', (req, res) => {
 });
 //END GET ALL TOOLS BEING RENTED FOR ONE USER//
 
-
 module.exports = userController;

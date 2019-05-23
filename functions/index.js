@@ -102,6 +102,7 @@ const functions = require("firebase-functions");
 const firebase = require("firebase");
 const toolController = require("./controllers/toolController");
 const userController = require("./controllers/userController");
+const stripeController = require("./controllers/stripeController");
 const toolRentalRecordController = require("./controllers/toolRentalRecordController");
 const { db } = require('./app');
 const sendEmail = require('./nodeMailer/nodeMailer');
@@ -112,6 +113,11 @@ exports.tool = functions.https.onRequest((req, res) => {
 
 exports.user = functions.https.onRequest((req, res) => {
   return userController(req, res);
+});
+
+
+exports.stripe = functions.https.onRequest((req, res) => {
+  return stripeController(req, res);
 });
 
 exports.toolRentalRecord = functions.https.onRequest((req, res) => {
@@ -141,3 +147,4 @@ exports.getAllToolRentalRecords = functions.pubsub.schedule('0 0 * * * ').onRun(
     return _ref.apply(this, arguments);
   };
 })());
+
