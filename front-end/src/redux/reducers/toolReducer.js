@@ -1,12 +1,30 @@
-import { TOOL_TEST } from "../types/toolTypes";
+import {
+  CREATE_TOOL,
+  TOOL_DATA,
+  DELETE_TOOL,
+  EDIT_TOOL
+} from "../types/toolTypes";
 
 const initialState = {
-  //Specify initial tool state here if needed
+  isRented: false
+  //Not sure what else needs to be set in initial state
 };
 
 export default function toolReducer(state = initialState, action) {
-  switch (action.type) {
-    //add switch cases here
+  const { type, payload } = action;
+
+  switch (type) {
+    case CREATE_TOOL:
+      return { ...state, auth: payload, user: payload };
+
+    case TOOL_DATA:
+      return { ...state, auth: null, user: null };
+
+    case DELETE_TOOL:
+      return { ...state, auth: payload, user: payload };
+
+    case EDIT_TOOL:
+      return { ...state, auth: payload, user: payload };
 
     default:
       return state;
