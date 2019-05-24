@@ -4,26 +4,27 @@ import {
   DELETE_USER,
   EDIT_USER,
   GET_USER_DATA,
+  LOGIN_USER,
+  LOGOUT_USER
 } from "../types/userTypes";
 
 const initialState = {
   auth: null,
   user: null,
-  stripeToken: '',
+  stripeToken: ""
 };
 
 export default function userReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-      
     case PAY_STRIPE:
-      console.log('We are in the Pay Stripe Reducer');
+      console.log("We are in the Pay Stripe Reducer");
       console.log(payload);
-    return {
-      ...state,
-      stripeToken: payload,
-    }
-      
+      return {
+        ...state,
+        stripeToken: payload
+      };
+
     case NEW_USER:
       return { ...state, auth: payload, user: payload };
 
@@ -35,6 +36,12 @@ export default function userReducer(state = initialState, action) {
 
     case GET_USER_DATA:
       return { ...state, auth: payload, user: payload };
+
+    case LOGIN_USER:
+      return { ...state, auth: payload };
+
+    case LOGOUT_USER:
+      return { ...state, auth: null, user: null };
 
     default:
       return state;
