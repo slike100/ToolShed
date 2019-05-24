@@ -9,6 +9,8 @@ import Login from "./Login"
 
 import Navbar from "./Navbar";
 
+import AddToolForm from "./AddToolForm"
+
 // import actions here if needed
 
 class Main extends React.Component {
@@ -72,6 +74,8 @@ class Main extends React.Component {
             </Elements>
           </div>
         </StripeProvider>
+
+        <AddToolForm />
       </div>
     )
   }
