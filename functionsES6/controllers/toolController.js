@@ -31,7 +31,7 @@ toolController.post('/newTool', (req, res) => {
         }) 
     });
   } catch (err) {
-    return res.status(500).send('There was an error adding the tool and adding it to your user account:'err);
+    return res.status(500).send('There was an error adding the tool and adding it to your user account:', err);
   }
 });
 //END POST NEW TOOL//

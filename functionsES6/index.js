@@ -76,15 +76,15 @@ async function sendEmailToUser(arr){
           console.log(`Your tool has not been checked in yet. It is currently overdue by ${days} days!!`);
           if (days > 1) {
             var ownerMessage = 
-            `Hello ${userName},
-               Our records indicate that the tool you lent out has not been returned to you yet. It is currently overdue by ${days} days. If the tool has been turned into you, please navigate to your user profile and click the 'returned' button for that tool. If you have not recieved your tool, and would like to report a dispute please navigate to the about page and fill out the correct form.
-            Thank you,
+            `Hello ${userName},<br>
+            <br>Our records indicate that the tool you lent out has not been returned to you yet. It is currently overdue by ${days} days. If the tool has been turned into you, please navigate to your user profile and click the 'returned' button for that tool. If you have not recieved your tool, and would like to report a dispute please navigate to the about page and fill out the correct form.<br>
+            <br>Thank you,<br>
               ToolShed Team`
           } else {
             var ownerMessage =
-            `Hello ${userName},
-              Our records indicate that the tool you lent out has not been returned to you yet. It is currently overdue by ${days} day. If the tool has been turned into you, please navigate to your user profile and click the 'returned' button on the tool. If you have not recieved your tool, and would like to report a dispute please navigate to the about page and fill out the correct form.
-            Thank you,
+            `Hello ${userName},<br>
+            <br>Our records indicate that the tool you lent out has not been returned to you yet. It is currently overdue by ${days} day. If the tool has been turned into you, please navigate to your user profile and click the 'returned' button on the tool. If you have not recieved your tool, and would like to report a dispute please navigate to the about page and fill out the correct form. <br>
+            <br>Thank you,<br>
               ToolShed Team`
           }
           // var ownerMessage = `Hello ${username}, Your tool has not been checked in yet. It is currently overdue by ${days} days!!`
@@ -108,16 +108,16 @@ async function sendEmailToUser(arr){
           console.log(`The tool you are renting is currently overdue by ${days}days!!`);
           if (days > 1) {
              var renterMessage = 
-             `Hello ${userName},
-               Our records indicate that the tool you rented has not been returned to the owner yet. It is currently overdue by ${days} days. If you have returned the tool, but the owner has not indicated this, please navigate to the about page and fill out the correct form. If you have not returned your tool, please return it as soon as possible. You will be charged late fees for each day past the rental due date.
-              Thank you,
+             `Hello ${userName},<br>
+             <br> Our records indicate that the tool you rented has not been returned to the owner yet. It is currently overdue by ${days} days. If you have already returned the tool, please contact the owner to settle the transaction. If you need further assitance please contact support. If you have not returned your tool, please return it as soon as possible. You will be charged late fees for each day past the rental due date. <br>
+             <br> Thank you,<br>
                ToolShed Team`
           } else {
             var renterMessage =
-            `Hello ${userName},
-              Our records indicate that the tool you rented has not been returned to the owner yet. It is currently overdue by ${days} day. If you have returned the tool, but the owner has not indicated this, please navigate to the about page and fill out the correct form. If you have not returned your tool, please return it as soon as possible. You will be charged late fees for each day past the rental due date.
-            Thank you,
-             ToolShed Team`
+            `Hello ${userName},<br>
+             <br> Our records indicate that the tool you rented has not been returned to the owner yet. It is currently overdue by ${days} days. If you have already returned the tool, please contact the owner to settle the transaction. If you need further assitance please contact support. If you have not returned your tool, please return it as soon as possible. You will be charged late fees for each day past the rental due date. <br>
+             <br> Thank you,<br>
+               ToolShed Team`
           }
 
           // var renterMessage = `Your tool has not been checked in yet. It is currently overdue by ${days} days!!`
@@ -143,9 +143,9 @@ async function sendEmailToUser(arr){
           console.log(userDoc.data(), 'userData for one or two days left');
           console.log(`Your tool has is scheduled to be checked in tomorrow.`);
           var ownerMessage = 
-            `Hello ${userName}, 
-              Our records indicate that the tool you lent out is due to be turned in to you tomorrow. Once the tool is returned to you, please navigate to your user profile and click the 'returned' button for that tool. Once the tool has been checked back in, you will recieve payment. If your tool is not returned on time, please navigate to the about page to report a dispute.
-            Thank you,
+            `Hello ${userName}, <br>
+            <br>Our records indicate that the tool you lent out is due to be turned in to you tomorrow. Once the tool is returned to you, please navigate to your user profile and click the 'returned' button for that tool. Once the tool has been checked back in, you will recieve payment. If your tool is not returned on time, please navigate to the about page to report a dispute.<br>
+            <br>Thank you,<br>
               ToolShed Team`
           sendEmail(userDoc.data(), ownerMessage)
         }
@@ -166,9 +166,9 @@ async function sendEmailToUser(arr){
           console.log(userDoc.data(), 'userData - in rental user for one or two days left');
           console.log(`The tool you are renting is scheduled to be checked in tomorrow.`);
           var renterMessage = 
-          `Hello ${userName},
-             Our records indicate that the tool you checked out is due back to the owner tomorrow. Please return your tool on time. If you do not return the tool on time, you will be charged late fees for each day past the rental due date. 
-          Thank you,
+          `Hello ${userName},<br>
+          <br> Our records indicate that the tool you checked out is due back to the owner tomorrow. Please return your tool on time. If you do not return the tool on time, you will be charged late fees for each day past the rental due date. <br>
+          <br>Thank you,<br>
              ToolShed Team`
           sendEmail(userDoc.data(), renterMessage)
         }
