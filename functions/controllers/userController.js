@@ -6,15 +6,17 @@ const express = require("express");
 const cors = require("cors");
 const { db } = require("../app");
 const userController = express();
+const bodyParser = require("body-parser");
 
 userController.use(cors({ origin: true }));
+userController.use(bodyParser.json());
 
 //START NEW USER POST ENDPOINT//
-userController.post('/newUser', (req, res) => {
-  console.log('We are in the add new user route!');
-  console.log('this is req.body', req.body);
+userController.post("/newUser", (req, res) => {
+  console.log("We are in the add new user route!");
+  console.log("this is req.body", req.body);
   try {
-    db.collection('User').doc(req.body.uid).set({
+    db.collection("User").doc(req.body.uid).set({
       userName: req.body.userName,
       email: req.body.email,
       lat: req.body.lat,
@@ -24,41 +26,46 @@ userController.post('/newUser', (req, res) => {
       toolsBeingRented: [],
       stripeToken: req.body.stripeToken || ""
     }).then(() => {
-      return res.status(200).send('we are in the confirm, added new user');
+      return res.status(200).send("we are in the confirm, added new user");
     });
   } catch (err) {
-    return res.status(500).send('could not add new user', err);
+    return res.status(500).send("could not add new user", err);
   }
 });
 //END NEW USER POST ENDPOINT//
 
 //START DELETE USER ENPOINT//
-userController.delete('/deleteUser', (req, res) => {
-  console.log('We are in the /deleteUser route!');
-  console.log('this is the /deleteUser req.body: ', req.body);
+userController.delete("/deleteUser", (req, res) => {
+  console.log("We are in the /deleteUser route!");
+  console.log("this is the /deleteUser req.body: ", req.body);
   try {
-    db.collection('User').doc(req.body.id).delete().then(() => {
-      return res.status(200).send(`/deleteUser was successful! `);
-    });
+    db.collection("User").doc(req.body.uid).delete().then(_asyncToGenerator(function* () {
+      for (let i = 0; i < req.body.toolsOwned.length; i++) {
+        yield db.collection("Tools").doc(req.body.toolsOwned[i]).delete().then(function () {
+          console.log("Tool deleted!");
+        });
+      }
+      return res.status(200).send("Sorry to see you go! You account has been successfully deleted");
+    }));
   } catch (err) {
-    return res.status(500).send(`/deleteUser encountered an error: `);
+    return res.status(500).send("Sorry, we were unable to delete your account. Please try again or contact support.");
   }
 });
 //END DELETE USER ENDPOINT//
 
 //START UPDATE USER ENDPOINT//
-userController.put('/updateUser/:id', (req, res) => {
-  console.log('We are in the update user route!');
-  console.log('this is req.body', req.body);
+userController.put("/updateUser/:id", (req, res) => {
+  console.log("We are in the update user route!");
+  console.log("this is req.body", req.body);
   var user;
-  var docRef = db.collection('User').doc(req.params.id);
+  var docRef = db.collection("User").doc(req.params.id);
   docRef.set(req.body, { merge: true }).then(() => {
     docRef.get().then(doc => {
       if (doc.exists) {
         user = doc.data();
       } else {
         user = "document not found.";
-      };
+      }
       res.status(200).send(user);
     }).catch(function (err) {
       res.status(500).send(err);
@@ -70,114 +77,113 @@ userController.put('/updateUser/:id', (req, res) => {
 //END UPDATE USER ENDPOINT//
 
 //START GET ONE USER BY USERID//
-userController.get('/userData', (req, res) => {
+userController.get("/userData", (req, res) => {
   console.log("DB: Hitting the get userData endpoint");
   console.log("DB: This is the userId: ", req.query.id);
   try {
-    db.collection('User').doc(req.query.id).get().then(userDoc => {
+    db.collection("User").doc(req.query.id).get().then(userDoc => {
       if (!userDoc.exists) {
-        console.log('DB: No such document!');
+        console.log("DB: No such document!");
       } else {
         console.log(userDoc.data);
         return res.status(200).send(userDoc.data());
       }
     }).catch(err => {
-      console.log('DB: Error getting document', err);
+      console.log("DB: Error getting document", err);
     });
   } catch (err) {
-    return res.status(500).send('DB: Could not connect to database', err);
-  };
+    return res.status(500).send("DB: Could not connect to database", err);
+  }
 });
 //END GET ONE USER BY USERID//
 
 //START GET ALL TOOLS FOR ONE USER//
-userController.get('/allToolsOwnedForOneUser', (req, res) => {
-  console.log('inside of the get all tools per user');
-  console.log(req.query.uid, 'uid');
+userController.get("/allToolsOwnedForOneUser", (req, res) => {
+  console.log("inside of the get all tools per user");
+  console.log(req.query.uid, "uid");
   try {
-    db.collection('User').doc(req.query.uid).get().then((() => {
-      var _ref = _asyncToGenerator(function* (userDoc) {
+    db.collection("User").doc(req.query.uid).get().then((() => {
+      var _ref2 = _asyncToGenerator(function* (userDoc) {
         if (!userDoc.exists) {
-          console.log('No user found');
+          console.log("No user found");
         } else {
           console.log(userDoc.data());
           let data = userDoc.data();
-          console.log(data, 'data variable');
+          console.log(data, "data variable");
           let userTools = [];
           console.log("here is the obj we shall return:", userTools);
-          console.log(data.toolsOwned.length, 'length of data');
-          console.log(data.toolsOwned[0], 'first index of tools owned');
+          console.log(data.toolsOwned.length, "length of data");
+          console.log(data.toolsOwned[0], "first index of tools owned");
           for (let i = 0; i < data.toolsOwned.length; i++) {
-            yield db.collection('Tools').doc(data.toolsOwned[i]).get().then(function (toolDoc) {
+            yield db.collection("Tools").doc(data.toolsOwned[i]).get().then(function (toolDoc) {
               if (!toolDoc.exists) {
-                console.log('No user found');
+                console.log("No user found");
               } else {
                 var data = toolDoc.data();
                 userTools.push(data);
               }
             });
           }
-          console.log(userTools, 'UserTools');
+          console.log(userTools, "UserTools");
           return res.status(200).send(userTools);
         }
       });
 
       return function (_x) {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     })()).catch(err => {
-      console.log('DB: Error getting document', err);
+      console.log("DB: Error getting document", err);
     });
   } catch (err) {
-    return res.status(500).send('DB: Could not connect to database', err);
-  };
+    return res.status(500).send("DB: Could not connect to database", err);
+  }
 });
 
 //END GET ALL TOOLS FOR ONE USER//
 
-
 //START GET ALL TOOLS BEING RENTED FOR ONE USER//
 
-userController.get('/allToolsRentedForOneUser', (req, res) => {
-  console.log('inside of the get all tools per user');
-  console.log(req.query.uid, 'uid');
+userController.get("/allToolsRentedForOneUser", (req, res) => {
+  console.log("inside of the get all tools per user");
+  console.log(req.query.uid, "uid");
   try {
-    db.collection('User').doc(req.query.uid).get().then((() => {
-      var _ref2 = _asyncToGenerator(function* (userDoc) {
+    db.collection("User").doc(req.query.uid).get().then((() => {
+      var _ref3 = _asyncToGenerator(function* (userDoc) {
         if (!userDoc.exists) {
-          console.log('No user found');
+          console.log("No user found");
         } else {
           console.log(userDoc.data());
           let data = userDoc.data();
-          console.log(data, 'data variable');
+          console.log(data, "data variable");
           let userTools = [];
           console.log("here is the obj we shall return:", userTools);
-          console.log(data.toolsBeingRented.length, 'length of data');
-          console.log(data.toolsBeingRented[0], 'first index of tools owned');
+          console.log(data.toolsBeingRented.length, "length of data");
+          console.log(data.toolsBeingRented[0], "first index of tools owned");
           for (let i = 0; i < data.toolsBeingRented.length; i++) {
-            yield db.collection('Tools').doc(data.toolsBeingRented[i]).get().then(function (toolDoc) {
+            yield db.collection("Tools").doc(data.toolsBeingRented[i]).get().then(function (toolDoc) {
               if (!toolDoc.exists) {
-                console.log('No user found');
+                console.log("No user found");
               } else {
                 var data = toolDoc.data();
                 userTools.push(data);
               }
             });
           }
-          console.log(userTools, 'UserTools');
+          console.log(userTools, "UserTools");
           return res.status(200).send(userTools);
         }
       });
 
       return function (_x2) {
-        return _ref2.apply(this, arguments);
+        return _ref3.apply(this, arguments);
       };
     })()).catch(err => {
-      console.log('DB: Error getting document', err);
+      console.log("DB: Error getting document", err);
     });
   } catch (err) {
-    return res.status(500).send('DB: Could not connect to database', err);
-  };
+    return res.status(500).send("DB: Could not connect to database", err);
+  }
 });
 //END GET ALL TOOLS BEING RENTED FOR ONE USER//
 
