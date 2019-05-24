@@ -22,6 +22,7 @@ class Navbar extends React.Component {
           uid: result.user.uid,
           email: result.user.email,
           displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
         }
         this.setState({
           user
@@ -41,10 +42,12 @@ class Navbar extends React.Component {
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
       if (user) {
+
         const parsedUser = {
           uid: user.uid,
           email: user.email,
           displayName: user.displayName,
+          photoURL: user.photoURL,
         }
         this.setState({ user: parsedUser });
       }
@@ -52,6 +55,13 @@ class Navbar extends React.Component {
   }
 
   render() {
+
+    // grab and place google photo as profile button background-image
+    var profilePhoto = 'none';
+    if (this.state.user) {
+      profilePhoto = `url(${this.state.user.photoURL})`
+    }
+
     return (
       <nav className="nav-wrapper grey lighten-5">
         <div className="container">
@@ -61,7 +71,7 @@ class Navbar extends React.Component {
               <React.Fragment>
                 <li><NavLink to='/' className="grey-text text-darken-3">Post a Tool</NavLink></li>
                 <li><NavLink to='/' className="grey-text text-darken-3" onClick={this.logout}>Logout</NavLink></li>
-                <li><NavLink to='/' className='btn btn-floating blue lighten-1'>NW</NavLink></li>
+                <li><NavLink to='/' style={{ "backgroundImage": profilePhoto }} className='btn btn-floating blue lighten-1'></NavLink></li>
               </React.Fragment>
               :
               <li><img className="loginBtn" src={loginButton} onClick={this.login} /></li>
