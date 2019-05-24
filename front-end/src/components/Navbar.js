@@ -1,65 +1,58 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import 'materialize-css/dist/css/materialize.min.css';
-import { auth, provider } from '../utils/firebaseConfig';
-import loginButton from '../assets/img/btn_google_signin_dark_normal_web.png'
-import logo from '../assets/img/logo.png';
-import './Navbar.css';
-
+import "materialize-css/dist/css/materialize.min.css";
+import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
+import loginButton from "../assets/img/btn_google_signin_dark_normal_web.png";
+import logo from "../assets/img/logo.png";
+import "./Navbar.css";
+import { connect } from "react-redux";
+import { loginUser, logoutUser } from "../redux/actions/userActions";
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      loc: null
     };
   }
 
   login = () => {
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        const user = {
-          uid: result.user.uid,
-          email: result.user.email,
-          displayName: result.user.displayName,
-          photoURL: result.user.photoURL,
-        }
-        this.setState({
-          user
-        });
-      });
-  }
+    firebaseAuth.signInWithPopup(provider).then(result => {
+      const authObj = {
+        uid: result.user.uid,
+        email: result.user.email,
+        displayName: result.user.displayName,
+        photoURL: result.user.photoURL
+      };
+      this.props.loginUser(authObj);
+    });
+  };
 
   logout = () => {
-    auth.signOut()
-      .then(() => {
-        this.setState({
-          user: null,
-        });
-      });
-  }
+    firebaseAuth.signOut().then(() => {
+      this.props.logoutUser();
+    });
+  };
 
   componentDidMount() {
-    auth.onAuthStateChanged((user) => {
+    firebaseAuth.onAuthStateChanged(user => {
       if (user) {
-
         const parsedUser = {
           uid: user.uid,
           email: user.email,
           displayName: user.displayName,
-          photoURL: user.photoURL,
-        }
-        this.setState({ user: parsedUser });
+          photoURL: user.photoURL
+        };
+        this.props.loginUser(parsedUser);
       }
     });
   }
 
   render() {
-
     // grab and place google photo as profile button background-image
-    var profilePhoto = 'none';
-    if (this.state.user) {
-      profilePhoto = `url(${this.state.user.photoURL})`
+    var profilePhoto = "none";
+    if (this.props.auth) {
+      profilePhoto = `url(${this.props.auth.photoURL})`;
     }
 
     return (
@@ -67,20 +60,58 @@ class Navbar extends React.Component {
         <div className="container">
           <img className="siteLogo" src={logo} />
           <ul className="right nav-list">
-            {this.state.user ?
+            {this.props.auth ? (
               <React.Fragment>
-                <li><NavLink to='/' className="grey-text text-darken-3">Post a Tool</NavLink></li>
-                <li><NavLink to='/' className="grey-text text-darken-3" onClick={this.logout}>Logout</NavLink></li>
-                <li><NavLink to='/' style={{ "backgroundImage": profilePhoto }} className='btn btn-floating blue lighten-1'></NavLink></li>
+                <li>
+                  <NavLink to="/" className="grey-text text-darken-3">
+                    Post a Tool
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/"
+                    className="grey-text text-darken-3"
+                    onClick={this.logout}
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/"
+                    style={{ backgroundImage: profilePhoto }}
+                    className="btn btn-floating blue lighten-1"
+                  />
+                </li>
               </React.Fragment>
-              :
-              <li><img className="loginBtn" src={loginButton} onClick={this.login} /></li>
-            }
+            ) : (
+              <li>
+                <img
+                  className="loginBtn"
+                  src={loginButton}
+                  onClick={this.login}
+                />
+              </li>
+            )}
           </ul>
         </div>
       </nav>
-    )
+    );
   }
 }
 
-export default Navbar;
+function mapStateToProps(state) {
+  return {
+    auth: state.user.auth
+  };
+}
+
+const mapDispatchToProps = {
+  loginUser,
+  logoutUser
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Navbar);
