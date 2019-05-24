@@ -12,7 +12,8 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loc: null
+      lat: '',
+      lng: '',
     };
   }
 
@@ -79,20 +80,32 @@ class Navbar extends React.Component {
                 <li>
                   <NavLink
                     to="/"
-                    style={{ backgroundImage: profilePhoto }}
+                    style={{ backgroundImage: profilePhoto, backgroundSize: 'cover' }}
                     className="btn btn-floating blue lighten-1"
                   />
                 </li>
               </React.Fragment>
             ) : (
-              <li>
-                <img
-                  className="loginBtn"
-                  src={loginButton}
-                  onClick={this.login}
-                />
-              </li>
-            )}
+                <React.Fragment>
+                  <li>
+                    <NavLink
+                      to="/"
+                      className="grey-text text-darken-3"
+                      onClick={this.login}
+                    >
+                      Sign Up
+                  </NavLink>
+                  </li>
+                  <li>
+                    <img
+                      className="loginBtn"
+                      src={loginButton}
+                      onClick={this.login}
+                    />
+                  </li>
+
+                </React.Fragment>
+              )}
           </ul>
         </div>
       </nav>
