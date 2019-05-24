@@ -5,13 +5,13 @@ import { Elements, StripeProvider } from 'react-stripe-elements';
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import Login from "./Login"
 
 import Navbar from "./Navbar";
 
 import AddToolForm from "./AddToolForm"
+import CreateNewUserForm from "./CreateNewUserForm"
 
-// import actions here if needed
+
 
 class Main extends React.Component {
 
@@ -27,13 +27,6 @@ class Main extends React.Component {
             // component={Home}
             exact
             path="/"
-          />
-
-          <Route
-            path="/login"
-            render={props => {
-              return <Login />;
-            }}
           />
 
           <Route
@@ -65,6 +58,9 @@ class Main extends React.Component {
           />
 
         </Switch>
+
+        <CreateNewUserForm />
+
 
         <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
           <div className="example">
