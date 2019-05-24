@@ -67,7 +67,7 @@ toolRecordRentalController.post("/newRentalRecord", (req, res) => {
 toolRecordRentalController.put("/updateToolRentalRecord/:id", (req, res) => {
   console.log("We are in the update tool rental record route!");
   console.log("this is req.body", req.body);
-  var timestamp = firebase.firestore.Timestamp.now().toDate();
+  var timestamp = firebase.firestore.Timestamp.now().toMillis();
   var obj = { timeCheckedIn: timestamp };
   console.log(timestamp, "timestamp");
   console.log(obj, "obj being passed in");
@@ -93,6 +93,45 @@ toolRecordRentalController.put("/updateToolRentalRecord/:id", (req, res) => {
     .catch(function(err) {
       res.status(500).send(err);
     });
+});
+
+toolRecordRentalController.get("/rentalRecord/:recordId", (req, res) => {
+  console.log("DB: Hitting the get userData endpoint");
+  console.log("DB: This is the userId: ", req.params.recordId);
+  console.log(req.body);
+  try {
+    db.collection("RentalRecords")
+      .doc(req.params.recordId)
+      .where(toolId, "==", req.body.toolId)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log("There are no records matching this tool.");
+          return res
+            .status(500)
+            .send("There are no records matching this tool.");
+        } else
+          docRef
+            .where("timeCheckedIn", "==", "")
+            .get()
+            .then(snapshot1 => {
+              if (snapshot1.empty) {
+                console.log("There are no records matching this tool.");
+                return res
+                  .status(500)
+                  .send("There are no records matching this tool.");
+              } else {
+                snapshot2.docs.forEach(doc => {
+                  console.log(doc.id, "=> in second if", doc.data());
+                  var data = doc.data();
+                  return res.status(200).send(data);
+                });
+              }
+            });
+      });
+  } catch (err) {
+    return res.status(500).send("Could not connect to database.", err);
+  }
 });
 
 module.exports = toolRecordRentalController;
