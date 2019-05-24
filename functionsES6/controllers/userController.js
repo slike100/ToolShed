@@ -20,10 +20,10 @@ userController.post('/newUser', (req, res) => {
       toolsBeingRented: [],
       stripeToken: req.body.stripeToken || ""
     }).then(() => {
-      return res.status(200).send('we are in the confirm, added new user');
+      return res.status(200).send('A new user was successfully created in the database.');
     });
   } catch (err) {
-    return res.status(500).send('could not add new user', err);
+    return res.status(500).send('Could not add new user', err);
   }
 });
 //END NEW USER POST ENDPOINT//
@@ -35,10 +35,10 @@ userController.delete('/deleteUser', (req, res) => {
   try {
     db.collection('User').doc(req.body.id).delete()
       .then(() => {
-        return res.status(200).send(`/deleteUser was successful! `);
+        return res.status(200).send(`This user was successfully deleted.`);
       });
   } catch (err) {
-    return res.status(500).send(`/deleteUser encountered an error: `);
+    return res.status(500).send(`This user could not be deleted`, err);
   }
 });
 //END DELETE USER ENDPOINT//
@@ -54,7 +54,7 @@ userController.put('/updateUser/:id', (req, res) => {
       if(doc.exists) {
         user = doc.data();
         } else {
-          user = ("document not found.");
+          user = ('Could not find a user to update.');
         };
           res.status(200).send(user);
         }).catch(function (err) {
@@ -74,14 +74,13 @@ userController.get('/userData', (req, res) => {
     db.collection('User').doc(req.query.id).get()
       .then(userDoc => {
         if (!userDoc.exists) {
-          console.log('DB: No such document!');
+          console.log('This user does not exist.');
         } else {
-          console.log(userDoc.data)
           return res.status(200).send(userDoc.data());
         }
       })
       .catch(err => {
-        console.log('DB: Error getting document', err);
+        console.log('Could not find this user', err);
       });
   } catch (err) {
     return res.status(500).send('DB: Could not connect to database', err);
@@ -133,7 +132,6 @@ userController.get('/allToolsOwnedForOneUser', (req, res) => {
 
 
 //START GET ALL TOOLS BEING RENTED FOR ONE USER//
-
 userController.get('/allToolsRentedForOneUser', (req, res) => {
   console.log('inside of the get all tools per user')
   console.log(req.query.uid, 'uid');
