@@ -38,8 +38,41 @@
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
-
+    <form>
+      <input type="file" value="upload" id="fileButton"/> 
+      <button type="submit" id="uploader">Submit Photo</button>
+    </form>
     <script>
+
+      var uploader = document.getElementById('uploader')
+      var fileButton = document.getElementById('fileButton')
+
+      fileButton.addEventListener('change', function(e) {
+        e.preventDefault()
+        var file = e.target.files[0];
+        var storageRef = firebase.storage().ref('12345/' + file.name)
+        storageRef.put(file)
+        var link = uploader.onSubmit = async function (e) {
+          e.preventDefault()
+          // function progress(snapshot) {
+          //   console.log("snapshot", snapshot)
+          // };
+
+          // function error(err){
+          //   console.log("error", err)
+          // };
+
+          await uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+              return(downloadURL);
+            });
+            console.log(downloadURL)
+        }  
+        console.log(link)
+      
+      })
+    
+
+
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
