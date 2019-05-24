@@ -1,17 +1,84 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import 'materialize-css/dist/css/materialize.min.css';
 import { auth, provider } from '../utils/firebaseConfig';
-
-import Login from "./Login";
+import loginButton from '../assets/img/btn_google_signin_dark_normal_web.png'
+import logo from '../assets/img/logo.png';
+import './Navbar.css';
 
 
 class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+    };
+  }
+
+  login = () => {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = {
+          uid: result.user.uid,
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        }
+        this.setState({
+          user
+        });
+      });
+  }
+
+  logout = () => {
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null,
+        });
+      });
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+
+        const parsedUser = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        }
+        this.setState({ user: parsedUser });
+      }
+    });
+  }
 
   render() {
+
+    // grab and place google photo as profile button background-image
+    var profilePhoto = 'none';
+    if (this.state.user) {
+      profilePhoto = `url(${this.state.user.photoURL})`
+    }
+
     return (
-      <div>
-        <Login />
-        {/* <Logout /> */}
-      </div>
+      <nav className="nav-wrapper grey lighten-5">
+        <div className="container">
+          <img className="siteLogo" src={logo} />
+          <ul className="right nav-list">
+            {this.state.user ?
+              <React.Fragment>
+                <li><NavLink to='/' className="grey-text text-darken-3">Post a Tool</NavLink></li>
+                <li><NavLink to='/' className="grey-text text-darken-3" onClick={this.logout}>Logout</NavLink></li>
+                <li><NavLink to='/' style={{ "backgroundImage": profilePhoto }} className='btn btn-floating blue lighten-1'></NavLink></li>
+              </React.Fragment>
+              :
+              <li><img className="loginBtn" src={loginButton} onClick={this.login} /></li>
+            }
+          </ul>
+        </div>
+      </nav>
     )
   }
 }
