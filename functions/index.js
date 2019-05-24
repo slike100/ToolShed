@@ -39,12 +39,12 @@ let sendEmailToUser = (() => {
             console.log(`Your tool has not been checked in yet. It is currently overdue by ${days} days!!`);
             if (days > 1) {
               var ownerMessage = `Hello ${userName},<br>
-            <br>Our records indicate that the tool you lent out has not been returned to you yet. It is currently overdue by ${days} days. If the tool has been turned into you, please navigate to your user profile and click the 'returned' button for that tool. If you have not recieved your tool, and would like to report a dispute please navigate to the about page and fill out the correct form.<br>
+            <br>Our records indicate that the tool you lent out has not been returned to you yet. It is currently overdue by ${days} days. If the tool has been turned into you, please navigate to your user profile and click the 'returned' button for that tool. If you have not recieved your tool, and would like to report a dispute, please navigate to the about page and fill out the correct form.<br>
             <br>Thank you,<br>
               ToolShed Team`;
             } else {
               var ownerMessage = `Hello ${userName},<br>
-            <br>Our records indicate that the tool you lent out has not been returned to you yet. It is currently overdue by ${days} day. If the tool has been turned into you, please navigate to your user profile and click the 'returned' button on the tool. If you have not recieved your tool, and would like to report a dispute please navigate to the about page and fill out the correct form. <br>
+            <br>Our records indicate that the tool you lent out has not been returned to you yet. It is currently overdue by ${days} day. If the tool has been turned into you, please navigate to your user profile and click the 'returned' button on the tool. If you have not recieved your tool, and would like to report a dispute, please navigate to the about page and fill out the correct form. <br>
             <br>Thank you,<br>
               ToolShed Team`;
             }
