@@ -35,12 +35,12 @@ class AddToolForm extends React.Component {
               <h3>Tool Info</h3>
               <label for="toolType">Tool Type</label>
               <input type="text" id="toolType" name="toolType" placeholder="ex: Circular Saw.." />
-
+              {/* 
               <label for="toolBrand">Tool Brand</label>
-              <input type="text" id="toolBrand" name="toolBrand" placeholder="ex: DeWalt.." />
+              <input type="text" id="toolBrand" name="toolBrand" placeholder="ex: DeWalt.." /> */}
 
-              <label for="description">Additional Info</label>
-              <textarea id="subject" name="description"
+              <label for="description">Description</label>
+              <textarea className="description" name="description"
                 placeholder="ex: 7-1/4&#8243; blade, cordless saw with 1 extra battery and charging station.."></textarea>
             </form>
           </div>
