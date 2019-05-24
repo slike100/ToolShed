@@ -21,7 +21,7 @@ toolRecordRentalController.post("/newRentalRecord", (req, res) => {
     rentalUserId: req.body.rentalUserId,
     toolId: req.body.toolId,
     rentalStartTime: timestamp,
-    timeCheckedIn: "",
+    timeCheckedIn: null,
     dueDate: dueDateMillis,
     pricePerDay: req.body.pricePerDay
   });
