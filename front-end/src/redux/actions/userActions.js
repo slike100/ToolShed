@@ -7,6 +7,7 @@ import {
     DELETE_USER,
     EDIT_USER,
     GET_USER_DATA,
+    PAY_STRIPE,
 } from "../types/userTypes";
 
 
@@ -130,6 +131,22 @@ export function getUserData(id) {
                 };
                 return action;
             });
+    }
+}
+
+export const payStripe = (tokenCard) => {
+    return dispatch => {
+        return axios.post('https://us-central1-toolshed-1dd98.cloudfunctions.net/stripe', {token: tokenCard})
+        .then(res => {
+            console.log(res);
+            console.log(tokenCard);
+            const action = {
+                type: PAY_STRIPE,
+                payload: tokenCard
+            }
+            dispatch(action)
+        })
+        .catch(err => console.log(err));
     }
 }
 
