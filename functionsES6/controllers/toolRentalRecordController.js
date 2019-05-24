@@ -2,9 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const { db } = require("../app");
 const firebase = require("firebase");
-
+const bodyParser = require("body-parser");
 const toolRecordRentalController = express();
 
+toolRecordRentalController.use(bodyParser.json());
 toolRecordRentalController.use(cors({ origin: true }));
 
 toolRecordRentalController.post("/newRentalRecord", (req, res) => {
@@ -95,14 +96,13 @@ toolRecordRentalController.put("/updateToolRentalRecord/:id", (req, res) => {
     });
 });
 
-toolRecordRentalController.get("/rentalRecord/:recordId", (req, res) => {
+toolRecordRentalController.get("/rentalRecord/:toolId", (req, res) => {
   console.log("DB: Hitting the get userData endpoint");
-  console.log("DB: This is the userId: ", req.params.recordId);
-  console.log(req.body);
+  console.log(req.params);
   try {
-    db.collection("RentalRecords")
-      .doc(req.params.recordId)
-      .where(toolId, "==", req.body.toolId)
+    var docRef = db.collection("RentalRecords");
+    docRef
+      .where("toolId", "==", req.params.toolId)
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
@@ -110,7 +110,8 @@ toolRecordRentalController.get("/rentalRecord/:recordId", (req, res) => {
           return res
             .status(500)
             .send("There are no records matching this tool.");
-        } else
+        } else {
+          console.log("in the else");
           docRef
             .where("timeCheckedIn", "==", "")
             .get()
@@ -121,16 +122,21 @@ toolRecordRentalController.get("/rentalRecord/:recordId", (req, res) => {
                   .status(500)
                   .send("There are no records matching this tool.");
               } else {
-                snapshot2.docs.forEach(doc => {
+                snapshot1.docs.forEach(doc => {
                   console.log(doc.id, "=> in second if", doc.data());
                   var data = doc.data();
                   return res.status(200).send(data);
                 });
               }
+            })
+            .catch(err => {
+              console.log(err);
+              return res.status(400).send(err);
             });
+        }
       });
   } catch (err) {
-    return res.status(500).send("Could not connect to database.", err);
+    return res.status(500).send(err);
   }
 });
 

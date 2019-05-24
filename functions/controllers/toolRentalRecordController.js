@@ -4,9 +4,10 @@ const express = require("express");
 const cors = require("cors");
 const { db } = require("../app");
 const firebase = require("firebase");
-
+const bodyParser = require("body-parser");
 const toolRecordRentalController = express();
 
+toolRecordRentalController.use(bodyParser.json());
 toolRecordRentalController.use(cors({ origin: true }));
 
 toolRecordRentalController.post("/newRentalRecord", (req, res) => {
@@ -58,7 +59,7 @@ toolRecordRentalController.post("/newRentalRecord", (req, res) => {
 toolRecordRentalController.put("/updateToolRentalRecord/:id", (req, res) => {
   console.log("We are in the update tool rental record route!");
   console.log("this is req.body", req.body);
-  var timestamp = firebase.firestore.Timestamp.now().toDate();
+  var timestamp = firebase.firestore.Timestamp.now().toMillis();
   var obj = { timeCheckedIn: timestamp };
   console.log(timestamp, "timestamp");
   console.log(obj, "obj being passed in");
@@ -78,6 +79,39 @@ toolRecordRentalController.put("/updateToolRentalRecord/:id", (req, res) => {
   }).catch(function (err) {
     res.status(500).send(err);
   });
+});
+
+toolRecordRentalController.get("/rentalRecord/:toolId", (req, res) => {
+  console.log("DB: Hitting the get userData endpoint");
+  console.log(req.params);
+  try {
+    var docRef = db.collection("RentalRecords");
+    docRef.where("toolId", "==", req.params.toolId).get().then(snapshot => {
+      if (snapshot.empty) {
+        console.log("There are no records matching this tool.");
+        return res.status(500).send("There are no records matching this tool.");
+      } else {
+        console.log("in the else");
+        docRef.where("timeCheckedIn", "==", "").get().then(snapshot1 => {
+          if (snapshot1.empty) {
+            console.log("There are no records matching this tool.");
+            return res.status(500).send("There are no records matching this tool.");
+          } else {
+            snapshot1.docs.forEach(doc => {
+              console.log(doc.id, "=> in second if", doc.data());
+              var data = doc.data();
+              return res.status(200).send(data);
+            });
+          }
+        }).catch(err => {
+          console.log(err);
+          return res.status(400).send(err);
+        });
+      }
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
 });
 
 module.exports = toolRecordRentalController;
