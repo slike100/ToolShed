@@ -12,23 +12,20 @@ userController.post("/newUser", (req, res) => {
   console.log("We are in the add new user route!");
   console.log("this is req.body", req.body);
   try {
-    db.collection("User")
-      .doc(req.body.uid)
-      .set({
-        userName: req.body.userName,
-        email: req.body.email,
-        lat: req.body.lat,
-        long: req.body.long,
-        avatar: req.body.avatar,
-        toolsOwned: [],
-        toolsBeingRented: [],
-        stripeToken: req.body.stripeToken || ""
-      })
-      .then(() => {
-        return res.status(200).send("we are in the confirm, added new user");
-      });
+    db.collection('User').doc(req.body.uid).set({
+      userName: req.body.userName,
+      email: req.body.email,
+      lat: req.body.lat,
+      long: req.body.long,
+      avatar: req.body.avatar,
+      toolsOwned: [],
+      toolsBeingRented: [],
+      stripeToken: req.body.stripeToken || ""
+    }).then(() => {
+      return res.status(200).send('A new user was successfully created in the database.');
+    });
   } catch (err) {
-    return res.status(500).send("could not add new user", err);
+    return res.status(500).send('Could not add new user', err);
   }
 });
 //END NEW USER POST ENDPOINT//
@@ -72,18 +69,14 @@ userController.put("/updateUser/:id", (req, res) => {
   console.log("We are in the update user route!");
   console.log("this is req.body", req.body);
   var user;
-  var docRef = db.collection("User").doc(req.params.id);
-  docRef
-    .set(req.body, { merge: true })
-    .then(() => {
-      docRef
-        .get()
-        .then(doc => {
-          if (doc.exists) {
-            user = doc.data();
-          } else {
-            user = "document not found.";
-          }
+  var docRef = db.collection('User').doc(req.params.id);
+  docRef.set(req.body, { merge: true }).then(() => {
+    docRef.get().then((doc) => {
+      if(doc.exists) {
+        user = doc.data();
+        } else {
+          user = ('Could not find a user to update.');
+        };
           res.status(200).send(user);
         })
         .catch(function(err) {
@@ -106,14 +99,13 @@ userController.get("/userData", (req, res) => {
       .get()
       .then(userDoc => {
         if (!userDoc.exists) {
-          console.log("DB: No such document!");
+          console.log('This user does not exist.');
         } else {
-          console.log(userDoc.data);
           return res.status(200).send(userDoc.data());
         }
       })
       .catch(err => {
-        console.log("DB: Error getting document", err);
+        console.log('Could not find this user', err);
       });
   } catch (err) {
     return res.status(500).send("DB: Could not connect to database", err);
@@ -169,7 +161,6 @@ userController.get("/allToolsOwnedForOneUser", (req, res) => {
 //END GET ALL TOOLS FOR ONE USER//
 
 //START GET ALL TOOLS BEING RENTED FOR ONE USER//
-
 userController.get("/allToolsRentedForOneUser", (req, res) => {
   console.log("inside of the get all tools per user");
   console.log(req.query.uid, "uid");

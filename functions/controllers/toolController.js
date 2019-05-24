@@ -26,11 +26,11 @@ toolController.post('/newTool', (req, res) => {
     db.collection('Tools').add(tool).then(ref => {
       req.body.toolsOwned.push(ref.id);
       db.collection('User').doc(req.body.uid).update({ toolsOwned: req.body.toolsOwned }).then(() => {
-        return res.status(200).send('Added a tool and added it to your current user account');
+        return res.status(200).send('Successfully added a new tool and added it to your current user account.');
       });
     });
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).send('There was an error adding the tool and adding it to your user account:', err);
   }
 });
 //END POST NEW TOOL//
@@ -108,16 +108,16 @@ toolController.get('/searchTools', (req, res) => {
         if (snapshot.empty) {
           console.log('first No matching documents. Sam S');
           // return;
-          return res.status(500).send('No matching tools');
+          return res.status(500).send('No tools match your search criteria.');
         } else docRef.where('long', '<=', addLong).where('long', '>=', subLong).get().then(snapshot1 => {
           if (snapshot1.empty) {
             console.log('second No matching documents. Sam S');
             // return;
-            return res.status(500).send('No matching tools');
+            return res.status(500).send('No tools match your search criteria.');
           } else docRef.where('name', '==', req.query.name).get().then(snapshot2 => {
             if (snapshot2.empty) {
               console.log('second no matching tools');
-              return res.status(500).send('No matching tools');
+              return res.status(500).send('No tools match your search criteria.');
             } else var matchingTools = [];
             snapshot2.docs.forEach(doc => {
               console.log(doc.id, '=> in second if', doc.data());
@@ -129,7 +129,7 @@ toolController.get('/searchTools', (req, res) => {
       });
     }
   } catch (err) {
-    return res.status(500).send('This is the error. Our Search did not work', err);
+    return res.status(500).send('This is the error. Our Search did not work:', err);
   }
 });
 //START GET TOOLS BY LAT & LONG AND OPTIONALLY BY NAME OF TOOL ENDPOINT//
