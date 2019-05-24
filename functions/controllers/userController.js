@@ -16,7 +16,7 @@ userController.post("/newUser", (req, res) => {
   console.log("We are in the add new user route!");
   console.log("this is req.body", req.body);
   try {
-    db.collection("User").doc(req.body.uid).set({
+    db.collection('User').doc(req.body.uid).set({
       userName: req.body.userName,
       email: req.body.email,
       lat: req.body.lat,
@@ -30,7 +30,6 @@ userController.post("/newUser", (req, res) => {
     });
   } catch (err) {
     return res.status(500).send('Could not add new user', err);
-
   }
 });
 //END NEW USER POST ENDPOINT//
@@ -46,7 +45,7 @@ userController.delete("/deleteUser", (req, res) => {
           console.log("Tool deleted!");
         });
       }
-      return res.status(200).send("Sorry to see you go! You account has been successfully deleted");
+      return res.status(200).send("Sorry to see you go! You account has been successfully deleted.");
     }));
   } catch (err) {
     return res.status(500).send("Sorry, we were unable to delete your account. Please try again or contact support.");
@@ -59,7 +58,7 @@ userController.put("/updateUser/:id", (req, res) => {
   console.log("We are in the update user route!");
   console.log("this is req.body", req.body);
   var user;
-  var docRef = db.collection("User").doc(req.params.id);
+  var docRef = db.collection('User').doc(req.params.id);
   docRef.set(req.body, { merge: true }).then(() => {
     docRef.get().then(doc => {
       if (doc.exists) {
@@ -143,9 +142,9 @@ userController.get("/allToolsOwnedForOneUser", (req, res) => {
 //END GET ALL TOOLS FOR ONE USER//
 
 //START GET ALL TOOLS BEING RENTED FOR ONE USER//
-userController.get('/allToolsRentedForOneUser', (req, res) => {
-  console.log('inside of the get all tools per user');
-  console.log(req.query.uid, 'uid');
+userController.get("/allToolsRentedForOneUser", (req, res) => {
+  console.log("inside of the get all tools per user");
+  console.log(req.query.uid, "uid");
   try {
     db.collection("User").doc(req.query.uid).get().then((() => {
       var _ref3 = _asyncToGenerator(function* (userDoc) {
@@ -185,6 +184,5 @@ userController.get('/allToolsRentedForOneUser', (req, res) => {
   }
 });
 //END GET ALL TOOLS BEING RENTED FOR ONE USER//
-
 
 module.exports = userController;

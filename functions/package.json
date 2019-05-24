@@ -21,7 +21,6 @@
     "stripe": "^7.0.1",
     "nodemailer": "^6.1.1",
     "nodemailer-postmark-transport": "^2.2.0",
-    "postmark": "^2.2.5",
-    "stripe": "^7.0.1"
+    "postmark": "^2.2.5"
   }
 }
