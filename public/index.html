@@ -39,40 +39,19 @@
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
     <form>
-      <input type="file" value="upload" id="fileButton"/> 
-      <button type="submit" id="uploader">Submit Photo</button>
+      <input type="file" value="upload" id="fileButton" onchange = "uploadFile()"/> 
     </form>
     <script>
 
-      var uploader = document.getElementById('uploader')
-      var fileButton = document.getElementById('fileButton')
-
-      fileButton.addEventListener('change', function(e) {
-        e.preventDefault()
-        var file = e.target.files[0];
-        var storageRef = firebase.storage().ref('12345/' + file.name)
-        storageRef.put(file)
-        var link = uploader.onSubmit = async function (e) {
-          e.preventDefault()
-          // function progress(snapshot) {
-          //   console.log("snapshot", snapshot)
-          // };
-
-          // function error(err){
-          //   console.log("error", err)
-          // };
-
-          await uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-              return(downloadURL);
-            });
-            console.log(downloadURL)
-        }  
-        console.log(link)
-      
-      })
-    
-
-
+        function uploadFile() {
+          var file = document.getElementById('fileButton').files[0]
+          var storageRef = firebase.storage().ref('12345/' + file.name)
+          storageRef.put(file).then(function(snapshot){
+            console.log('file loaded', snapshot)
+          })
+          
+        }
+ 
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
