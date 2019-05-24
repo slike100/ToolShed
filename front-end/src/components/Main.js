@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import CheckoutForm from "./stripe";
-import {Elements, StripeProvider} from 'react-stripe-elements';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import { Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
+import Login from "./Login"
 
 import Navbar from "./Navbar";
 
@@ -9,21 +13,65 @@ import Navbar from "./Navbar";
 
 class Main extends React.Component {
 
-  render(){
+  render() {
     return (
-      <div>
-      <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
-        <div className="example">
-          <h1>React Stripe Elements Example</h1>
-          <Elements>
-            <CheckoutForm />
-          </Elements>
-        </div>
-      </StripeProvider>
-    
+
       <div>
         <Navbar />
-      </div>
+
+        <Switch>
+
+          <Route
+            // component={Home}
+            exact
+            path="/"
+          />
+
+          <Route
+            path="/login"
+            render={props => {
+              return <Login />;
+            }}
+          />
+
+          <Route
+            // component={SearchPage}
+            path="/search"
+          />
+
+          <Route
+            // component={ToolProfile}
+            path="/toolProfile"
+          />
+
+          <PrivateRoute
+            // component={UserProfile}
+            path="/userProfile"
+          // authed={props.user}
+          />
+
+          <PrivateRoute
+            // component={EditProfile}
+            path="/editProfile"
+          // authed={props.user}
+          />
+
+          <PrivateRoute
+            // component={ListTool}
+            path="/listTool"
+          // authed={props.user}
+          />
+
+        </Switch>
+
+        <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
+          <div className="example">
+            <h1>React Stripe Elements Example</h1>
+            <Elements>
+              <CheckoutForm />
+            </Elements>
+          </div>
+        </StripeProvider>
       </div>
     )
   }

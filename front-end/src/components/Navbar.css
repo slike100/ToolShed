@@ -1,0 +1,16 @@
+.loginBtn {
+  margin-top: 0.6em;
+}
+
+.loginBtn:hover {
+  background-image: url(../assets/img/btn_google_signin_dark_focus_web.png);
+}
+
+.loginBtn:active {
+  background-image: url(../assets/img/btn_google_signin_dark_pressed_web.png);
+}
+
+.siteLogo {
+  height: 4.2em;
+  margin-top: 0.1 em;
+}
