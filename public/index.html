@@ -45,13 +45,19 @@
 
         function uploadFile() {
           var file = document.getElementById('fileButton').files[0]
-          var storageRef = firebase.storage().ref('12345/' + file.name)
+          var randomId = math.floor(Math.random() * math.floor(1000))
+          var storageRef = firebase.storage().ref(randomId + file.name)
           storageRef.put(file).then(function(snapshot){
             console.log('file loaded', snapshot)
-          })
-          
-        }
- 
+            console.log(snapshot.metadata.fullPath)
+            storageRef.child(snapshot.metadata.fullPath).getDownloadURL().then(function(url){
+              console.log(url)
+            }) .catch(function(error){
+              console.log(error)
+            })
+          });
+         }
+    
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
