@@ -33,12 +33,17 @@ userController.delete('/deleteUser', (req, res) => {
   console.log('We are in the /deleteUser route!');
   console.log('this is the /deleteUser req.body: ', req.body);
   try {
-    db.collection('User').doc(req.body.id).delete()
+    db.collection('User').doc(req.body.uid).delete()
       .then(() => {
-        return res.status(200).send(`/deleteUser was successful! `);
+        for (let i = 0; i < req.body.toolsOwned.length; i++) {
+          await db.collection('Tools').doc(req.body.toolsOwned[i]).delete()
+            .then(() => {
+              return res.status(200).send('Sorry to see you go! You account has been successfully deleted');
+            })
+        }
       });
   } catch (err) {
-    return res.status(500).send(`/deleteUser encountered an error: `);
+    return res.status(500).send('Sorry, we were unable to delete your account. Please try again or contact support.');
   }
 });
 //END DELETE USER ENDPOINT//
