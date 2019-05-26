@@ -38,7 +38,11 @@ class Navbar extends React.Component {
       };
       change_state(objLocation); //Function to change the local state
     }, function(error){
-        alert(`message: ${error.message}`);
+        if (error.code == 1){
+          alert("Error: Access is denied!");
+        } else if (error.code == 2) {
+          alert("Error: Position is unavailable!");
+        }
     },options);
     // END GEOLOCATION GOOGLE MAP
 
