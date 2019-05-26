@@ -1,25 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import CheckoutForm from "./stripe";
-import { Elements, StripeProvider } from 'react-stripe-elements';
+import { Elements, StripeProvider } from "react-stripe-elements";
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 
 import Navbar from "./Navbar";
 
-import AddToolForm from "./AddToolForm"
-import CreateNewUserForm from "./CreateNewUserForm"
-
-
+import AddToolForm from "./AddToolForm";
+import CreateNewUserForm from "./CreateNewUserForm";
 
 class Main extends React.Component {
-
   render() {
     return (
-
       <div>
-        <Navbar />
+        {/* <Navbar />
 
         <Switch>
 
@@ -59,8 +55,7 @@ class Main extends React.Component {
 
         </Switch>
 
-        <CreateNewUserForm />
-
+        <CreateNewUserForm /> */}
 
         <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
           <div className="example">
@@ -71,9 +66,9 @@ class Main extends React.Component {
           </div>
         </StripeProvider>
 
-        <AddToolForm />
+        {/* <AddToolForm /> */}
       </div>
-    )
+    );
   }
 }
 

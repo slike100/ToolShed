@@ -1,26 +1,31 @@
 import React from "react";
-import { Component } from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
+import { Component } from "react";
+import { CardElement, injectStripe } from "react-stripe-elements";
 import { connect } from "react-redux"; // import connect from Redux
-import { payStripe } from '../redux/actions/userActions';
-
+import { payStripe, getRecordData } from "../redux/actions/userActions";
 
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
   }
 
-  submit = async (e) => {
-    let { token } = await this.props.stripe.createToken({name: "Name"});
+  submit = async e => {
+    let { token } = await this.props.stripe.createToken({ name: "Name" });
     console.log(token);
     this.props.payStripe(token.id);
-  }
+  };
+
+  yo = async e => {
+    e.preventDefault();
+    this.props.getRecordData(555);
+  };
 
   render() {
     return (
       <div className="checkout">
         <CardElement />
         <button onClick={this.submit}>Send</button>
+        <button onClick={this.yo}>2222</button>
       </div>
     );
   }
@@ -29,8 +34,9 @@ class CheckoutForm extends Component {
 const Stripe = injectStripe(CheckoutForm);
 
 const mapDispatchToProps = {
-  payStripe
-}
+  payStripe,
+  getRecordData
+};
 
 // function mapStateToProps(state){
 //   return {
@@ -40,5 +46,5 @@ const mapDispatchToProps = {
 
 export default connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Stripe);

@@ -86,31 +86,36 @@ toolRecordRentalController.get("/rentalRecord/:toolId", (req, res) => {
   console.log(req.params);
   try {
     var docRef = db.collection("RentalRecords");
-    docRef.where("toolId", "==", req.params.toolId).get().then(snapshot => {
+    docRef.where("toolId", "==", req.params.toolId).where("timeCheckedIn", "==", null).get().then(snapshot => {
       if (snapshot.empty) {
         console.log("There are no records matching this tool.");
         return res.status(500).send("There are no records matching this tool.");
       } else {
-        console.log("in the else");
-        docRef.where("timeCheckedIn", "==", null).get().then(snapshot1 => {
-          if (snapshot1.empty) {
-            console.log("There are no records matching this tool.");
-            return res.status(500).send("There are no records matching this tool.");
-          } else {
-            var records = [];
-            snapshot1.docs.forEach(doc => {
-              console.log(doc.id, "=> in second if", doc.data());
-              var data = doc.data();
-              records.push(data);
-            });
-            return res.status(200).send(records);
-          }
-        }).catch(err => {
-          console.log(err);
-          return res.status(400).send(err);
+        // console.log("in the else");
+        // snapshot
+        //   .where("timeCheckedIn", "==", null)
+        //   .get()
+        //   .then(snapshot1 => {
+        //     if (snapshot1.empty) {
+        //       console.log("There are no records matching this tool.");
+        //       return res
+        //         .status(500)
+        //         .send("There are no records matching this tool.");
+        //     } else {
+        var records = [];
+        snapshot.docs.forEach(doc => {
+          console.log(doc.id, "=> in second if", doc.data());
+          var data = doc.data();
+          records.push(data);
         });
+        return res.status(200).send(records);
       }
+    }).catch(err => {
+      console.log(err);
+      return res.status(400).send(err);
     });
+    // }
+    // });
   } catch (err) {
     return res.status(500).send(err);
   }

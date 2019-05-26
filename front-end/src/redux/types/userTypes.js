@@ -5,3 +5,4 @@ export const EDIT_USER = "EDIT_USER";
 export const GET_USER_DATA = "GET_USER_DATA";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
+export const GET_RENTAL_RECORD = "GET_RENTAL_RECORD";
