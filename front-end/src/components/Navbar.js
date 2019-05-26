@@ -31,12 +31,12 @@ class Navbar extends React.Component {
           maximumAge: 0
         };
     navigator.geolocation.getCurrentPosition(function(position) {
-      
       let objLocation = {
         lat: position.coords.latitude, // Latitude
         lng: position.coords.longitude // Longitude
       };
-      change_state(objLocation); //Function to change the local state
+      
+      change_state(objLocation); //Invoke Function to change the local state
     }, function(error){
         if (error.code == 1){
           alert("Error: Access is denied!");
