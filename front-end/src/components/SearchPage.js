@@ -12,6 +12,16 @@ class SearchPage extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.renderMap();
+  }
+
+  renderMap = () => {
+    const API_KEY = '';
+    loadScript(`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`)
+    window.initMap = this.initMap
+  }
+
   initMap = () => {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: 40.1672, lng: -105.1019 },
@@ -22,9 +32,6 @@ class SearchPage extends React.Component {
   }
 
   render() {
-
-
-
     return (
       <div id="map">
         <h1>SearchPage Activated!</h1>
