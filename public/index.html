@@ -45,8 +45,8 @@
 
         function uploadFile() {
           var file = document.getElementById('fileButton').files[0]
-          var randomId = math.floor(Math.random() * math.floor(1000))
-          var storageRef = firebase.storage().ref(randomId + file.name)
+          // var randomId = Math.floor(Math.random() * Math.floor(1000))
+          var storageRef = firebase.storage().ref("my file" + file.name)
           storageRef.put(file).then(function(snapshot){
             console.log('file loaded', snapshot)
             console.log(snapshot.metadata.fullPath)
