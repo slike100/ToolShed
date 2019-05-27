@@ -134,14 +134,14 @@ export function signUpUser(authObj) {
   console.log(authObj);
   return dispatch => {
     return axios
-      .post(`${userBaseUrl}newUser/`, authObj)
+      .put(`${userBaseUrl}updateUser/${authObj.uid}`, authObj)
       .then(res => {
         if (res.status === 200) {
           console.log("Response Data: ", res.data);
 
           const action = {
             type: SIGN_UP_USER,
-            payload: authObj
+            payload: res.data
           };
           dispatch(action);
         }
