@@ -12,12 +12,40 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lat: '',
-      lng: '',
+      lat: 0,
+      lng: 0,
     };
   }
 
   login = () => {
+    // GET LONGITUDE AND LATITUDE CURRENT LOCATION
+    const change_state = (objLocation) => {
+      this.setState({
+        lat: objLocation.lat,
+        lng: objLocation.lng
+      });
+    };
+    var options = {
+          enableHighAccuracy: true,
+          timeout: 5000, // wait time
+          maximumAge: 0
+        };
+    navigator.geolocation.getCurrentPosition(function(position) {
+      let objLocation = {
+        lat: position.coords.latitude, // Latitude
+        lng: position.coords.longitude // Longitude
+      };
+      
+      change_state(objLocation); //Invoke Function to change the local state
+    }, function(error){
+        if (error.code == 1){
+          alert("Error: Access is denied!");
+        } else if (error.code == 2) {
+          alert("Error: Position is unavailable!");
+        }
+    },options);
+    // END GEOLOCATION GOOGLE MAP
+
     firebaseAuth.signInWithPopup(provider).then(result => {
       const authObj = {
         uid: result.user.uid,

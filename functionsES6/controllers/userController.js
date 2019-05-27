@@ -22,6 +22,7 @@ userController.post("/newUser", (req, res) => {
         avatar: req.body.avatar,
         toolsOwned: [],
         toolsBeingRented: [],
+        recordIds: [],
         stripeToken: req.body.stripeToken || ""
       })
       .then(() => {

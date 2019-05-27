@@ -33,9 +33,7 @@ class SearchPage extends React.Component {
 
   render() {
     return (
-      <div id="map">
-        <h1>SearchPage Activated!</h1>
-      </div>
+      <div id="map"></div>
     );
   }
 }
