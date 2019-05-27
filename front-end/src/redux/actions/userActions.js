@@ -8,6 +8,7 @@ import {
   EDIT_USER,
   GET_USER_DATA,
   PAY_STRIPE,
+  SIGN_UP_USER,
   LOGIN_USER,
   LOGOUT_USER
 } from "../types/userTypes";
@@ -129,14 +130,70 @@ export function getUserData(id) {
   };
 }
 
+export function signUpUser(authObj) {
+  console.log(authObj);
+  return dispatch => {
+    return axios
+      .post(`${userBaseUrl}newUser/`, authObj)
+      .then(res => {
+        if (res.status === 200) {
+          console.log("Response Data: ", res.data);
+
+          const action = {
+            type: SIGN_UP_USER,
+            payload: authObj
+          };
+          dispatch(action);
+        }
+      })
+      .catch(err => {
+        console.log("Error adding new user: ", err);
+
+        const action = {
+          type: SIGN_UP_USER,
+          payload: []
+        };
+        dispatch(action);
+      });
+  };
+}
+// export function setLatLng(locObj) {
+//   console.log(locObj);
+//   const action = {
+//     type: SET_LAT_LNG,
+//     payload: locObj
+//   };
+//   return action;
+// }
+
 //LOGIN USER
 export function loginUser(authObj) {
   console.log(authObj);
-  const action = {
-    type: LOGIN_USER,
-    payload: authObj
+  return dispatch => {
+    return axios
+      .put(`${userBaseUrl}updateUser/${authObj.uid}`, authObj) // NOT SURE IF IT UID OR ID FOR THIS REQUEST.
+      .then(res => {
+        if (res.status === 200 && res.data) {
+          console.log("Updated DB and logged in user!");
+          console.log("Response Data: ", res.data);
+
+          const action = {
+            type: LOGIN_USER,
+            payload: res.data
+          };
+          dispatch(action);
+        }
+      })
+      .catch(err => {
+        console.log("Error logging in, user does not yet exist in DB: ", err);
+
+        const action = {
+          type: LOGIN_USER,
+          payload: []
+        };
+        dispatch(action);
+      });
   };
-  return action;
 }
 
 export function logoutUser() {
