@@ -21,7 +21,7 @@ toolRecordRentalController.post("/newRentalRecord", (req, res) => {
       rentalUserId: req.body.rentalUserId,
       toolId: req.body.toolId,
       rentalStartTime: timestamp,
-      timeCheckedIn: "",
+      timeCheckedIn: null,
       dueDate: dueDateMillis,
       pricePerDay: req.body.pricePerDay
     }
@@ -113,7 +113,7 @@ toolRecordRentalController.get("/rentalRecord/:toolId", (req, res) => {
         } else {
           console.log("in the else");
           docRef
-            .where("timeCheckedIn", "==", "")
+            .where("timeCheckedIn", "==", null)
             .get()
             .then(snapshot1 => {
               if (snapshot1.empty) {
@@ -122,11 +122,13 @@ toolRecordRentalController.get("/rentalRecord/:toolId", (req, res) => {
                   .status(500)
                   .send("There are no records matching this tool.");
               } else {
+                var records = [];
                 snapshot1.docs.forEach(doc => {
                   console.log(doc.id, "=> in second if", doc.data());
                   var data = doc.data();
-                  return res.status(200).send(data);
+                  records.push(data);
                 });
+                return res.status(200).send(records);
               }
             })
             .catch(err => {

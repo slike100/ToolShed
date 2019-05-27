@@ -24,6 +24,7 @@ userController.post("/newUser", (req, res) => {
       avatar: req.body.avatar,
       toolsOwned: [],
       toolsBeingRented: [],
+      recordIds: [],
       stripeToken: req.body.stripeToken || ""
     }).then(() => {
       return res.status(200).send("A new user was successfully created in the database.");
