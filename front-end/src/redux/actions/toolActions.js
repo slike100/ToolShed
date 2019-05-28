@@ -1,12 +1,14 @@
 import store from "../store";
 import axios from "axios";
-import { toolBaseUrl } from "../../utils/globalConstants";
+import { toolBaseUrl, userBaseUrl } from "../../utils/globalConstants";
 
 import {
   CREATE_TOOL,
   TOOL_DATA,
   DELETE_TOOL,
-  EDIT_TOOL
+  EDIT_TOOL,
+  TOOLS_OWNED,
+  TOOLS_RENTED
 } from "../types/toolTypes";
 
 //CREATE A NEW TOOL AXIOS REQUEST
@@ -51,7 +53,9 @@ export const getToolData = searchObj => {
     "Long: ",
     searchObj.long,
     "Name: ",
-    searchObj.name
+    searchObj.name,
+    "Distance: ",
+    searchObj.distance
   );
   return dispatch => {
     return axios
@@ -130,6 +134,60 @@ export const editTool = (toolId, toolObj) => {
         const action = {
           type: EDIT_TOOL
           //Is a payload necessary here?
+        };
+        return action;
+      });
+  };
+};
+
+//GET ALL TOOLS OWNED BY USER
+export const getToolsOwned = uid => {
+  return dispatch => {
+    return axios
+      .get(`${userBaseUrl}allToolsOwnedForOneUser/${uid}`)
+      .then(res => {
+        if (res.status === 200 && res.data) {
+          console.log(`Success, got all tools owned by user ${uid}`);
+          console.log(res.data);
+          const action = {
+            type: TOOLS_OWNED,
+            payload: res.data
+          };
+          dispatch(action);
+        }
+      })
+      .catch(err => {
+        console.log(`There was an error getting tools owned. Error: `, err);
+        const action = {
+          type: TOOLS_OWNED,
+          payload: []
+        };
+        return action;
+      });
+  };
+};
+
+//GET ALL TOOLS RENTED BY USER
+export const getToolsRented = uid => {
+  return dispatch => {
+    return axios
+      .get(`${userBaseUrl}allToolsRentedForOneUser/${uid}`)
+      .then(res => {
+        if (res.status === 200 && res.data) {
+          console.log(`Success, got all tools rented by user ${uid}`);
+          console.log(res.data);
+          const action = {
+            type: TOOLS_RENTED,
+            payload: res.data
+          };
+          dispatch(action);
+        }
+      })
+      .catch(err => {
+        console.log(`There was an error getting tools owned. Error: `, err);
+        const action = {
+          type: TOOLS_RENTED,
+          payload: []
         };
         return action;
       });

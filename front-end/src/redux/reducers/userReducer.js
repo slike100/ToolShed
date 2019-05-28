@@ -6,7 +6,9 @@ import {
   GET_USER_DATA,
   LOGIN_USER,
   LOGOUT_USER,
+  SIGN_UP_USER,
   GET_RENTAL_RECORD
+
 } from "../types/userTypes";
 
 const initialState = {
@@ -39,8 +41,12 @@ export default function userReducer(state = initialState, action) {
     case GET_USER_DATA:
       return { ...state, auth: payload, user: payload };
 
+    case SIGN_UP_USER:
+      console.log(payload);
+      return { ...state, user: payload };
+
     case LOGIN_USER:
-      return { ...state, auth: payload };
+      return { ...state, auth: payload, user: payload };
 
     case LOGOUT_USER:
       return { ...state, auth: null, user: null };
