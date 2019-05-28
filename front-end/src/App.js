@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
-import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 
 // import actions here if needed
@@ -12,7 +10,6 @@ class App extends React.Component {
     return (
       <div>
         <Main />
-        {/* <Navbar /> */}
       </div>
     );
   }
