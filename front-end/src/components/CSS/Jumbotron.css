@@ -1,0 +1,12 @@
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+.imagen {
+    background-image: url('../../assets/img/LandingPageImage.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: auto;
+}
