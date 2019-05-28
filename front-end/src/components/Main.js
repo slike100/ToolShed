@@ -6,6 +6,7 @@ import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Navbar from "./Navbar";
+import SearchPage from "./SearchPage";
 import AddToolForm from "./AddToolForm"
 import CreateNewUserForm from "./CreateNewUserForm"
 import UserProfilePage from "./UserProfilePage";
@@ -28,36 +29,41 @@ class Main extends React.Component {
           />
 
           <Route
-            // component={SearchPage}
+            component={SearchPage}
+            exact
             path="/search"
           />
 
           <Route
             // component={ToolProfile}
+            exact
             path="/toolProfile"
           />
 
           <PrivateRoute
             // component={UserProfile}
+            exact
             path="/userProfile"
           // authed={props.user}
           />
 
           <PrivateRoute
             // component={EditProfile}
+            exact
             path="/editProfile"
           // authed={props.user}
           />
 
           <PrivateRoute
             // component={ListTool}
+            exact
             path="/listTool"
           // authed={props.user}
           />
 
         </Switch>
 
-        <CreateNewUserForm />
+        {/* <CreateNewUserForm /> */}
 
         <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
           <div className="example">
@@ -66,7 +72,7 @@ class Main extends React.Component {
               <CheckoutForm />
             </Elements>
           </div>
-        </StripeProvider>
+        </StripeProvider> */}
 
         {/* <AddToolForm /> */}
       </div>
