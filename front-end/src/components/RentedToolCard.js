@@ -10,51 +10,67 @@ class RentedToolCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      records: []
     };
   }
 
-  getRentalRecord = () => {
+  getRentalRecord = async () => {
+    var _this = this;
+    var records = [];
+    console.log(this.props.tools);
     for (let i = 0; i < this.props.tools.length; i++) {
       console.log(this.props.tools[i]);
-    }
-    axios
-      .get(
+      var record = await axios.get(
         `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/rentalRecord/${
-          this.props.tools.toolId
+          this.props.tools[i].toolId
         }`
-      )
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      );
+      var user = await axios.get(
+        `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/userData/${
+          record.data[0].ownerId
+        }`
+      );
+    }
+    var recordIn = record.data[0];
+    recordIn.ownerEmail = user.data.email;
+    this.setState({
+      records: [...this.state.records, recordIn]
+    });
   };
 
   createToolRentingCards = () => {
-    this.getRentalRecord();
     console.log(this.props.tools);
-    return this.props.tools.map((tool, index) => {
-      return (
-        <div className="row1">
-          <div className="card toolCard">
-            <div className="card-image">
-              <img src={this.props.tools.photo} />
-            </div>
-            <div className="card-content">
-              <span className="card-title">{this.props.tools.name}</span>
-              {/* <p>I am a very simple card. I am good at containing small bits of information.</p> */}
-              <h6>DUE DATE</h6>
-            </div>
-            <div className="card-action return">
-              <h6>Contact Owner: test@test</h6>
+    if (this.state.records.length == 0) {
+      return <div>Loading...</div>;
+    } else {
+      console.log(this.state.records[0].dueDate);
+      var newDate = new Date(this.state.records[0].dueDate);
+      var newDateString = newDate.toString();
+      return this.props.tools.map((tool, index) => {
+        return (
+          <div className="row1">
+            <div className="card toolCard">
+              <div className="card-image">
+                <img src={this.props.tools.photo} />
+              </div>
+              <div className="card-content">
+                <span className="card-title">{this.props.tools.name}</span>
+                {/* <p>I am a very simple card. I am good at containing small bits of information.</p> */}
+                <h6>Due Date: {newDateString}</h6>
+              </div>
+              <div className="card-action return">
+                <h6>Owner Email: {this.state.records[0].ownerEmail}</h6>
+              </div>
             </div>
           </div>
-        </div>
-      );
-    });
+        );
+      });
+    }
   };
+
+  componentDidMount() {
+    this.getRentalRecord();
+  }
 
   render() {
     // grab and place google photo as profile button background-image

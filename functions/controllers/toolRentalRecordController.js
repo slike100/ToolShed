@@ -95,8 +95,8 @@ toolRecordRentalController.get("/rentalRecord/:toolId", (req, res) => {
         snapshot.docs.forEach(doc => {
           console.log(doc.id, "=> in second if", doc.data());
           var data = doc.data();
+          data.recordId = doc.id;
           records.push(data);
-          records.push(doc.id);
         });
         return res.status(200).send(records);
       }

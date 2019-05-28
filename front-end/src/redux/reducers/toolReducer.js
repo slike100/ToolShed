@@ -19,7 +19,7 @@ export default function toolReducer(state = initialState, action) {
 
   switch (type) {
     case CREATE_TOOL:
-      return { ...state, tools: payload };
+      return { ...state };
 
     case TOOL_DATA:
       return { ...state, tools: payload };
