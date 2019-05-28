@@ -38,8 +38,67 @@
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
-
+    <form>
+      <input type="file" value="upload" id="fileButton" onchange = "uploadFile()"/> 
+    </form>
     <script>
+
+
+///Example of how to post an image to google storage & get a downloadURl back
+
+
+    function uploadFile() {
+        var file = document.getElementById('fileButton').files[0];
+        var storageRef = firebase.storage().ref();
+        var uploadTask = storageRef.child('images/' + file.name).put(file);
+
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
+          function(snapshot){
+            switch (snapshot.state) {
+              case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+              case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+          }, function(error) {
+            switch (error.code) {
+              case 'storage/unauthorized':
+                console.log(`User doesn't have permission to access the object`)
+                break;
+
+              case 'storage/canceled':
+                console.log(`User canceled the upload`)
+                break;
+
+              case 'storage/unknown':
+                console.log(` Unknown error occurred, inspect error.serverResponse`)
+                break;
+            }
+            }, function() {
+              uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                console.log('File available at', downloadURL);
+                return(downloadURL)
+              });
+            })
+      };
+    
+
+     
+
+      
+
+
+       
+
+
+
+
+ 
+
+
+    
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!

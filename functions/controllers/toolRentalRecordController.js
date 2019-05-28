@@ -91,17 +91,6 @@ toolRecordRentalController.get("/rentalRecord/:toolId", (req, res) => {
         console.log("There are no records matching this tool.");
         return res.status(500).send("There are no records matching this tool.");
       } else {
-        // console.log("in the else");
-        // snapshot
-        //   .where("timeCheckedIn", "==", null)
-        //   .get()
-        //   .then(snapshot1 => {
-        //     if (snapshot1.empty) {
-        //       console.log("There are no records matching this tool.");
-        //       return res
-        //         .status(500)
-        //         .send("There are no records matching this tool.");
-        //     } else {
         var records = [];
         snapshot.docs.forEach(doc => {
           console.log(doc.id, "=> in second if", doc.data());
