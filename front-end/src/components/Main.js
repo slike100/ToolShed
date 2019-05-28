@@ -23,10 +23,6 @@ class Main extends React.Component {
       <div>
         <Navbar />
 
-        <AddToolForm />
-
-        <Checkout />
-        {/* <UserProfilePage /> */}
 
         <Switch>
 
@@ -66,9 +62,9 @@ class Main extends React.Component {
 
         </Switch>
 
-        {/* <CreateNewUserForm /> */}
+        {/* <Checkout /> */}
 
-        <AddToolForm />
+        {/* <AddToolForm /> */}
       </div>
     )
   }
