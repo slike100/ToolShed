@@ -106,7 +106,9 @@ toolController.get("/searchTools", (req, res) => {
           } else var matchingTools = [];
           snapshot1.docs.forEach(doc => {
             console.log(doc.id, "=>", doc.data());
-            matchingTools.push(doc.data());
+            var data = doc.data();
+            data.toolId = doc.id;
+            matchingTools.push(data);
           });
           return res.status(200).send(matchingTools);
         });
@@ -133,7 +135,9 @@ toolController.get("/searchTools", (req, res) => {
             } else var matchingTools = [];
             snapshot2.docs.forEach(doc => {
               console.log(doc.id, "=> in second if", doc.data());
-              matchingTools.push(doc.data());
+              var data = doc.data();
+              data.toolId = doc.id;
+              matchingTools.push(data);
             });
             return res.status(200).send(matchingTools);
           });

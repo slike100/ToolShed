@@ -2,7 +2,11 @@ import React from "react";
 import { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { connect } from "react-redux"; // import connect from Redux
-import { payStripe, getRecordData } from "../redux/actions/userActions";
+import {
+  payStripe,
+  getRecordData,
+  updateUser
+} from "../redux/actions/userActions";
 import { editTool } from "../redux/actions/toolActions";
 
 class CheckoutForm extends Component {
@@ -13,7 +17,10 @@ class CheckoutForm extends Component {
   submit = async e => {
     let { token } = await this.props.stripe.createToken({ name: "Name" });
     console.log(token);
-    this.props.payStripe(token.id);
+    this.props.updateUser({
+      uid: this.props.user.uid,
+      stripeToken: token.id
+    });
   };
 
   //this function simulataneously, gets the rental record, updates it to have the check in time, and then charges the stripe endpoint with the correct amount, as well as updates the tool in the database to say rented false.
@@ -40,16 +47,17 @@ const Stripe = injectStripe(CheckoutForm);
 const mapDispatchToProps = {
   payStripe,
   getRecordData,
-  editTool
+  editTool,
+  updateUser
 };
 
-// function mapStateToProps(state){
-//   return {
-//     stripeToken: state.stripeToken,
-//   }
-// }
+function mapStateToProps(state) {
+  return {
+    user: state.user.user
+  };
+}
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Stripe);

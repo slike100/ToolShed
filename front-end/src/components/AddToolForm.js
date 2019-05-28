@@ -2,7 +2,7 @@ import React from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
 import "./CSS/AddToolForm.css";
-import { createTool } from "../redux/actions/toolActions";
+import { createTool, getToolsOwned } from "../redux/actions/toolActions";
 import store from "../redux/store.js";
 const firebase = require("firebase");
 
@@ -79,22 +79,22 @@ class AddToolForm extends React.Component {
     );
   };
 
-  sendAction = () => {
+  sendAction = async () => {
     console.log(this.state.photoURL);
     let newToolObj = {
       name: document.getElementById("toolType").value,
       description: document.getElementById("description").value,
       isRented: false,
-      // uid: this.props.user.uid,
-      uid: "RRaBwQxL5QQ2uFPDHp3fUdThoYD2",
+      uid: this.props.user.uid,
       photo: this.state.photoURL,
       priceRatePerDay: parseInt(document.getElementById("rentalPrice").value),
       rentalDurationInDays: 0,
       lat: this.props.user.lat,
       long: this.props.user.long,
-      toolsOwned: ["ricxT0EfvoCDuzBF7YyE", "bTBfLNpVlxt9XmYQnPlK"]
+      toolsOwned: this.props.user.toolsOwned
     };
-    this.props.createTool(newToolObj);
+    await this.props.createTool(newToolObj);
+    await this.props.getToolsOwned(this.props.user.uid);
   };
 
   render() {
@@ -171,7 +171,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  createTool
+  createTool,
+  getToolsOwned
 };
 
 export default connect(
