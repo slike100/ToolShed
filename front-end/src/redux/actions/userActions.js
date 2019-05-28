@@ -9,7 +9,8 @@ import {
   GET_USER_DATA,
   PAY_STRIPE,
   LOGIN_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  GET_RENTAL_RECORD
 } from "../types/userTypes";
 
 // AXIOS ADD NEW USERS//
@@ -162,5 +163,34 @@ export const payStripe = tokenCard => {
         dispatch(action);
       })
       .catch(err => console.log(err));
+  };
+};
+
+export const getRecordData = toolId => {
+  return dispatch => {
+    return axios
+      .get(
+        `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/rentalRecord/${toolId}`
+      )
+      .then(res => {
+        if (res.status == 200 && res.data) {
+          return axios
+            .put(
+              `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/updateToolRentalRecord/${
+                res.data[1]
+              }`
+            )
+            .then(res => {
+              console.log(res);
+              console.log(res.data);
+              const action = {
+                type: GET_RENTAL_RECORD,
+                payload: res.data[0]
+              };
+              dispatch(action);
+            })
+            .catch(err => console.log(err));
+        }
+      });
   };
 };

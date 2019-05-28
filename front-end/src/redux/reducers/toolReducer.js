@@ -6,7 +6,9 @@ import {
 } from "../types/toolTypes";
 
 const initialState = {
-  tools: []
+  toolsSearched: [],
+  toolsOwned: [],
+  toolsRenting: []
   //Not sure what else needs to be set in initial state
 };
 
@@ -24,7 +26,7 @@ export default function toolReducer(state = initialState, action) {
       return { ...state, tools: payload };
 
     case EDIT_TOOL:
-      return { ...state, tools: payload };
+      return { ...state, toolsOwned: payload };
 
     default:
       return state;
