@@ -15,6 +15,9 @@ class RentedToolCard extends React.Component {
   }
 
   getRentalRecord = async () => {
+    if (this.props.tools.length === 0) {
+      return;
+    }
     var _this = this;
     var records = [];
     console.log(this.props.tools);
@@ -41,7 +44,7 @@ class RentedToolCard extends React.Component {
   createToolRentingCards = () => {
     console.log(this.props.tools);
     if (this.state.records.length == 0) {
-      return <div>Loading...</div>;
+      return <div>You are not currently renting any tools</div>;
     } else {
       console.log(this.state.records[0].dueDate);
       var newDate = new Date(this.state.records[0].dueDate);
