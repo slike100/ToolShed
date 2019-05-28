@@ -110,7 +110,7 @@ export const deleteTool = toolId => {
 export const editTool = (toolId, toolObj) => {
   return dispatch => {
     return axios
-      .put(`${toolBaseUrl}/updateTool${toolId}`, toolObj)
+      .put(`${toolBaseUrl}updateTool/${toolId}`, toolObj)
       .then(res => {
         if (res.status === 200) {
           console.log(`Successfully edited your ${toolObj.name}!`);
