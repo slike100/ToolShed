@@ -36,18 +36,14 @@ class UserProfilePage extends React.Component {
     return (
       <div className="body">
         <div className="row profileScroll">
-          {/* <div className="col s12 manage">
-            Manage Your Shed
-          </div> */}
-
 
           <div className="col s4">
             <div class="col s12">
               <div className="user1">
                 <img className="circle responsive-img userImg z-depth-3" src="https://images.unsplash.com/photo-1537815749002-de6a533c64db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="" />
               </div>
-              <span>USER NAME</span>
-              <span>USER EMAIL</span>
+              <h5>USER NAME</h5>
+              <h6>USER EMAIL</h6>
               <button className="btn-small waves-effect #e53935 red darken-1 deleteUser" type="submit" name="action">Delete Account</button>
             </div>
 
@@ -59,11 +55,9 @@ class UserProfilePage extends React.Component {
 
             <UserToolCard />
             <UserToolCard />
-            <UserToolCard />
           </div>
           <div className="col s4 toolsRenting">
             Tools Rented
-            <RentedToolCard />
             <RentedToolCard />
             <RentedToolCard />
           </div>
