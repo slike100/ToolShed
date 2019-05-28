@@ -86,12 +86,13 @@ class AddToolForm extends React.Component {
       description: document.getElementById("description").value,
       isRented: false,
       // uid: this.props.user.uid,
+      uid: "RRaBwQxL5QQ2uFPDHp3fUdThoYD2",
       photo: this.state.photoURL,
       priceRatePerDay: parseInt(document.getElementById("rentalPrice").value),
       rentalDurationInDays: 0,
       lat: this.props.user.lat,
       long: this.props.user.long,
-      toolsOwned: this.props.user.toolsOwned
+      toolsOwned: ["ricxT0EfvoCDuzBF7YyE", "bTBfLNpVlxt9XmYQnPlK"]
     };
     this.props.createTool(newToolObj);
   };
