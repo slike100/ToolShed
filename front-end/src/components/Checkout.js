@@ -45,14 +45,14 @@ class Checkout extends React.Component {
               <form className="borderRadius" >
                 <h3>Details</h3>
 
-                <label for="toolModel">Location</label>
+                <label for="toolModel">Pick-up Location:</label>
                 <h5>Denver, CO</h5>
 
-                <label for="toolModel">Rental Duration</label>
+                <label for="toolModel">Rental Duration:</label>
                 <h5>3 Days</h5>
 
 
-                <label for="toolModel">Total</label>
+                <label for="toolModel">Total:</label>
                 <h5>$45</h5>
 
 

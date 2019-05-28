@@ -22,7 +22,12 @@ class CheckoutForm extends Component {
     return (
       <div className="checkout">
 
-        <CardElement />
+        <CardElement style={{
+          base: {
+            fontSize: '20px',
+            border: '2px solid red'
+          }
+        }} />
         <button className="submitBtn" onClick={this.submit}>BOOK NOW</button>
       </div>
     );
