@@ -14,26 +14,25 @@ class UserToolCard extends React.Component {
   }
 
   createToolOwnedCards = () => {
+    console.log(this.props.tools);
     return this.props.tools.map((tool, index) => {
       return (
-        <div>
+        <div className="row1">
           <div className="card toolCard">
             <div className="card-image">
-              <img src="https://images.unsplash.com/photo-1513467655676-561b7d489a88?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" />
+              <img src={tool.photo} />
             </div>
             <div className="card-content">
-              <span className="card-title">Tool Name</span>
-              <p>
-                I am a very simple card. I am good at containing small bits of
-                information.
-              </p>
-              <h6>$$/DAY</h6>
+              <span className="card-title">{tool.name}</span>
+              <p>{tool.description}</p>
+              <h6>{tool.priceRatePerDay}</h6>
             </div>
             <div className="card-action">
               <button
                 className="btn-small waves-effect waves-light"
                 type="submit"
                 name="action"
+                data-id={tool.toolId}
               >
                 Edit Tool
               </button>
@@ -41,6 +40,7 @@ class UserToolCard extends React.Component {
                 className="btn-small waves-effect #e53935 red darken-1"
                 type="submit"
                 name="action"
+                data-id={tool.toolId}
               >
                 Delete
               </button>
@@ -53,12 +53,11 @@ class UserToolCard extends React.Component {
 
   render() {
     // grab and place google photo as profile button background-image
-
     var profilePhoto = "none";
     if (this.props.auth) {
       profilePhoto = `url(${this.props.auth.photoURL})`;
     }
-    return <div className="row1">{this.createToolOwnedCards()}</div>;
+    return <div>{this.createToolOwnedCards()}</div>;
   }
 }
 

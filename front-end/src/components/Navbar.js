@@ -4,7 +4,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import loginButton from "../assets/img/btn_google_signin_dark_normal_web.png";
 import logo from "../assets/img/logo.png";
-import "./CSS/Navbar.css"
+import "./CSS/Navbar.css";
 import { connect } from "react-redux";
 import { logoutUser, updateUser } from "../redux/actions/userActions";
 import { getToolsOwned } from "../redux/actions/toolActions";
