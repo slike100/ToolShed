@@ -18,7 +18,6 @@ class RentedToolCard extends React.Component {
     for (let i = 0; i < this.props.tools.length; i++) {
       console.log(this.props.tools[i]);
     }
-    this.props.tools;
     axios
       .get(
         `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/rentalRecord/${
@@ -34,6 +33,7 @@ class RentedToolCard extends React.Component {
   };
 
   createToolRentingCards = () => {
+    this.getRentalRecord();
     console.log(this.props.tools);
     return this.props.tools.map((tool, index) => {
       return (
