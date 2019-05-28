@@ -18,7 +18,7 @@ class CheckoutForm extends Component {
     let { token } = await this.props.stripe.createToken({ name: "Name" });
     console.log(token);
     this.props.updateUser({
-      uid: this.props.uid,
+      uid: this.props.user.uid,
       stripeToken: token.id
     });
   };
@@ -53,7 +53,7 @@ const mapDispatchToProps = {
 
 function mapStateToProps(state) {
   return {
-    // uid: state.user.user.uid
+    user: state.user.user
   };
 }
 

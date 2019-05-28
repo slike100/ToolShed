@@ -6,10 +6,9 @@ import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Navbar from "./Navbar";
-import AddToolForm from "./AddToolForm"
-import CreateNewUserForm from "./CreateNewUserForm"
+import AddToolForm from "./AddToolForm";
+import CreateNewUserForm from "./CreateNewUserForm";
 import UserProfilePage from "./UserProfilePage";
-
 
 class Main extends React.Component {
   render() {
@@ -17,10 +16,9 @@ class Main extends React.Component {
       <div>
         <Navbar />
 
-        {/* <UserProfilePage /> */}
+        <UserProfilePage />
 
         <Switch>
-
           <Route
             // component={Home}
             exact
@@ -40,21 +38,20 @@ class Main extends React.Component {
           <PrivateRoute
             // component={UserProfile}
             path="/userProfile"
-          // authed={props.user}
+            // authed={props.user}
           />
 
           <PrivateRoute
             // component={EditProfile}
             path="/editProfile"
-          // authed={props.user}
+            // authed={props.user}
           />
 
           <PrivateRoute
             // component={ListTool}
             path="/listTool"
-          // authed={props.user}
+            // authed={props.user}
           />
-
         </Switch>
 
         <CreateNewUserForm />
