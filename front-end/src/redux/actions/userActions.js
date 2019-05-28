@@ -8,24 +8,26 @@ import {
   EDIT_USER,
   GET_USER_DATA,
   PAY_STRIPE,
+  SIGN_UP_USER,
   LOGIN_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  GET_RENTAL_RECORD
 } from "../types/userTypes";
 
-// AXIOS ADD NEW USERS//
+// AXIOS ADD NEW USERS
 export function addNewUser(userObj) {
-  console.log(userObj);
+  // console.log(userObj);
 
   return dispatch => {
     return axios
-      .post(`${userBaseUrl}/newUser/`, userObj)
+      .post(`${userBaseUrl}newUser/`, userObj)
       .then(res => {
-        if (res.status === 200 && res.data === "successfully added new user") {
+        if (res.status === 200) {
           console.log("Response Data: ", res.data);
 
           const action = {
             type: NEW_USER,
-            payload: res.data
+            payload: userObj
           };
           dispatch(action);
         }
@@ -70,18 +72,13 @@ export function deleteUser(userId) {
   };
 }
 
-// AXIOS EDIT USERS
-export function UpdateUser(userObj) {
-  console.log(userObj);
-
+// AXIOS EDIT USERS, this also creates users on sign-up
+export function updateUser(userObj) {
   return dispatch => {
     return axios
-      .put(`${userBaseUrl}/UpdateUser/${userObj.uid}`, userObj) // NOT SURE IF IT UID OR ID FOR THIS REQUEST.
+      .put(`${userBaseUrl}updateUser/${userObj.uid}`, userObj)
       .then(res => {
         if (res.status === 200 && res.data) {
-          console.log("successfully updated user!");
-          console.log("Response Data: ", res.data);
-
           const action = {
             type: EDIT_USER,
             payload: res.data
@@ -91,7 +88,6 @@ export function UpdateUser(userObj) {
       })
       .catch(err => {
         console.log("Error adding new user: ", err);
-
         const action = {
           type: EDIT_USER,
           payload: []
@@ -129,16 +125,6 @@ export function getUserData(id) {
   };
 }
 
-//LOGIN USER
-export function loginUser(authObj) {
-  console.log(authObj);
-  const action = {
-    type: LOGIN_USER,
-    payload: authObj
-  };
-  return action;
-}
-
 export function logoutUser() {
   const action = {
     type: LOGOUT_USER
@@ -162,5 +148,34 @@ export const payStripe = tokenCard => {
         dispatch(action);
       })
       .catch(err => console.log(err));
+  };
+};
+
+export const getRecordData = toolId => {
+  return dispatch => {
+    return axios
+      .get(
+        `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/rentalRecord/${toolId}`
+      )
+      .then(res => {
+        if (res.status == 200 && res.data) {
+          return axios
+            .put(
+              `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/updateToolRentalRecord/${
+                res.data[1]
+              }`
+            )
+            .then(res => {
+              console.log(res);
+              console.log(res.data);
+              const action = {
+                type: GET_RENTAL_RECORD,
+                payload: res.data[0]
+              };
+              dispatch(action);
+            })
+            .catch(err => console.log(err));
+        }
+      });
   };
 };

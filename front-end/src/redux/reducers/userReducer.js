@@ -5,13 +5,16 @@ import {
   EDIT_USER,
   GET_USER_DATA,
   LOGIN_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  SIGN_UP_USER,
+  GET_RENTAL_RECORD
 } from "../types/userTypes";
 
 const initialState = {
   auth: null,
   user: null,
-  stripeToken: ""
+  stripeToken: "",
+  rentalRecord: {}
 };
 
 export default function userReducer(state = initialState, action) {
@@ -37,11 +40,18 @@ export default function userReducer(state = initialState, action) {
     case GET_USER_DATA:
       return { ...state, auth: payload, user: payload };
 
+    case SIGN_UP_USER:
+      console.log(payload);
+      return { ...state, user: payload };
+
     case LOGIN_USER:
-      return { ...state, auth: payload };
+      return { ...state, auth: payload, user: payload };
 
     case LOGOUT_USER:
       return { ...state, auth: null, user: null };
+
+    case GET_RENTAL_RECORD:
+      return { ...state, rentalRecord: payload };
 
     default:
       return state;

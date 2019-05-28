@@ -6,6 +6,9 @@ const stripeController = require("./controllers/stripeController");
 const toolRentalRecordController = require("./controllers/toolRentalRecordController");
 const { db } = require("./app");
 const sendEmail = require("./nodeMailer/nodeMailer");
+import * as Storage from '@google-cloud/storage';
+
+
 
 exports.tool = functions.https.onRequest((req, res) => {
   return toolController(req, res);
@@ -205,3 +208,4 @@ async function sendEmailToUser(arr) {
     }
   }
 }
+

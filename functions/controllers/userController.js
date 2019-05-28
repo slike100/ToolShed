@@ -119,7 +119,9 @@ userController.get("/allToolsOwnedForOneUser/:uid", (req, res) => {
               if (!toolDoc.exists) {
                 console.log("No tool found");
               } else {
+                console.log("toolDoc ID:", toolDoc.id);
                 var data = toolDoc.data();
+                data.toolId = toolDoc.id;
                 userTools.push(data);
               }
             });
@@ -165,7 +167,9 @@ userController.get("/allToolsRentedForOneUser/:uid", (req, res) => {
               if (!toolDoc.exists) {
                 console.log("No user found");
               } else {
+                console.log("toolDoc ID:", toolDoc.id);
                 var data = toolDoc.data();
+                data.toolId = toolDoc.id;
                 userTools.push(data);
               }
             });
