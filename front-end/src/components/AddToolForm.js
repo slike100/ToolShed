@@ -2,6 +2,8 @@ import React from "react";
 import { Component } from 'react';
 import { connect } from "react-redux";
 import './CSS/AddToolForm.css';
+import{ createTool } from "../redux/actions/toolActions";
+import store from "../redux/store";
 
 
 
@@ -11,6 +13,52 @@ class AddToolForm extends React.Component {
     this.state = {
       user: null,
     };
+  }
+
+
+
+  uploadPhoto = () => {
+    const s = store.getState()
+    console.log(s.uid)
+    var file = document.getElementById('fileButton').files[0];
+    var storageRef = firebase.storage().ref();
+    var uploadTask = storageRef.child(s.uid + file.name).put(file);
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
+      function(snapshot){
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log('Upload is paused');
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log('Upload is running');
+            break;
+        }
+      }, function(error) {
+        switch (error.code) {
+          case 'storage/unauthorized':
+            console.log(`You do not have permission to upload this photo.`)
+            break;
+
+          case 'storage/canceled':
+            console.log(`Your photo upload has been cancelled.`)
+            break;
+
+          case 'storage/unknown':
+            console.log(`An unknown error occurred when trying to upload the photo.`)
+            break;
+        }
+        }, function() {
+          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log('File available at', downloadURL);
+            return(downloadURL)
+          });
+        }) ; 
+  }
+
+  //need to add an async function that calls the upload photo function and then scrapes over the form fields to pick up values from the form and add them to a tool object that will be passed to this.props.createTool
+  //toolObj = {
+
   }
 
   render() {
@@ -25,7 +73,8 @@ class AddToolForm extends React.Component {
                 <i className="far fa-images fa-4x"></i>
               </div>
               <div className="button">
-                <button type="button" name="button">Add Photos</button>
+                {/* <button type="button" name="button">Add Photos</button> */}
+                <input type="file" value="upload" id="fileButton"/> 
               </div>
             </div>
           </section>
@@ -67,4 +116,17 @@ class AddToolForm extends React.Component {
 
 }
 
-export default AddToolForm;
+function mapStateToProps(state) {
+  return {
+   
+  };
+}
+
+const mapDispatchToProps = {
+  createTools
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddToolForm);
