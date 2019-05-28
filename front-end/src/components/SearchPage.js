@@ -2,7 +2,6 @@ import React from "react";
 import "./CSS/SearchPage.css"
 
 
-
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
@@ -10,10 +9,6 @@ class SearchPage extends React.Component {
       lat: '',
       lng: '',
     };
-  }
-
-  componentDidMount() {
-    this.renderMap();
   }
 
   renderMap = () => {
@@ -28,7 +23,10 @@ class SearchPage extends React.Component {
       zoom: 13,
       mapTypeControl: false
     });
+  }
 
+  componentDidMount() {
+    this.renderMap();
   }
 
   render() {
@@ -48,12 +46,3 @@ function loadScript(url) {
 }
 
 export default SearchPage;
-
-
-
-
-
-
-
-
-
