@@ -44,7 +44,7 @@ export const getToolData = searchObj => {
   //let s = store.getState();
   console.log(
     "Lat: ",
-    searchOb.lat,
+    searchObj.lat,
     "Long: ",
     searchObj.long,
     "Name: ",
@@ -110,7 +110,7 @@ export const deleteTool = toolId => {
 export const editTool = (toolId, toolObj) => {
   return dispatch => {
     return axios
-      .put(`${toolBaseUrl}/updateTool${toolId}`, toolObj)
+      .put(`${toolBaseUrl}updateTool/${toolId}`, toolObj)
       .then(res => {
         if (res.status === 200) {
           console.log(`Successfully edited your ${toolObj.name}!`);
