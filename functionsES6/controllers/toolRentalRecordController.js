@@ -128,6 +128,7 @@ toolRecordRentalController.get("/rentalRecord/:toolId", (req, res) => {
             console.log(doc.id, "=> in second if", doc.data());
             var data = doc.data();
             records.push(data);
+            records.push(doc.id);
           });
           return res.status(200).send(records);
         }
