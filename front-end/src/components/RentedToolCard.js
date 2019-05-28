@@ -69,7 +69,11 @@ class RentedToolCard extends React.Component {
   };
 
   componentDidMount() {
-    this.getRentalRecord();
+    if (this.props.tools) {
+      this.getRentalRecord();
+    } else {
+      return;
+    }
   }
 
   render() {
