@@ -22,7 +22,7 @@ class Main extends React.Component {
       <div>
         <Navbar />
 
-        <UserProfilePage />
+        {/* <UserProfilePage /> */}
 
         <Switch>
 
