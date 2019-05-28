@@ -1,3 +1,27 @@
+/* -- global colors --
+  #3C493F;
+  #7E8D85;
+  #B3BFB8;
+  #F0F7F4;
+  #A2E3C4; */
+
 #map {
-  height: 92.2vh; /* 92.2vh to account for navbar height - glitchy */
+  height: 93.3vh; /* 92.2vh to account for navbar height - glitchy */
+  width: 100vw;
+}
+
+#sidebar {
+  width: 18em;
+  left: 0;
+  height: 100vh;
+  position: fixed;
+  z-index: 100;
+  background-color: #F0F7F4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#search-form {
+  width: 90%;
 }

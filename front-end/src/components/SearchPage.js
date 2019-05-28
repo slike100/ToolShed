@@ -1,5 +1,7 @@
 import React from "react";
-import "./CSS/SearchPage.css"
+import "./CSS/SearchPage.css";
+import Sidebar from "./Sidebar.js";
+import Map from "./Map.js";
 
 
 class SearchPage extends React.Component {
@@ -31,7 +33,11 @@ class SearchPage extends React.Component {
 
   render() {
     return (
-      <div id="map"></div>
+      <div id="search-page">
+
+        <Sidebar />
+        <Map />
+      </div>
     );
   }
 }

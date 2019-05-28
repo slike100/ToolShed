@@ -65,7 +65,7 @@ class Main extends React.Component {
 
         {/* <CreateNewUserForm /> */}
 
-        <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
+        {/* <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
           <div className="example">
             <h1>React Stripe Elements Example</h1>
             <Elements>
