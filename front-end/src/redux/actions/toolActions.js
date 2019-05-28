@@ -44,7 +44,7 @@ export const getToolData = searchObj => {
   //let s = store.getState();
   console.log(
     "Lat: ",
-    searchOb.lat,
+    searchObj.lat,
     "Long: ",
     searchObj.long,
     "Name: ",

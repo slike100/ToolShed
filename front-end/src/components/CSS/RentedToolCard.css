@@ -1,0 +1,17 @@
+.toolCard {
+  width: 80%;
+}
+
+.return {
+  width: 100%;
+  
+}
+
+.card-action {
+  display: flex;
+  justify-content: space-between
+}
+.row1 {
+  display: flex;
+  justify-content: center;
+}

@@ -10,6 +10,7 @@ import Navbar from "./Navbar";
 
 import AddToolForm from "./AddToolForm"
 import CreateNewUserForm from "./CreateNewUserForm"
+import UserProfilePage from "./UserProfilePage";
 
 
 
@@ -21,6 +22,8 @@ class Main extends React.Component {
       <div>
         <Navbar />
         <AddToolForm />
+
+        {/* <UserProfilePage /> */}
 
         <Switch>
 

@@ -3,7 +3,8 @@ import { Component } from 'react';
 import { connect } from "react-redux";
 import './CSS/AddToolForm.css';
 import{ createTool } from "../redux/actions/toolActions";
-import store from "../redux/store";
+import store from "../redux/store.js"
+const firebase = require('firebase');
 
 
 
@@ -15,14 +16,12 @@ class AddToolForm extends React.Component {
     };
   }
 
-
-
   uploadPhoto = () => {
     const s = store.getState()
     console.log(s.uid)
     var file = document.getElementById('fileButton').files[0];
     var storageRef = firebase.storage().ref();
-    var uploadTask = storageRef.child(s.uid + file.name).put(file);
+    var uploadTask = storageRef.child('/images' + file.name).put(file);
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
       function(snapshot){
@@ -53,13 +52,13 @@ class AddToolForm extends React.Component {
             console.log('File available at', downloadURL);
             return(downloadURL)
           });
-        }) ; 
-  }
+        }); 
+  };
 
   //need to add an async function that calls the upload photo function and then scrapes over the form fields to pick up values from the form and add them to a tool object that will be passed to this.props.createTool
   //toolObj = {
 
-  }
+
 
   render() {
     return (
@@ -73,11 +72,11 @@ class AddToolForm extends React.Component {
                 <i className="far fa-images fa-4x"></i>
               </div>
               <div className="button">
-                {/* <button type="button" name="button">Add Photos</button> */}
-                <input type="file" value="upload" id="fileButton"/> 
+                <input type="file" id="fileButton"/> 
               </div>
             </div>
           </section>
+
 
           <div className="toolInfo grid2">
             <form className="borderRadius">
@@ -112,18 +111,16 @@ class AddToolForm extends React.Component {
       </div>
     )
   }
-
-
 }
 
 function mapStateToProps(state) {
   return {
-   
+    // uid : this.state.user.user.uid
   };
 }
 
 const mapDispatchToProps = {
-  createTools
+  createTool
 };
 
 export default connect(
