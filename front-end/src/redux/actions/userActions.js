@@ -8,12 +8,13 @@ import {
   EDIT_USER,
   GET_USER_DATA,
   PAY_STRIPE,
+  SIGN_UP_USER,
   LOGIN_USER,
   LOGOUT_USER,
   GET_RENTAL_RECORD
 } from "../types/userTypes";
 
-// AXIOS ADD NEW USERS//
+// AXIOS ADD NEW USERS
 export function addNewUser(userObj) {
   console.log(userObj);
 
@@ -71,18 +72,13 @@ export function deleteUser(userId) {
   };
 }
 
-// AXIOS EDIT USERS
+// AXIOS EDIT USERS, this also creates users on sign-up
 export function updateUser(userObj) {
-  console.log(userObj);
-
   return dispatch => {
     return axios
-      .put(`${userBaseUrl}UpdateUser/${userObj.uid}`, userObj) // NOT SURE IF IT UID OR ID FOR THIS REQUEST.
+      .put(`${userBaseUrl}updateUser/${userObj.uid}`, userObj)
       .then(res => {
         if (res.status === 200 && res.data) {
-          console.log("successfully updated user!");
-          console.log("Response Data: ", res.data);
-
           const action = {
             type: EDIT_USER,
             payload: res.data
@@ -92,7 +88,6 @@ export function updateUser(userObj) {
       })
       .catch(err => {
         console.log("Error adding new user: ", err);
-
         const action = {
           type: EDIT_USER,
           payload: []
@@ -128,16 +123,6 @@ export function getUserData(id) {
         dispatch(action);
       });
   };
-}
-
-//LOGIN USER
-export function loginUser(authObj) {
-  console.log(authObj);
-  const action = {
-    type: LOGIN_USER,
-    payload: authObj
-  };
-  return action;
 }
 
 export function logoutUser() {
