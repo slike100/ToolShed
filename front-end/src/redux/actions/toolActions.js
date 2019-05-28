@@ -7,7 +7,8 @@ import {
   TOOL_DATA,
   DELETE_TOOL,
   EDIT_TOOL,
-  TOOLS_OWNED
+  TOOLS_OWNED,
+  TOOLS_RENTED
 } from "../types/toolTypes";
 
 //CREATE A NEW TOOL AXIOS REQUEST
@@ -156,6 +157,33 @@ export const getToolsOwned = uid => {
         console.log(`There was an error getting tools owned. Error: `, err);
         const action = {
           type: TOOLS_OWNED,
+          payload: []
+        };
+        return action;
+      });
+  };
+};
+
+//GET ALL TOOLS RENTED BY USER
+export const getToolsRented = uid => {
+  return dispatch => {
+    return axios
+      .get(`${userBaseUrl}allToolsRentedForOneUser/${uid}`)
+      .then(res => {
+        if (res.status === 200 && res.data) {
+          console.log(`Success, got all tools rented by user ${uid}`);
+          console.log(res.data);
+          const action = {
+            type: TOOLS_RENTED,
+            payload: res.data
+          };
+          dispatch(action);
+        }
+      })
+      .catch(err => {
+        console.log(`There was an error getting tools owned. Error: `, err);
+        const action = {
+          type: TOOLS_RENTED,
           payload: []
         };
         return action;
