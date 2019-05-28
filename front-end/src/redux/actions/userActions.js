@@ -72,12 +72,12 @@ export function deleteUser(userId) {
 }
 
 // AXIOS EDIT USERS
-export function UpdateUser(userObj) {
+export function updateUser(userObj) {
   console.log(userObj);
 
   return dispatch => {
     return axios
-      .put(`${userBaseUrl}/UpdateUser/${userObj.uid}`, userObj) // NOT SURE IF IT UID OR ID FOR THIS REQUEST.
+      .put(`${userBaseUrl}UpdateUser/${userObj.uid}`, userObj) // NOT SURE IF IT UID OR ID FOR THIS REQUEST.
       .then(res => {
         if (res.status === 200 && res.data) {
           console.log("successfully updated user!");

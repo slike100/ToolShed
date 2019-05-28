@@ -3,16 +3,15 @@ import "materialize-css/dist/css/materialize.min.css";
 import React from "react";
 import { connect } from "react-redux";
 
-import './CSS/UserToolCard.css';
+import "./CSS/UserToolCard.css";
 
 class UserToolCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      user: null
     };
   }
-
 
   render() {
     // grab and place google photo as profile button background-image
@@ -22,7 +21,6 @@ class UserToolCard extends React.Component {
     }
     return (
       <div className="row1">
-
         {/* <div className="col s12 m7"> */}
         <div className="card toolCard">
           <div className="card-image">
@@ -30,19 +28,44 @@ class UserToolCard extends React.Component {
           </div>
           <div className="card-content">
             <span className="card-title">Tool Name</span>
-            <p>I am a very simple card. I am good at containing small bits of information.</p>
-            <h6 >$$/DAY</h6>
+            <p>
+              I am a very simple card. I am good at containing small bits of
+              information.
+            </p>
+            <h6>$$/DAY</h6>
           </div>
           <div className="card-action">
-            <button className="btn-small waves-effect waves-light" type="submit" name="action">Edit Tool</button>
-            <button className="btn-small waves-effect #e53935 red darken-1" type="submit" name="action">Delete</button>
+            <button
+              className="btn-small waves-effect waves-light"
+              type="submit"
+              name="action"
+            >
+              Edit Tool
+            </button>
+            <button
+              className="btn-small waves-effect #e53935 red darken-1"
+              type="submit"
+              name="action"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
       // </div>
-    )
+    );
   }
-
 }
 
-export default UserToolCard;
+const mapDispatchToProps = {};
+
+function mapStateToProps(state) {
+  return {
+    tools: state.tools.toolsOwned
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserToolCard);
