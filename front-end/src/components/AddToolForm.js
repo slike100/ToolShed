@@ -25,10 +25,12 @@ class AddToolForm extends React.Component {
                 <i className="far fa-images fa-4x"></i>
               </div>
               <div className="button">
-                <button type="button" name="button">Add Photos</button>
+
+                <button type="button" name="button">Add Photo</button>
               </div>
             </div>
           </section>
+
 
           <div className="toolInfo grid2">
             <form className="borderRadius">
