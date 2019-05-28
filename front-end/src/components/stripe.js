@@ -3,6 +3,8 @@ import { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { connect } from "react-redux"; // import connect from Redux
 import { payStripe } from '../redux/actions/userActions';
+import './CSS/stripe.css';
+
 
 
 class CheckoutForm extends Component {
@@ -11,7 +13,7 @@ class CheckoutForm extends Component {
   }
 
   submit = async (e) => {
-    let { token } = await this.props.stripe.createToken({name: "Name"});
+    let { token } = await this.props.stripe.createToken({ name: "Name" });
     console.log(token);
     this.props.payStripe(token.id);
   }
@@ -19,8 +21,9 @@ class CheckoutForm extends Component {
   render() {
     return (
       <div className="checkout">
+
         <CardElement />
-        <button onClick={this.submit}>Send</button>
+        <button className="submitBtn" onClick={this.submit}>BOOK NOW</button>
       </div>
     );
   }
