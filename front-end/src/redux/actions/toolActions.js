@@ -11,9 +11,12 @@ import {
 
 //CREATE A NEW TOOL AXIOS REQUEST
 export const createTool = toolObj => {
+  console.log(toolObj)
   return dispatch => {
+    console.log(toolObj)
+
     return axios
-      .post(`${toolBaseUrl}/newTool`, toolObj)
+      .post(`${toolBaseUrl}newTool`, toolObj)
       .then(res => {
         if (res.status === 200) {
           console.log(`Successfully created a tool!`);
@@ -23,7 +26,7 @@ export const createTool = toolObj => {
             type: CREATE_TOOL,
             payload: res.data
           };
-          return action;
+          dispatch(action);
         }
       })
       .catch(err => {
@@ -32,7 +35,7 @@ export const createTool = toolObj => {
           type: CREATE_TOOL
           //Is a payload necessary here?
         };
-        return action;
+        dispatch(action);
       });
   };
 };
