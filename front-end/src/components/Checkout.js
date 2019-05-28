@@ -1,8 +1,4 @@
 import "materialize-css/dist/css/materialize.min.css";
-
-import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
-// import './CSS/UserProfilePage.css';
 import React from "react";
 import { connect } from "react-redux";
 import { Elements, StripeProvider } from 'react-stripe-elements';
