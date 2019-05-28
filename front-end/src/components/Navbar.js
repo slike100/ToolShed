@@ -6,11 +6,7 @@ import loginButton from "../assets/img/btn_google_signin_dark_normal_web.png";
 import logo from "../assets/img/logo.png";
 import "./Navbar.css";
 import { connect } from "react-redux";
-import {
-  signUpUser,
-  loginUser,
-  logoutUser
-} from "../redux/actions/userActions";
+import { logoutUser, updateUser } from "../redux/actions/userActions";
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -20,22 +16,6 @@ class Navbar extends React.Component {
       lng: 0
     };
   }
-
-  signUp = () => {
-    this.getGeoLocation();
-
-    firebaseAuth.signInWithPopup(provider).then(result => {
-      const authObj = {
-        uid: result.user.uid,
-        lat: this.state.lat,
-        long: this.state.lng,
-        email: result.user.email,
-        userName: result.user.displayName,
-        avatar: result.user.photoURL
-      };
-      this.props.signUpUser(authObj);
-    });
-  };
 
   login = () => {
     this.getGeoLocation();
@@ -49,7 +29,7 @@ class Navbar extends React.Component {
         userName: result.user.displayName,
         avatar: result.user.photoURL
       };
-      this.props.loginUser(authObj);
+      this.props.updateUser(authObj);
     });
   };
 
@@ -102,7 +82,7 @@ class Navbar extends React.Component {
           displayName: user.displayName,
           photoURL: user.photoURL
         };
-        this.props.loginUser(parsedUser);
+        this.props.updateUser(parsedUser);
       }
     });
   }
@@ -152,7 +132,7 @@ class Navbar extends React.Component {
                   <NavLink
                     to="/"
                     className="grey-text text-darken-3"
-                    onClick={this.signUp}
+                    onClick={this.login}
                   >
                     Sign Up
                   </NavLink>
@@ -175,14 +155,14 @@ class Navbar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.user.auth
+    auth: state.user.auth,
+    user: state.user.user
   };
 }
 
 const mapDispatchToProps = {
-  signUpUser,
-  loginUser,
-  logoutUser
+  logoutUser,
+  updateUser
 };
 
 export default connect(

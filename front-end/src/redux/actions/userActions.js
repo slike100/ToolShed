@@ -13,7 +13,7 @@ import {
   LOGOUT_USER
 } from "../types/userTypes";
 
-// AXIOS ADD NEW USERS//
+// AXIOS ADD NEW USERS
 export function addNewUser(userObj) {
   console.log(userObj);
 
@@ -71,18 +71,13 @@ export function deleteUser(userId) {
   };
 }
 
-// AXIOS EDIT USERS
-export function UpdateUser(userObj) {
-  console.log(userObj);
-
+// AXIOS EDIT USERS, this also creates users on sign-up
+export function updateUser(userObj) {
   return dispatch => {
     return axios
-      .put(`${userBaseUrl}/UpdateUser/${userObj.uid}`, userObj) // NOT SURE IF IT UID OR ID FOR THIS REQUEST.
+      .put(`${userBaseUrl}updateUser/${userObj.uid}`, userObj)
       .then(res => {
         if (res.status === 200 && res.data) {
-          console.log("successfully updated user!");
-          console.log("Response Data: ", res.data);
-
           const action = {
             type: EDIT_USER,
             payload: res.data
@@ -92,7 +87,6 @@ export function UpdateUser(userObj) {
       })
       .catch(err => {
         console.log("Error adding new user: ", err);
-
         const action = {
           type: EDIT_USER,
           payload: []
@@ -123,72 +117,6 @@ export function getUserData(id) {
 
         const action = {
           type: GET_USER_DATA,
-          payload: []
-        };
-        dispatch(action);
-      });
-  };
-}
-
-export function signUpUser(authObj) {
-  console.log(authObj);
-  return dispatch => {
-    return axios
-      .put(`${userBaseUrl}updateUser/${authObj.uid}`, authObj)
-      .then(res => {
-        if (res.status === 200) {
-          console.log("Response Data: ", res.data);
-
-          const action = {
-            type: SIGN_UP_USER,
-            payload: res.data
-          };
-          dispatch(action);
-        }
-      })
-      .catch(err => {
-        console.log("Error adding new user: ", err);
-
-        const action = {
-          type: SIGN_UP_USER,
-          payload: []
-        };
-        dispatch(action);
-      });
-  };
-}
-// export function setLatLng(locObj) {
-//   console.log(locObj);
-//   const action = {
-//     type: SET_LAT_LNG,
-//     payload: locObj
-//   };
-//   return action;
-// }
-
-//LOGIN USER
-export function loginUser(authObj) {
-  console.log(authObj);
-  return dispatch => {
-    return axios
-      .put(`${userBaseUrl}updateUser/${authObj.uid}`, authObj) // NOT SURE IF IT UID OR ID FOR THIS REQUEST.
-      .then(res => {
-        if (res.status === 200 && res.data) {
-          console.log("Updated DB and logged in user!");
-          console.log("Response Data: ", res.data);
-
-          const action = {
-            type: LOGIN_USER,
-            payload: res.data
-          };
-          dispatch(action);
-        }
-      })
-      .catch(err => {
-        console.log("Error logging in, user does not yet exist in DB: ", err);
-
-        const action = {
-          type: LOGIN_USER,
           payload: []
         };
         dispatch(action);
