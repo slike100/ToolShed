@@ -7,7 +7,7 @@ import logo from "../assets/img/logo.png";
 import "./CSS/Navbar.css"
 import { connect } from "react-redux";
 import { logoutUser, updateUser } from "../redux/actions/userActions";
-
+import { getToolsOwned } from "../redux/actions/toolActions";
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +30,7 @@ class Navbar extends React.Component {
         avatar: result.user.photoURL
       };
       this.props.updateUser(authObj);
+      this.props.getToolsOwned(authObj.uid);
     });
   };
 
@@ -83,6 +84,7 @@ class Navbar extends React.Component {
           photoURL: user.photoURL
         };
         this.props.updateUser(parsedUser);
+        this.props.getToolsOwned(parsedUser.uid);
       }
     });
   }
@@ -162,7 +164,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   logoutUser,
-  updateUser
+  updateUser,
+  getToolsOwned
 };
 
 export default connect(
