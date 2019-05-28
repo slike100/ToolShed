@@ -4,9 +4,13 @@ import "materialize-css/dist/css/materialize.min.css";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import loginButton from "../assets/img/btn_google_signin_dark_normal_web.png";
 import logo from "../assets/img/logo.png";
-import "./CSS/Navbar.css"
+import "./CSS/Navbar.css";
 import { connect } from "react-redux";
-import { logoutUser, updateUser } from "../redux/actions/userActions";
+import {
+  logoutUser,
+  updateUser,
+  addNewUser
+} from "../redux/actions/userActions";
 import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 class Navbar extends React.Component {
   constructor(props) {
@@ -17,7 +21,7 @@ class Navbar extends React.Component {
     };
   }
 
-  login = () => {
+  signUp = () => {
     this.getGeoLocation();
 
     firebaseAuth.signInWithPopup(provider).then(result => {
@@ -27,7 +31,29 @@ class Navbar extends React.Component {
         long: this.state.lng,
         email: result.user.email,
         userName: result.user.displayName,
-        avatar: result.user.photoURL
+        avatar: result.user.photoURL,
+        toolsOwned: [],
+        toolsBeingRented: [],
+        recordIds: [],
+        stripeToken: ""
+      };
+      this.props.addNewUser(authObj);
+      // this.props.getToolsOwned(authObj.uid);
+      // this.props.getToolsRented(authObj.uid);
+    });
+  };
+
+  login = () => {
+    this.getGeoLocation();
+
+    firebaseAuth.signInWithPopup(provider).then(result => {
+      const authObj = {
+        uid: result.user.uid,
+        lat: this.state.lat
+        // long: this.state.lng,
+        // email: result.user.email,
+        // userName: result.user.displayName,
+        // avatar: result.user.photoURL
       };
       this.props.updateUser(authObj);
       this.props.getToolsOwned(authObj.uid);
@@ -74,6 +100,7 @@ class Navbar extends React.Component {
   };
 
   componentDidMount() {
+    console.log("DidMount fired");
     firebaseAuth.onAuthStateChanged(user => {
       if (user) {
         const parsedUser = {
@@ -136,7 +163,7 @@ class Navbar extends React.Component {
                   <NavLink
                     to="/"
                     className="grey-text text-darken-3"
-                    onClick={this.login}
+                    onClick={this.signUp}
                   >
                     Sign Up
                   </NavLink>
@@ -168,7 +195,8 @@ const mapDispatchToProps = {
   logoutUser,
   updateUser,
   getToolsOwned,
-  getToolsRented
+  getToolsRented,
+  addNewUser
 };
 
 export default connect(

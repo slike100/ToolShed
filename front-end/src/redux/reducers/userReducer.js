@@ -8,7 +8,6 @@ import {
   LOGOUT_USER,
   SIGN_UP_USER,
   GET_RENTAL_RECORD
-
 } from "../types/userTypes";
 
 const initialState = {

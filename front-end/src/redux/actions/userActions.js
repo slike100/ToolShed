@@ -16,18 +16,18 @@ import {
 
 // AXIOS ADD NEW USERS
 export function addNewUser(userObj) {
-  console.log(userObj);
+  // console.log(userObj);
 
   return dispatch => {
     return axios
-      .post(`${userBaseUrl}/newUser/`, userObj)
+      .post(`${userBaseUrl}newUser/`, userObj)
       .then(res => {
-        if (res.status === 200 && res.data === "successfully added new user") {
+        if (res.status === 200) {
           console.log("Response Data: ", res.data);
 
           const action = {
             type: NEW_USER,
-            payload: res.data
+            payload: userObj
           };
           dispatch(action);
         }
