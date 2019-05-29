@@ -1,0 +1,26 @@
+
+* {
+    font-family: Kanit, sans-serif;
+  }
+.background {
+    background-image: url('../../assets/img/LandingPageImage.jpg');
+    width: 100%;
+    height: 100%;
+}
+.baseline-text-bg {
+    
+}
+/* .imagen {
+    background-image: url('../../assets/img/LandingPageImage.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: auto;
+} */
+/* .baseline-text-bg {
+    background-image: url('../../assets/img/LandingPageImage.jpg');
+    background-color: #fff;
+	padding: 3px;
+	opacity: 0.6;
+    filter: alpha(opacity=60);
+    overflow: hidden;
+} */
