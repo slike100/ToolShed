@@ -17,13 +17,14 @@ export default function toolReducer(state = initialState, action) {
 
   switch (type) {
     case CREATE_TOOL:
-      return { ...state, tools: payload };
+      return { ...state, tool: payload };
 
     case TOOL_DATA:
-      return { ...state, tools: payload };
+      console.log("This is the payload: ", payload)
+      return { ...state, toolsSearched: payload };
 
     case DELETE_TOOL:
-      return { ...state, tools: payload };
+      return { ...state, tool: payload };
 
     case EDIT_TOOL:
       return { ...state, toolsOwned: payload };

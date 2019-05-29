@@ -1,7 +1,8 @@
 import React from 'react';
-import { addressToLatLng } from '../utils/helperFunctions';
-import axios from "axios";
-import { toolBaseUrl } from "../utils/globalConstants";
+// import { addressToLatLng } from '../utils/helperFunctions';
+import { connect } from "react-redux";
+import { getToolData } from "../redux/actions/toolActions";
+import axios from 'axios';
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -11,8 +12,8 @@ class Sidebar extends React.Component {
       searchTool: '',
       searchAddress: '',
       searchDistance: '',
-      searchLat: '',
-      searchLng: '',
+      // searchLat: '',
+      // searchLng: '',
       searchResults: [],
     };
   }
@@ -25,23 +26,43 @@ class Sidebar extends React.Component {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    addressToLatLng(this.state.searchAddress, this); //Sloppy as hell
+    await this.addressToLatLng(this.state.searchAddress);
+    // this.getAddress(searchLat, searchLng);
+  }
 
-    axios.get(`${toolBaseUrl}searchTools/?lat=${this.state.searchLat}&long=${this.state.searchLng}&name=${this.state.searchTool}&distance=${this.state.searchDistance}`)
-      .then(res => {
-        if (res.status === 200 && res.data) {
-          console.log(`SUCCESS! Returned Search Results! `, res.data)
+  // getAddress = (lat, lng) => {
+  //   var geocoder = new window.google.maps.Geocoder();
+  //   var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  //   geocoder.geocode({ location: latlng }, function (results, status) {
+  //     if (status === "OK") {
+  //       console.log(results[0]);
+  //     }
+  //   });
+  // }
 
-          this.setState({
-            searchResults: res.data,
-          })
-        }
-      })
-      .catch(err => {
-        console.log("There was an error searching for tools ", err);
-      })
+  addressToLatLng = async (location) => {
+    var _this = this;
+    var location = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+        address: location,
+        key: 'AIzaSyCc4WdJOT7P6zSJ8o1Td871UXM-3Ay3Fsw'
+      }
+    });
+
+    const addressLat = location.data.results[0].geometry.location.lat;
+    const addressLng = location.data.results[0].geometry.location.lng;
+    const { searchTool, searchDistance } = this.state;
+
+    let searchObj = {
+      lat: addressLat,
+      long: addressLng,
+      name: searchTool,
+      distance: searchDistance,
+    }
+
+    await this.props.getToolData(searchObj);
   }
 
   render() {
@@ -119,5 +140,18 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+const mapDispatchToProps = {
+  getToolData
+};
+
+function mapStateToProps(state) {
+  return {
+    tool: state.tool
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Sidebar);
 

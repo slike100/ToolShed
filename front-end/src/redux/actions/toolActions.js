@@ -23,7 +23,7 @@ export const createTool = toolObj => {
             type: CREATE_TOOL,
             payload: res.data
           };
-          return action;
+          dispatch(action);
         }
       })
       .catch(err => {
@@ -32,7 +32,7 @@ export const createTool = toolObj => {
           type: CREATE_TOOL
           //Is a payload necessary here?
         };
-        return action;
+        dispatch(action);
       });
   };
 };
@@ -42,20 +42,13 @@ export const getToolData = searchObj => {
   //Will we be using state to get location or a passed in search object (state option is below)?
   //const { lat, long } = state
   //let s = store.getState();
-  console.log(
-    "Lat: ",
-    searchObj.lat,
-    "Long: ",
-    searchObj.long,
-    "Name: ",
-    searchObj.name
-  );
+  console.log(searchObj);
   return dispatch => {
     return axios
       .get(
-        `${toolBaseUrl}/searchTools/?lat=${searchObj.lat}long=${
-          searchObj.long
-        }name=${searchObj.name}`
+        `${toolBaseUrl}searchTools/?lat=${searchObj.lat}&long=${
+        searchObj.long
+        }&name=${searchObj.name}&distance=${searchObj.distance}`
       )
       .then(res => {
         if (res.status === 200) {
@@ -65,7 +58,7 @@ export const getToolData = searchObj => {
             type: TOOL_DATA,
             payload: res.data
           };
-          return action;
+          dispatch(action);
         }
       })
       .catch(err => {
@@ -74,7 +67,7 @@ export const getToolData = searchObj => {
           type: TOOL_DATA
           //Is a payload necessary here?
         };
-        return action;
+        dispatch(action);
       });
   };
 };
@@ -92,7 +85,7 @@ export const deleteTool = toolId => {
             type: DELETE_TOOL
             //Is a payload necessary here?
           };
-          return action;
+          dispatch(action);
         }
       })
       .catch(err => {
@@ -101,7 +94,7 @@ export const deleteTool = toolId => {
           type: DELETE_TOOL
           //Is a payload necessary here?
         };
-        return action;
+        dispatch(action);
       });
   };
 };
@@ -119,7 +112,7 @@ export const editTool = (toolId, toolObj) => {
             type: EDIT_TOOL,
             payload: res.data
           };
-          return action;
+          dispatch(action);
         }
       })
       .catch(err => {
@@ -128,7 +121,7 @@ export const editTool = (toolId, toolObj) => {
           type: EDIT_TOOL
           //Is a payload necessary here?
         };
-        return action;
+        dispatch(action);
       });
   };
 };
