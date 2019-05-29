@@ -9,7 +9,10 @@ import SearchPage from "./SearchPage";
 import AddToolForm from "./AddToolForm";
 import About from "./About";
 import CreateNewUserForm from "./CreateNewUserForm";
-import UserProfilePage from "./UserProfilePage";
+import UserProfilePage from "./UserProfilePage";p-
+import LandingPage from "./LandingPage";
+import Checkout from "./Checkout";
+import MapToolModal from "./MapToolModal"
 
 class Main extends React.Component {
   componentDidMount() {
@@ -40,15 +43,20 @@ class Main extends React.Component {
             // component={EditProfile}
             exact
             path="/editProfile"
-            // authed={props.user}
+          // authed={props.user}
           />
           <PrivateRoute
             // component={ListTool}
             exact
             path="/listTool"
-            // authed={props.user}
+          // authed={props.user}
           />
         </Switch>
+
+        {/* LANDING PAGE */}
+          <LandingPage />
+        {/* END LANDING PAGE */}
+
         {/* <CreateNewUserForm /> */}
         {/* <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
           <div className="example">
@@ -57,8 +65,17 @@ class Main extends React.Component {
               <CheckoutForm />
             </Elements>
           </div>
+
         </StripeProvider>{" "} */}
+
+        {/* <Checkout /> */}
+
+        {/* <UserProfilePage /> */}
+
         {/* <AddToolForm /> */}
+
+        {/* <MapToolModal /> */}
+        
       </div>
     );
   }

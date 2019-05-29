@@ -102,14 +102,16 @@ class AddToolForm extends React.Component {
       <div className="listToolPage">
         <div className="grid">
           <section className="photoContainer grid1">
-            <div className="photoBackground borderRadius">
+            <div className="photoBackground borderRadius" id="photo-section">
               <div className="photo">
                 <img className="photo" id="toolImage" />
               </div>
               <div className="button">
                 <input
                   type="file"
+                  name="file"
                   id="fileButton"
+                  class="inputFile"
                   onChange={this.previewFile}
                 />
               </div>
@@ -117,7 +119,7 @@ class AddToolForm extends React.Component {
           </section>
 
           <div className="toolInfo grid2">
-            <form className="borderRadius">
+            <form className="borderRadius" id="toolInfo-section">
               <h3>Tool Info</h3>
               <label for="toolType">Tool Type</label>
               <input
@@ -136,7 +138,7 @@ class AddToolForm extends React.Component {
             </form>
           </div>
 
-          <section className="toolInfo grid3">
+          <section className="toolInfo grid3" id="rental-section">
             <form className="borderRadius">
               <h3>Rental Price</h3>
               <label for="rentalPrice">Price per Day</label>
