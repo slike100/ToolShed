@@ -63,11 +63,6 @@ class Sidebar extends React.Component {
           <input className="sidebar-search-btn" type="submit" value="Search" />
         </form>
         <div id="sidebar-card-wrapper">
-          <div className="sidebar-card">
-            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
-            <p className="sidebar-card-name">Jackhammer</p>
-            <p className="sidebar-card-price">$20</p>
-          </div>
 
           <div className="sidebar-card">
             <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
