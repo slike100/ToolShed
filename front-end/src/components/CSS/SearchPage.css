@@ -11,9 +11,10 @@
 }
 
 #sidebar {
-  width: 18em;
+  width: 24em;
   left: 0;
   height: 100vh;
+  border-radius: 0 0 8px 0;
   position: fixed;
   z-index: 100;
   background-color: #F0F7F4;
@@ -22,6 +23,17 @@
   align-items: center;
 }
 
-#search-form {
+.sidebar-search-label {
+  margin-top: 1em;
   width: 90%;
 }
+
+.sidebar-search-input {
+  font-size: 10px;
+}
+
+input, select {
+  font-size: 8px;
+  text-align: center;
+}
+
