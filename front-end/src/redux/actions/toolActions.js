@@ -23,20 +23,22 @@ export const createTool = toolObj => {
         if (res.status === 200) {
           console.log(`Successfully created a tool!`);
 
-          console.log(res.data);
           const action = {
             type: CREATE_TOOL,
             payload: res.data
           };
+          
           dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error performing the search. Error: `, err);
+
         const action = {
           type: CREATE_TOOL
           //Is a payload necessary here?
         };
+
         dispatch(action);
       });
   };
@@ -44,44 +46,34 @@ export const createTool = toolObj => {
 
 //SEARCH TOOLS/GET TOOL DATA AXIOS REQUEST
 export const getToolData = searchObj => {
-  //Will we be using state to get location or a passed in search object (state option is below)?
-  //const { lat, long } = state
-  //let s = store.getState();
-  console.log(
-    "Lat: ",
-    searchObj.lat,
-    "Long: ",
-    searchObj.long,
-    "Name: ",
-    searchObj.name,
-    "Distance: ",
-    searchObj.distance
-  );
   return dispatch => {
     return axios
       .get(
-        `${toolBaseUrl}/searchTools/?lat=${searchObj.lat}long=${
-          searchObj.long
-        }name=${searchObj.name}`
+        `${toolBaseUrl}searchTools/?lat=${searchObj.lat}&long=${
+        searchObj.long
+        }&name=${searchObj.name}&distance=${searchObj.distance}`
       )
       .then(res => {
         if (res.status === 200) {
-          console.log(`Success, search was performed.`);
-          console.log(res.data);
+          console.log('Successfully searched for tools!');
+
           const action = {
             type: TOOL_DATA,
             payload: res.data
           };
-          return action;
+
+          dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error performing the search. Error: `, err);
+
         const action = {
           type: TOOL_DATA
           //Is a payload necessary here?
         };
-        return action;
+
+        dispatch(action);
       });
   };
 };
@@ -95,18 +87,21 @@ export const deleteTool = toolObj => {
       .then(res => {
         if (res.status === 200) {
           console.log(`Success, tool was deleted.`);
-          console.log(res);
+
           const action = {
             type: DELETE_TOOL
           };
+
           dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error deleting the tool. Error: `, err);
+
         const action = {
           type: DELETE_TOOL
         };
+
         dispatch(action);
       });
   };
@@ -120,21 +115,24 @@ export const editTool = (toolId, toolObj) => {
       .then(res => {
         if (res.status === 200) {
           console.log(`Successfully edited your ${toolObj.name}!`);
-          console.log(res.data);
+
           const action = {
             type: EDIT_TOOL,
             payload: res.data
           };
-          return action;
+
+          dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error performing the search. Error: `, err);
+
         const action = {
           type: EDIT_TOOL
           //Is a payload necessary here?
         };
-        return action;
+
+        dispatch(action);
       });
   };
 };
@@ -146,15 +144,18 @@ export const getToolsOwned = uid => {
       .get(`${userBaseUrl}allToolsOwnedForOneUser/${uid}`)
       .then(res => {
         if (res.status === 200 && res.data) {
+          
           const action = {
             type: TOOLS_OWNED,
             payload: res.data
           };
+          
           dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error getting tools owned. Error: `, err);
+      
         const action = {
           type: TOOLS_OWNED,
           payload: []
@@ -171,10 +172,12 @@ export const getToolsRented = uid => {
       .get(`${userBaseUrl}allToolsRentedForOneUser/${uid}`)
       .then(res => {
         if (res.status === 200 && res.data) {
+          
           const action = {
             type: TOOLS_RENTED,
             payload: res.data
           };
+          
           dispatch(action);
         }
       })
