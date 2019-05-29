@@ -43,7 +43,7 @@ class UserProfilePage extends React.Component {
                 <div className="user1">
                   <img
                     className="circle responsive-img userImg z-depth-3"
-                    src="https://images.unsplash.com/photo-1537815749002-de6a533c64db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+                    src={this.props.user.photoURL}
                     alt=""
                   />
                 </div>

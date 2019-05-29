@@ -2,6 +2,7 @@ import "materialize-css/dist/css/materialize.min.css";
 // import './CSS/UserProfilePage.css';
 import React from "react";
 import { connect } from "react-redux";
+import { deleteTool } from "../redux/actions/toolActions";
 
 import "./CSS/UserToolCard.css";
 
@@ -13,9 +14,45 @@ class UserToolCard extends React.Component {
     };
   }
 
+  delete = async e => {
+    e.preventDefault();
+    var obj = {};
+    obj.id = e.target.dataset.id;
+    obj.uid = this.props.user.uid;
+    console.log(obj);
+    await this.props.deleteTool(obj);
+  };
+
   createToolOwnedCards = () => {
     console.log(this.props.tools);
+    var button;
     return this.props.tools.map((tool, index) => {
+      var button;
+      if (tool.isRented) {
+        button = (
+          <button
+            className="btn-small waves-effect #e53935 red darken-1"
+            type="submit"
+            name="action"
+            data-id={tool.toolId}
+            // onClick={}
+          >
+            Check-In
+          </button>
+        );
+      } else {
+        button = (
+          <button
+            className="btn-small waves-effect #e53935 red darken-1"
+            type="submit"
+            name="action"
+            data-id={tool.toolId}
+            onClick={this.delete}
+          >
+            Delete
+          </button>
+        );
+      }
       return (
         <div className="row1">
           <div className="card toolCard">
@@ -36,14 +73,7 @@ class UserToolCard extends React.Component {
               >
                 Edit Tool
               </button>
-              <button
-                className="btn-small waves-effect #e53935 red darken-1"
-                type="submit"
-                name="action"
-                data-id={tool.toolId}
-              >
-                Delete
-              </button>
+              {button}
             </div>
           </div>
         </div>
@@ -61,11 +91,14 @@ class UserToolCard extends React.Component {
   }
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  deleteTool
+};
 
 function mapStateToProps(state) {
   return {
-    tools: state.tool.toolsOwned
+    tools: state.tool.toolsOwned,
+    user: state.user.user
   };
 }
 

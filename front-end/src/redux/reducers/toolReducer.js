@@ -25,7 +25,7 @@ export default function toolReducer(state = initialState, action) {
       return { ...state, tools: payload };
 
     case DELETE_TOOL:
-      return { ...state, tools: payload };
+      return { ...state };
 
     case EDIT_TOOL:
       return { ...state, toolsOwned: payload };

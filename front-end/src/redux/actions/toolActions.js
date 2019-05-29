@@ -13,9 +13,9 @@ import {
 
 //CREATE A NEW TOOL AXIOS REQUEST
 export const createTool = toolObj => {
-  console.log(toolObj)
+  console.log(toolObj);
   return dispatch => {
-    console.log(toolObj)
+    console.log(toolObj);
 
     return axios
       .post(`${toolBaseUrl}newTool`, toolObj)
@@ -87,28 +87,27 @@ export const getToolData = searchObj => {
 };
 
 //DELETE TOOL AXIOS REQUEST
-export const deleteTool = toolId => {
+export const deleteTool = toolObj => {
+  console.log(toolObj);
   return dispatch => {
     return axios
-      .delete(`${toolBaseUrl}/deleteTool`, toolId)
+      .delete(`${toolBaseUrl}deleteTool/`, { data: toolObj })
       .then(res => {
         if (res.status === 200) {
           console.log(`Success, tool was deleted.`);
-          console.log(res.data);
+          console.log(res);
           const action = {
             type: DELETE_TOOL
-            //Is a payload necessary here?
           };
-          return action;
+          dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error deleting the tool. Error: `, err);
         const action = {
           type: DELETE_TOOL
-          //Is a payload necessary here?
         };
-        return action;
+        dispatch(action);
       });
   };
 };
