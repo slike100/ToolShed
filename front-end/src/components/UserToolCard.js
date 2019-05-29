@@ -2,16 +2,20 @@ import "materialize-css/dist/css/materialize.min.css";
 // import './CSS/UserProfilePage.css';
 import React from "react";
 import { connect } from "react-redux";
-import { deleteTool } from "../redux/actions/toolActions";
+import { deleteTool, editTool } from "../redux/actions/toolActions";
+import {
+  getRecordData,
+  getUserData,
+  payStripe
+} from "../redux/actions/userActions";
 
 import "./CSS/UserToolCard.css";
+import axios from "axios";
 
 class UserToolCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: null
-    };
+    this.state = {};
   }
 
   delete = async e => {
@@ -19,8 +23,38 @@ class UserToolCard extends React.Component {
     var obj = {};
     obj.id = e.target.dataset.id;
     obj.uid = this.props.user.uid;
-    console.log(obj);
     await this.props.deleteTool(obj);
+  };
+
+  checkIn = async e => {
+    e.preventDefault();
+    var data = e.target.dataset.id;
+    var obj = { isRented: false };
+    var stripeObj = {};
+    await this.props.getRecordData(e.target.dataset.id);
+    var rentee = await axios.get(
+      `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/userData/${
+        this.props.record.rentalUserId
+      }`
+    );
+    await this.props.editTool(data, obj);
+    console.log(this.props.record);
+    var rentalStartTime =
+      this.props.record.rentalStartTime / (1000 * 60 * 60 * 24);
+    console.log(rentalStartTime);
+    var timeCheckedInDays =
+      this.props.record.timeCheckedIn / (1000 * 60 * 60 * 24);
+    console.log(timeCheckedInDays);
+    var totalDaysRented = timeCheckedInDays - rentalStartTime;
+    console.log(totalDaysRented);
+    var amountToPay = totalDaysRented * this.props.record.pricePerDay * 100;
+    console.log(amountToPay);
+    var amountToDisplay = totalDaysRented * this.props.record.pricePerDay * 100;
+    amountToPay = amountToPay.toFixed();
+    stripeObj.amount = amountToPay;
+    stripeObj.description = `Congrats! Your tool has been checked in and you should recieve your payment of $${amountToDisplay} soon!`;
+    stripeObj.source = rentee.data.stripeToken;
+    await this.props.payStripe(stripeObj);
   };
 
   createToolOwnedCards = () => {
@@ -35,7 +69,7 @@ class UserToolCard extends React.Component {
             type="submit"
             name="action"
             data-id={tool.toolId}
-            // onClick={}
+            onClick={this.checkIn}
           >
             Check-In
           </button>
@@ -54,7 +88,7 @@ class UserToolCard extends React.Component {
         );
       }
       return (
-        <div className="row1">
+        <div className="row1" key={index}>
           <div className="card toolCard">
             <div className="card-image">
               <img src={tool.photo} />
@@ -82,23 +116,23 @@ class UserToolCard extends React.Component {
   };
 
   render() {
-    // grab and place google photo as profile button background-image
-    var profilePhoto = "none";
-    if (this.props.auth) {
-      profilePhoto = `url(${this.props.auth.photoURL})`;
-    }
     return <div>{this.createToolOwnedCards()}</div>;
   }
 }
 
 const mapDispatchToProps = {
-  deleteTool
+  deleteTool,
+  getUserData,
+  getRecordData,
+  payStripe,
+  editTool
 };
 
 function mapStateToProps(state) {
   return {
     tools: state.tool.toolsOwned,
-    user: state.user.user
+    user: state.user.user,
+    record: state.user.rentalRecord
   };
 }
 

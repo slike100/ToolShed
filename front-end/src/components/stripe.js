@@ -15,7 +15,9 @@ class CheckoutForm extends Component {
   }
 
   submit = async e => {
-    let { token } = await this.props.stripe.createToken({ name: "Name" });
+    let { token } = await this.props.stripe.createToken({
+      name: this.props.user.userName
+    });
     console.log(token);
     this.props.updateUser({
       uid: this.props.user.uid,
@@ -24,12 +26,12 @@ class CheckoutForm extends Component {
   };
 
   //this function simulataneously, gets the rental record, updates it to have the check in time, and then charges the stripe endpoint with the correct amount, as well as updates the tool in the database to say rented false.
-  checkIn = async e => {
-    e.preventDefault();
-    var obj = { isRented: false };
-    await this.props.getRecordData("r2gkuhkHZGhWk2kNywKl");
-    await this.props.editTool("r2gkuhkHZGhWk2kNywKl", obj);
-  };
+  // checkIn = async e => {
+  //   e.preventDefault();
+  //   var obj = { isRented: false };
+  //   await this.props.getRecordData("r2gkuhkHZGhWk2kNywKl");
+  //   await this.props.editTool("r2gkuhkHZGhWk2kNywKl", obj);
+  // };
 
   render() {
     return (

@@ -32,17 +32,17 @@ toolController.post("/newTool", (req, res) => {
           .update({ toolsOwned: req.body.toolsOwned })
           .then(() => {
             db.collection("User")
-            .doc(req.body.uid)
-            .get()
-            .then(userDoc => {
-              if (!userDoc.exists) {
-                console.log("This user does not exist.");
-              } else {
-                let data = userDoc.data()
-                console.log(data.toolsOwned)
-                return res.status(200).send(data.toolsOwned);
-              }
-            })
+              .doc(req.body.uid)
+              .get()
+              .then(userDoc => {
+                if (!userDoc.exists) {
+                  console.log("This user does not exist.");
+                } else {
+                  let data = userDoc.data();
+                  console.log(data.toolsOwned);
+                  return res.status(200).send(data.toolsOwned);
+                }
+              });
             // return res
             //   .status(200)
             //   .send(
@@ -64,6 +64,7 @@ toolController.post("/newTool", (req, res) => {
 //START DELETE TOOL ENDPOINT//
 toolController.delete("/deleteTool", (req, res) => {
   try {
+    console.log(req.body);
     db.collection("Tools")
       .doc(req.body.id)
       .delete()

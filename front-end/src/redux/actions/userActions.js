@@ -13,6 +13,7 @@ import {
   LOGOUT_USER,
   GET_RENTAL_RECORD
 } from "../types/userTypes";
+import stripe from "../../components/stripe";
 
 // AXIOS ADD NEW USERS
 export function addNewUser(userObj) {
@@ -50,7 +51,7 @@ export function deleteUser(userId) {
 
   return dispatch => {
     return axios
-      .delete(`${userBaseUrl}/deleteUser/`, userId)
+      .delete(`${userBaseUrl}/deleteUser/`, { data: { userId } })
       .then(res => {
         if (res.status === 200 && res.data === "successfully deleted user") {
           const action = {
@@ -132,18 +133,20 @@ export function logoutUser() {
   return action;
 }
 
-export const payStripe = tokenCard => {
+export const payStripe = stripeObj => {
+  console.log(stripeObj);
   return dispatch => {
     return axios
-      .post("https://us-central1-toolshed-1dd98.cloudfunctions.net/stripe", {
-        token: tokenCard
-      })
+      .post(
+        "https://us-central1-toolshed-1dd98.cloudfunctions.net/stripe/",
+        stripeObj,
+        { headers: { "Content-type": "application/json" } }
+      )
       .then(res => {
         console.log(res);
-        console.log(tokenCard);
         const action = {
           type: PAY_STRIPE,
-          payload: tokenCard
+          payload: res
         };
         dispatch(action);
       })
@@ -159,10 +162,11 @@ export const getRecordData = toolId => {
       )
       .then(res => {
         if (res.status == 200 && res.data) {
+          console.log(res.data[0]);
           return axios
             .put(
               `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/updateToolRentalRecord/${
-                res.data[1]
+                res.data[0].recordId
               }`
             )
             .then(res => {
@@ -170,7 +174,7 @@ export const getRecordData = toolId => {
               console.log(res.data);
               const action = {
                 type: GET_RENTAL_RECORD,
-                payload: res.data[0]
+                payload: res.data
               };
               dispatch(action);
             })
