@@ -9,7 +9,8 @@ import Navbar from "./Navbar";
 import SearchPage from "./SearchPage";
 import AddToolForm from "./AddToolForm";
 import CreateNewUserForm from "./CreateNewUserForm";
-import UserProfilePage from "./UserProfilePage";
+import UserProfilePage from "./UserProfilePage";p-
+import LandingPage from "./LandingPage";
 import Checkout from "./Checkout";
 import MapToolModal from "./MapToolModal"
 
@@ -55,6 +56,22 @@ class Main extends React.Component {
           // authed={props.user}
           />
         </Switch>
+
+        {/* LANDING PAGE */}
+          <LandingPage />
+        {/* END LANDING PAGE */}
+
+        {/* <CreateNewUserForm /> */}
+
+        {/* <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
+          <div className="example">
+            <h1>React Stripe Elements Example</h1>
+            <Elements>
+              <CheckoutForm />
+            </Elements>
+          </div>
+        </StripeProvider>  */}
+        
 
         {/* <Checkout /> */}
         {/* <UserProfilePage /> */}
