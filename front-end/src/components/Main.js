@@ -9,10 +9,10 @@ import SearchPage from "./SearchPage";
 import AddToolForm from "./AddToolForm";
 import About from "./About";
 import CreateNewUserForm from "./CreateNewUserForm";
-import UserProfilePage from "./UserProfilePage";p-
+import UserProfilePage from "./UserProfilePage";
 import LandingPage from "./LandingPage";
 import Checkout from "./Checkout";
-import MapToolModal from "./MapToolModal"
+import MapToolModal from "./MapToolModal";
 
 class Main extends React.Component {
   componentDidMount() {
@@ -43,18 +43,18 @@ class Main extends React.Component {
             // component={EditProfile}
             exact
             path="/editProfile"
-          // authed={props.user}
+            // authed={props.user}
           />
           <PrivateRoute
             // component={ListTool}
             exact
             path="/listTool"
-          // authed={props.user}
+            // authed={props.user}
           />
         </Switch>
 
         {/* LANDING PAGE */}
-          <LandingPage />
+        <LandingPage />
         {/* END LANDING PAGE */}
 
         {/* <CreateNewUserForm /> */}
@@ -75,7 +75,6 @@ class Main extends React.Component {
         {/* <AddToolForm /> */}
 
         {/* <MapToolModal /> */}
-        
       </div>
     );
   }
