@@ -11,7 +11,7 @@ import {
 } from "../types/userTypes";
 
 const initialState = {
-  auth: null,
+  auth: false,
   user: null,
   stripeToken: "",
   rentalRecord: {}
@@ -29,26 +29,26 @@ export default function userReducer(state = initialState, action) {
       };
 
     case NEW_USER:
-      return { ...state, auth: payload, user: payload };
+      return { ...state, auth: true, user: payload };
 
     case DELETE_USER:
-      return { ...state, auth: null, user: null };
+      return { ...state, auth: false, user: null };
 
     case EDIT_USER:
-      return { ...state, auth: payload, user: payload };
+      return { ...state, auth: true, user: payload };
 
     case GET_USER_DATA:
-      return { ...state, auth: payload, user: payload };
+      return { ...state, auth: true, user: payload };
 
     case SIGN_UP_USER:
       console.log(payload);
       return { ...state, user: payload };
 
     case LOGIN_USER:
-      return { ...state, auth: payload, user: payload };
+      return { ...state, auth: true, user: payload };
 
     case LOGOUT_USER:
-      return { ...state, auth: null, user: null };
+      return { ...state, auth: false, user: null };
 
     case GET_RENTAL_RECORD:
       return { ...state, rentalRecord: payload };
