@@ -32,17 +32,17 @@ toolController.post("/newTool", (req, res) => {
           .update({ toolsOwned: req.body.toolsOwned })
           .then(() => {
             db.collection("User")
-            .doc(req.body.uid)
-            .get()
-            .then(userDoc => {
-              if (!userDoc.exists) {
-                console.log("This user does not exist.");
-              } else {
-                let data = userDoc.data()
-                console.log(data.toolsOwned)
-                return res.status(200).send(data.toolsOwned);
-              }
-            })
+              .doc(req.body.uid)
+              .get()
+              .then(userDoc => {
+                if (!userDoc.exists) {
+                  console.log("This user does not exist.");
+                } else {
+                  let data = userDoc.data();
+                  console.log(data.toolsOwned);
+                  return res.status(200).send(data.toolsOwned);
+                }
+              });
             // return res
             //   .status(200)
             //   .send(
@@ -137,7 +137,7 @@ toolController.get("/searchTools", (req, res) => {
         .then(snapshot => {
           if (snapshot.empty) {
             console.log("first No matching documents. Sam S");
-            return;
+            return res.status(500).send("No tools match your search criteria.");
           } else
             docRef
               .where("long", "<=", addLong)
@@ -146,7 +146,9 @@ toolController.get("/searchTools", (req, res) => {
               .then(snapshot1 => {
                 if (snapshot1.empty) {
                   console.log("second No matching documents. Sam S");
-                  return;
+                  return res
+                    .status(500)
+                    .send("No tools match your search criteria.");
                 } else var matchingTools = [];
                 snapshot1.docs.forEach(doc => {
                   console.log(doc.id, "=>", doc.data());
