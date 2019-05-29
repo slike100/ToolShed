@@ -2,7 +2,11 @@ import "materialize-css/dist/css/materialize.min.css";
 // import './CSS/UserProfilePage.css';
 import React from "react";
 import { connect } from "react-redux";
-import { deleteTool, editTool } from "../redux/actions/toolActions";
+import {
+  deleteTool,
+  editTool,
+  getToolsOwned
+} from "../redux/actions/toolActions";
 import {
   getRecordData,
   getUserData,
@@ -55,6 +59,7 @@ class UserToolCard extends React.Component {
     stripeObj.description = `Congrats! Your tool has been checked in and you should recieve your payment of $${amountToDisplay} soon!`;
     stripeObj.source = rentee.data.stripeToken;
     await this.props.payStripe(stripeObj);
+    await this.props.getToolsOwned(this.props.user.uid);
   };
 
   createToolOwnedCards = () => {
@@ -125,7 +130,8 @@ const mapDispatchToProps = {
   getUserData,
   getRecordData,
   payStripe,
-  editTool
+  editTool,
+  getToolsOwned
 };
 
 function mapStateToProps(state) {
