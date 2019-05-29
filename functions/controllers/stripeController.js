@@ -17,7 +17,9 @@ stripeController.post("/", (() => {
         amount: req.body.amount,
         currency: "usd",
         description: req.body.description,
-        source: req.body.source
+
+        customer: req.body.source
+
       });
       console.log("payment", { payment });
       res.status(200).send("Made the payment");
@@ -29,6 +31,27 @@ stripeController.post("/", (() => {
 
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
+  };
+})());
+
+stripeController.post("/createUser", (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    console.log(req.body);
+    try {
+      const customer = yield stripe.customers.create({
+        source: req.body.token,
+        email: req.body.email
+      });
+      console.log(customer);
+      res.status(200).send(customer);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
   };
 })());
 

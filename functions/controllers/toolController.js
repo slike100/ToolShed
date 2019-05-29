@@ -99,11 +99,11 @@ toolController.get("/searchTools", (req, res) => {
       docRef.where("lat", ">=", subLat).where("lat", "<=", addLat).get().then(snapshot => {
         if (snapshot.empty) {
           console.log("first No matching documents. Sam S");
-          return;
+          return res.status(500).send("No tools match your search criteria.");
         } else docRef.where("long", "<=", addLong).where("long", ">=", subLong).get().then(snapshot1 => {
           if (snapshot1.empty) {
             console.log("second No matching documents. Sam S");
-            return;
+            return res.status(500).send("No tools match your search criteria.");
           } else var matchingTools = [];
           snapshot1.docs.forEach(doc => {
             console.log(doc.id, "=>", doc.data());
