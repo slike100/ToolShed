@@ -17,6 +17,7 @@ class Main extends React.Component {
     return (
       <div>
         <Navbar />
+        <UserProfilePage />
 
         <Switch>
           <Route
@@ -54,7 +55,6 @@ class Main extends React.Component {
             // authed={props.user}
           />
         </Switch>
-
 
         {/* <Checkout /> */}
 

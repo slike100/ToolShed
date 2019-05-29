@@ -7,17 +7,32 @@ import { Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import "materialize-css/dist/css/materialize.min.css";
+import M from "materialize-css";
+import options from "materialize-css/dist/js/materialize.min.js";
 import "./CSS/UserProfilePage.css";
 import UserToolCard from "./UserToolCard";
 import RentedToolCard from "./RentedToolCard";
+import AddToolForm from "./AddToolForm";
 
 class UserProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: null
+      // view: { showModal: false }
     };
   }
+
+  // handleHideModal = () => {
+  //   this.setState({ view: { showModal: false } });
+  // };
+  // handleShowModal = () => {
+  //   this.setState({ view: { showModal: true } });
+  // };
+  // handleModalChange = () => {
+  //   if (this.state.view.showModal === false) {
+  //   }
+  // };
 
   deleteUser = () => {
     var currentUser = firebaseAuth.currentUser;
@@ -59,9 +74,11 @@ class UserProfilePage extends React.Component {
               </div>
 
               <button
-                class="btn-large waves-effect waves-light"
+                class="btn-large waves-effect waves-light btn modal-trigger"
                 type="submit"
                 name="action"
+                data-target="modal1"
+                onClick={this.handleShowModal}
               >
                 Add A Tool
               </button>
@@ -75,6 +92,10 @@ class UserProfilePage extends React.Component {
               <RentedToolCard />
             </div>
           </div>
+          <AddToolForm
+          // handleHideModal={this.handleHideModal}
+          // show={this.state.view.showModal}
+          />
         </div>
       );
   }

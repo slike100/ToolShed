@@ -168,7 +168,7 @@ textarea {
   height: 6em;
 }
 
-@media only screen and (min-width: 926px) {
+@media only screen and (min-width: 300px) {
   .grid {
     display: grid;
     grid-template-columns: auto auto;
@@ -176,7 +176,7 @@ textarea {
   }
 
   .listToolPage section {
-    max-width: 30em;
+    max-width: 20em;
     margin: 0;
   }
 
@@ -184,29 +184,25 @@ textarea {
     height: 12.1em;
   }
 
-  .listToolPage {
-    margin-top: 1.6em;
-  }
-
   .listToolPage .grid1 {
-    width: 26em;
-    margin-left: auto;
+    width: 20em;
+    /* margin-left: auto; */
     margin-right: 0;
   }
 
   .listToolPage .grid2 {
-    grid-column-start: 2;
+    width: 25em;
     grid-row-start: span 2;
   }
 
   .listToolPage .grid3 {
-    width: 26em;
-    margin-left: auto;
-    margin-right: 0em;
+    width: 20em;
+    /* margin-left: auto; */
+    /* margin-right: 0em; */
   }
 
   .listToolPage .grid4 {
-    grid-column-start: span 2;
+    grid-column-start: span 1;
     justify-content: center;
   }
 }
