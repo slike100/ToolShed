@@ -7,11 +7,12 @@ import { Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Navbar from "./Navbar";
 import SearchPage from "./SearchPage";
-import AddToolForm from "./AddToolForm"
-import CreateNewUserForm from "./CreateNewUserForm"
-import UserProfilePage from "./UserProfilePage";
+import AddToolForm from "./AddToolForm";
+import CreateNewUserForm from "./CreateNewUserForm";
+import UserProfilePage from "./UserProfilePage";p-
 import LandingPage from "./LandingPage";
-
+import Checkout from "./Checkout";
+import MapToolModal from "./MapToolModal"
 
 class Main extends React.Component {
   render() {
@@ -19,21 +20,14 @@ class Main extends React.Component {
       <div>
         <Navbar />
 
-        {/* <UserProfilePage /> */}
-
         <Switch>
-
           <Route
             // component={Home}
             exact
             path="/"
           />
 
-          <Route
-            component={SearchPage}
-            exact
-            path="/search"
-          />
+          <Route component={SearchPage} exact path="/search" />
 
           <Route
             // component={ToolProfile}
@@ -61,7 +55,6 @@ class Main extends React.Component {
             path="/listTool"
           // authed={props.user}
           />
-
         </Switch>
 
         {/* LANDING PAGE */}
@@ -80,7 +73,10 @@ class Main extends React.Component {
         </StripeProvider>  */}
         
 
+        {/* <Checkout /> */}
+        {/* <UserProfilePage /> */}
         {/* <AddToolForm /> */}
+        {/* <MapToolModal /> */}
       </div>
     );
   }

@@ -9,7 +9,8 @@ const firebase = require('firebase');
 
 var config = {
   apiKey: 'AIzaSyBoBebgi0tvoGb2sPRP4C0y97n3Kgk5fNc',
-  projectId: 'toolshed-1dd98'
+  projectId: 'toolshed-1dd98',
+  storageBucket: 'gs://toolshed-1dd98.com'
 };
 
 firebase.initializeApp(config);
