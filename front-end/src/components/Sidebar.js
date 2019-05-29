@@ -1,11 +1,16 @@
 import React from 'react';
+import { addressToLatLng } from '../utils/helperFunctions';
 
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       searchTool: '',
       searchAddress: '',
+      searchDistance: '',
+      searchLat: '',
+      searchLng: '',
       searchResults: [],
     };
   }
@@ -20,22 +25,85 @@ class Sidebar extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    alert(this.state.searchTool + this.state.searchAddress);
+    addressToLatLng(this.state.searchAddress, this); //Sloppy as hell
   }
 
   render() {
     return (
-      <form id="sidebar" onSubmit={this.handleSubmit}>
-        <label class="sidebar-search-label">
-          What Tool do you need?
-          <input class="sidebar-search-input" type="text" value={this.state.searchTool} name="searchTool" onChange={this.handleChange} />
-        </label>
-        <label class="sidebar-search-label">
-          What is your full physical address?
-          <input class="sidebar-search-input" type="text" value={this.state.searchAddress} name="searchAddress" onChange={this.handleChange} />
-        </label>
-        <input class="sidebar-search-btn" type="submit" value="Search" />
-      </form>
+      <div id="sidebar">
+        <form id="sidebar-search-form" onSubmit={this.handleSubmit}>
+          <label className="sidebar-search-label">
+            What Tool do you need to rent?
+          <input className="sidebar-search-input" type="text" value={this.state.searchTool} name="searchTool" onChange={this.handleChange} />
+          </label>
+          <label className="sidebar-search-label">
+            What is your full physical address?
+          <input className="sidebar-search-input" type="text" value={this.state.searchAddress} name="searchAddress" onChange={this.handleChange} />
+          </label>
+          <label className="sidebar-search-label">
+            How many miles are you willing to travel?
+          <input className="sidebar-search-input" type="text" value={this.state.searchDistance} name="searchDistance" onChange={this.handleChange} />
+          </label>
+          <input className="sidebar-search-btn" type="submit" value="Search" />
+        </form>
+        <div id="sidebar-card-wrapper">
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+            <p className="sidebar-card-name">Jackhammer</p>
+            <p className="sidebar-card-price">$20</p>
+          </div>
+
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+            <p className="sidebar-card-name">Jackhammer</p>
+            <p className="sidebar-card-price">$20</p>
+          </div>
+
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+            <p className="sidebar-card-name">Jackhammer</p>
+            <p className="sidebar-card-price">$20</p>
+          </div>
+
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+            <p className="sidebar-card-name">Jackhammer</p>
+            <p className="sidebar-card-price">$20</p>
+          </div>
+
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+            <p className="sidebar-card-name">Jackhammer</p>
+            <p className="sidebar-card-price">$20</p>
+          </div>
+
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+            <p className="sidebar-card-name">Jackhammer</p>
+            <p className="sidebar-card-price">$20</p>
+          </div>
+
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+            <p className="sidebar-card-name">Jackhammer</p>
+            <p className="sidebar-card-price">$20</p>
+          </div>
+
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+            <p className="sidebar-card-name">Jackhammer</p>
+            <p className="sidebar-card-price">$20</p>
+          </div>
+
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+            <p className="sidebar-card-name">Jackhammer</p>
+            <p className="sidebar-card-price">$20</p>
+          </div>
+
+        </div>
+
+      </div>
     );
   }
 }

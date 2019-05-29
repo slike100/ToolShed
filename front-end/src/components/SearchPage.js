@@ -27,6 +27,10 @@ class SearchPage extends React.Component {
     });
   }
 
+  // centerMarker = (latlng) => {
+  //   map.setCenter(latlng);
+  // }
+
   componentDidMount() {
     this.renderMap();
   }

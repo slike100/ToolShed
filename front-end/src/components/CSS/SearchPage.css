@@ -7,17 +7,20 @@
 
 #map {
   height: 93.3vh; /* 92.2vh to account for navbar height - glitchy */
-  width: 100vw;
+  float: right;
+  width: 70%;
 }
 
 #sidebar {
-  width: 24em;
-  left: 0;
-  height: 100vh;
-  border-radius: 0 0 8px 0;
+  width: 30%;
+  height: 93.3vh;
   position: fixed;
   z-index: 100;
   background-color: #F0F7F4;
+  overflow: scroll;
+}
+
+#sidebar-search-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,10 +33,25 @@
 
 .sidebar-search-input {
   font-size: 10px;
-}
-
-input, select {
-  font-size: 8px;
   text-align: center;
 }
 
+.sidebar-card {
+  margin: 0.8em auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  border: 1px solid #B3BFB8;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+}
+
+[class~='sidebar-card']:last-of-type  {
+  margin-bottom: 4em;
+}
+
+.sidebar-card-price {
+  margin-right: 1em;
+  font-size: 18px;
+}
