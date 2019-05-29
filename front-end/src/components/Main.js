@@ -11,6 +11,7 @@ import AddToolForm from "./AddToolForm";
 import CreateNewUserForm from "./CreateNewUserForm";
 import UserProfilePage from "./UserProfilePage";
 import Checkout from "./Checkout";
+import MapToolModal from "./MapToolModal"
 
 class Main extends React.Component {
   render() {
@@ -37,29 +38,28 @@ class Main extends React.Component {
             // component={UserProfile}
             exact
             path="/userProfile"
-            // authed={props.user}
+          // authed={props.user}
           />
 
           <PrivateRoute
             // component={EditProfile}
             exact
             path="/editProfile"
-            // authed={props.user}
+          // authed={props.user}
           />
 
           <PrivateRoute
             // component={ListTool}
             exact
             path="/listTool"
-            // authed={props.user}
+          // authed={props.user}
           />
         </Switch>
 
-
         {/* <Checkout /> */}
-
         {/* <UserProfilePage /> */}
         {/* <AddToolForm /> */}
+        {/* <MapToolModal /> */}
       </div>
     );
   }

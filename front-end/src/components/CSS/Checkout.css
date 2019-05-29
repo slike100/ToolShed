@@ -5,22 +5,7 @@
   justify-content: center;
 }
 
-.checkoutCard {
-  width: 80%;
-  margin-top: 1em;
-  /* height: 30em; */
-}
 
-.container {
-  background-color: #f2f2f2;
-  width: 80%;
-  border: 1px solid #B3BFB8;
-
-}
-
-.row {
-  width: 80%;
-}
 
 h1, h2, h3, h4, h5, label {
   font-family: 'Kanit', sans-serif;
@@ -55,10 +40,12 @@ h1, h2, h3, h4, h5, label {
  
  .checkoutForm {
    box-sizing: border-box;
-   display: block;
-   /* background-color: #F0F7F4; */
-   width: 100%;
-   
+   width: 30rem;
+   justify-content: center;
+   background-color: #f2f2f2;
+   border: 1px solid #B3BFB8;
+   display: flex;
+   justify-content: center;
  
  }
  
@@ -118,7 +105,7 @@ h1, h2, h3, h4, h5, label {
  }
  
  .checkoutForm label {
-   font-size: 1.1em;
+   font-size: 1.2em;
    color: #3C493F;
  }
  
