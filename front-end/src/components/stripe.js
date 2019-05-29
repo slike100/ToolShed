@@ -35,7 +35,7 @@ class CheckoutForm extends Component {
     });
     console.log(updated);
   };
-  };
+  
 
   render() {
     return (
