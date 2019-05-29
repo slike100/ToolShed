@@ -146,8 +146,6 @@ export const getToolsOwned = uid => {
       .get(`${userBaseUrl}allToolsOwnedForOneUser/${uid}`)
       .then(res => {
         if (res.status === 200 && res.data) {
-          console.log(`Success, got all tools owned by user ${uid}`);
-          console.log(res.data);
           const action = {
             type: TOOLS_OWNED,
             payload: res.data
@@ -173,8 +171,6 @@ export const getToolsRented = uid => {
       .get(`${userBaseUrl}allToolsRentedForOneUser/${uid}`)
       .then(res => {
         if (res.status === 200 && res.data) {
-          console.log(`Success, got all tools rented by user ${uid}`);
-          console.log(res.data);
           const action = {
             type: TOOLS_RENTED,
             payload: res.data
