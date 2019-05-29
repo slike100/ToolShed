@@ -11,52 +11,53 @@ import "./CSS/Checkout.css";
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      user: null
-    };
-  }
-
-  componentDidMount() {
-    const elems = document.querySelectorAll(".modal");
-    const instances = M.Modal.init(elems, options);
   }
 
   render() {
     return (
-      <div id="checkoutModal" class="modal">
-        <div class="modal-content">
-          <div className="checkoutForm">
-            <form className="borderRadius">
-              <h3>Rental Details</h3>
+      <div className="checkoutForm">
+        <form className="borderRadius">
+          <h3>Rental Details</h3>
 
-              <label for="toolModel">Pick-up Location:</label>
-              <h5>Denver, CO</h5>
+          <label for="toolModel">Pick-up Location:</label>
+          <h5>Denver, CO</h5>
 
-              <label for="toolModel">Rental Duration:</label>
-              <h5>3 Days</h5>
+          <label for="toolModel">Rental Duration:</label>
+          <h5>3 Days</h5>
 
-              <label for="toolModel">Total:</label>
-              <h5>$45</h5>
+          <label for="toolModel">Total:</label>
+          <h5>$45</h5>
 
-              <div className="">
-                <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
-                  <div className="example">
-                    <Elements>
-                      <CheckoutForm />
-                    </Elements>
-                  </div>
-                </StripeProvider>
+          <div className="">
+            <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
+              <div className="example">
+                <Elements>
+                  <CheckoutForm />
+                </Elements>
               </div>
-            </form>
+            </StripeProvider>
+            <button id="close-button" onClick={this.props.onToggle}>
+              close
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     );
   }
 }
 
-export default Checkout;
+function mapStateToProps(state) {
+  return {
+    user: state.user.user
+  };
+}
+
+const mapDispatchToProps = {};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Checkout);
 
 //this is the button functionality for whichever page will render this modal
 //be sure to put the component itself inside the render of the page that is rendering this

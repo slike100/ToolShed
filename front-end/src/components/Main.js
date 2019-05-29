@@ -18,6 +18,16 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
   }
+  //   this.state = {
+  //     checkOutModal: false
+  //   };
+  // }
+
+  // toggle = () => {
+  //   this.setState(prevState => ({
+  //     checkOutModal: !prevState.checkOutModal
+  //   }));
+  // };
 
   render() {
     return (
@@ -36,6 +46,24 @@ class Main extends React.Component {
       </div>
     );
   }
+
+  // return (
+  //   <div>
+  //     <Navbar />
+  //     <button onClick={this.openModal}>checkout</button>
+
+  //     <Switch>
+  //       <Route component={LandingPage} exact path="/" />
+  //       <Route component={SearchPage} exact path="/search" />
+  //       <PrivateRoute
+  //         component={UserProfilePage}
+  //         exact
+  //         path="/userProfilePage"
+  //         authed={this.props.auth}
+  //       />
+  //     </Switch>
+  //     <Checkout />
+  //   </div>
 }
 
 function mapStateToProps(state) {

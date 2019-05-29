@@ -48,8 +48,12 @@ label {
   justify-content: center;
   background-color: #f2f2f2;
   border: 1px solid #b3bfb8;
-  display: flex;
-  justify-content: center;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  /* justify-content: center; */
 }
 
 /* -- add photo styling -- */
@@ -144,12 +148,6 @@ textarea {
   width: 80%;
 }
 
-.checkoutForm .formButtons {
-  margin: 1em auto;
-  justify-content: center;
-  text-align: center;
-}
-
 .checkoutForm section {
   max-width: 480px;
   margin-left: auto;
@@ -157,9 +155,15 @@ textarea {
 }
 
 .modal .modal-content {
-  padding: 24px;
+  padding: 15px;
   justify-content: center;
   display: grid;
+}
+
+#close-button {
+  position: relative;
+  bottom: 2em;
+  margin-left: 9em;
 }
 
 /* @media only screen and (min-width: 300px) {

@@ -13,14 +13,21 @@ import "./CSS/UserProfilePage.css";
 import UserToolCard from "./UserToolCard";
 import RentedToolCard from "./RentedToolCard";
 import AddToolForm from "./AddToolForm";
+import Checkout from "./Checkout";
 
 class UserProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      checkOutModal: false
     };
   }
+
+  toggle = e => {
+    this.setState(prevState => ({
+      checkOutModal: !this.state.checkOutModal
+    }));
+  };
 
   deleteUser = () => {
     var currentUser = firebaseAuth.currentUser;
@@ -30,6 +37,17 @@ class UserProfilePage extends React.Component {
   };
 
   render() {
+    var modal;
+    if (this.state.checkOutModal === true) {
+      modal = (
+        <div>
+          <Checkout onToggle={this.toggle} />
+        </div>
+      );
+    } else {
+      modal = <div />;
+    }
+
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
     if (this.props.auth) {
@@ -60,6 +78,7 @@ class UserProfilePage extends React.Component {
                   Delete Account
                 </button>
               </div>
+              {modal}
 
               <button
                 class="btn-large waves-effect waves-light btn modal-trigger"
@@ -69,6 +88,7 @@ class UserProfilePage extends React.Component {
               >
                 Add A Tool
               </button>
+              <button onClick={this.toggle}>checkout</button>
             </div>
             <div className="col s4 toolsOwned">
               Tools Owned
