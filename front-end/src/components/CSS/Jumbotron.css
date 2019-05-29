@@ -4,6 +4,7 @@
 .background {
   height: 44em;
   overflow: hidden;
+  width: 100%;
 }
 
 .jumbo {
