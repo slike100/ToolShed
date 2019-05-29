@@ -153,18 +153,19 @@ class AddToolForm extends React.Component {
                   />
                 </form>
                 <div className="formButtons">
-                  <input
-                    className="button"
-                    type="submit"
-                    value="Save"
-                    onClick={this.uploadPhoto}
-                  />
                   <button
                     id="close-button"
                     className="-action modal-close waves-effect waves-green btn-flat"
                   >
                     Cancel
                   </button>
+
+                  <input
+                    className="button"
+                    type="submit"
+                    value="Save"
+                    onClick={this.uploadPhoto}
+                  />
                 </div>
               </div>
 

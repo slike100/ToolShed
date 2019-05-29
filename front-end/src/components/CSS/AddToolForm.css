@@ -67,9 +67,11 @@ body {
 
 .listToolPage .photo img {
   color: #3c493f;
-  margin-bottom: 0.2em;
-  height: 12em;
-  width: 10em;
+  border-bottom: 1px solid #b3bfb8;
+  border-left: 1px solid #b3bfb8;
+  border-right: 1px solid #b3bfb8;
+  height: 12.1em;
+  width: 18em;
 }
 
 .listToolPage form input:focus,
@@ -156,17 +158,25 @@ textarea {
 @media only screen and (min-width: 300px) {
   .modal {
     max-width: 80em;
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
 
   .listToolPage .formButtons {
-    margin-left: 5em;
+    margin-top: 5em;
+    margin-left: 9em;
   }
 
   #close-button {
-    margin-left: 1em;
+    margin-right: 1em;
     width: 7em;
     justify-content: center;
     text-align: center;
+    background-color: #e53934;
+    color: #fff;
+    text-shadow: 0px -1px #e53934;
+    border-bottom: 3px solid #c0312c;
+    border-radius: 5px;
   }
 
   #fileButton {
