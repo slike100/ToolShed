@@ -1,5 +1,8 @@
 import React from "react";
-import "./CSS/SearchPage.css"
+import "./CSS/SearchPage.css";
+import Sidebar from "./Sidebar.js";
+import Map from "./Map.js";
+import { connect } from "react-redux";
 
 
 class SearchPage extends React.Component {
@@ -25,13 +28,20 @@ class SearchPage extends React.Component {
     });
   }
 
+  // centerMarker = (latlng) => {
+  //   map.setCenter(latlng);
+  // }
+
   componentDidMount() {
     this.renderMap();
   }
 
   render() {
     return (
-      <div id="map"></div>
+      <div id="search-page">
+        <Sidebar />
+        <Map />
+      </div>
     );
   }
 }
@@ -45,4 +55,15 @@ function loadScript(url) {
   index.parentNode.insertBefore(script, index)
 }
 
-export default SearchPage;
+const mapDispatchToProps = {};
+
+function mapStateToProps(state) {
+  return {
+    tool: state.tool
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchPage);

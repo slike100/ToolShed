@@ -22,7 +22,7 @@ export default function toolReducer(state = initialState, action) {
       return { ...state };
 
     case TOOL_DATA:
-      return { ...state, tools: payload };
+      return { ...state, toolsSearched: payload };
 
     case DELETE_TOOL:
       return { ...state };
