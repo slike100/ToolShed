@@ -22,6 +22,7 @@ stripeController.post("/", async (req, res) => {
   }
 });
 
+
 stripeController.post("/createUser", async (req, res) => {
   console.log(req.body);
   try {

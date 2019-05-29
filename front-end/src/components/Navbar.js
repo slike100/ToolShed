@@ -49,8 +49,8 @@ class Navbar extends React.Component {
     firebaseAuth.signInWithPopup(provider).then(result => {
       const authObj = {
         uid: result.user.uid,
-        lat: this.state.lat
-        // long: this.state.lng,
+        lat: this.state.lat,
+        long: this.state.lng
         // email: result.user.email,
         // userName: result.user.displayName,
         // avatar: result.user.photoURL
@@ -100,16 +100,15 @@ class Navbar extends React.Component {
   };
 
   componentDidMount() {
-    console.log("DidMount fired");
     firebaseAuth.onAuthStateChanged(user => {
       if (user) {
         const parsedUser = {
           uid: user.uid,
           lat: this.state.lat,
-          long: this.state.lng,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL
+          long: this.state.lng
+          // email: user.email,
+          // displayName: user.displayName,
+          // photoURL: user.photoURL
         };
         this.props.updateUser(parsedUser);
         this.props.getToolsOwned(parsedUser.uid);
@@ -122,18 +121,23 @@ class Navbar extends React.Component {
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
     if (this.props.auth) {
-      profilePhoto = `url(${this.props.auth.photoURL})`;
+      profilePhoto = `url(${this.props.user.avatar})`;
     }
 
     return (
       <nav className="nav-wrapper grey lighten-5">
         <div className="container">
-          <img className="siteLogo" src={logo} />
+          <NavLink to="/">
+            <img className="siteLogo" src={logo} />
+          </NavLink>
           <ul className="right nav-list">
             {this.props.auth ? (
               <React.Fragment>
                 <li>
-                  <NavLink to="/" className="grey-text text-darken-3">
+                  <NavLink
+                    to="/userProfilePage"
+                    className="grey-text text-darken-3"
+                  >
                     Post a Tool
                   </NavLink>
                 </li>
@@ -148,7 +152,7 @@ class Navbar extends React.Component {
                 </li>
                 <li>
                   <NavLink
-                    to="/"
+                    to="/userProfilePage"
                     style={{
                       backgroundImage: profilePhoto,
                       backgroundSize: "cover"

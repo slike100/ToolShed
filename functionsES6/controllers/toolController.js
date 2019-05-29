@@ -64,6 +64,7 @@ toolController.post("/newTool", (req, res) => {
 //START DELETE TOOL ENDPOINT//
 toolController.delete("/deleteTool", (req, res) => {
   try {
+    console.log(req.body);
     db.collection("Tools")
       .doc(req.body.id)
       .delete()

@@ -50,16 +50,22 @@ class RentedToolCard extends React.Component {
       var newDate = new Date(this.state.records[0].dueDate);
       var newDateString = newDate.toString();
       return this.props.tools.map((tool, index) => {
+        var rented;
+        if (tool.isRented == "false" || !tool.isRented) {
+          var rented = "No";
+        } else {
+          var rented = "Yes";
+        }
         return (
           <div className="row1">
             <div className="card toolCard">
               <div className="card-image">
-                <img src={this.props.tools.photo} />
+                <img src={tool.photo} />
               </div>
               <div className="card-content">
-                <span className="card-title">{this.props.tools.name}</span>
-                {/* <p>I am a very simple card. I am good at containing small bits of information.</p> */}
+                <span className="card-title">{tool.name}</span>
                 <h6>Due Date: {newDateString}</h6>
+                <h6>Checked In: {rented}</h6>
               </div>
               <div className="card-action return">
                 <h6>Owner Email: {this.state.records[0].ownerEmail}</h6>

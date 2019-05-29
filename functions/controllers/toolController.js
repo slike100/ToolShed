@@ -50,6 +50,7 @@ toolController.post("/newTool", (req, res) => {
 //START DELETE TOOL ENDPOINT//
 toolController.delete("/deleteTool", (req, res) => {
   try {
+    console.log(req.body);
     db.collection("Tools").doc(req.body.id).delete().then(() => {
       db.collection("User").doc(req.body.uid).get().then(docRef => {
         var data = docRef.data();
