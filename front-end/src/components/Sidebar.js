@@ -1,5 +1,7 @@
 import React from 'react';
 import { addressToLatLng } from '../utils/helperFunctions';
+import axios from "axios";
+import { toolBaseUrl } from "../utils/globalConstants";
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -26,6 +28,20 @@ class Sidebar extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     addressToLatLng(this.state.searchAddress, this); //Sloppy as hell
+
+    axios.get(`${toolBaseUrl}searchTools/?lat=${this.state.searchLat}&long=${this.state.searchLng}&name=${this.state.searchTool}&distance=${this.state.searchDistance}`)
+      .then(res => {
+        if (res.status === 200 && res.data) {
+          console.log(`SUCCESS! Returned Search Results! `, res.data)
+
+          this.setState({
+            searchResults: res.data,
+          })
+        }
+      })
+      .catch(err => {
+        console.log("There was an error searching for tools ", err);
+      })
   }
 
   render() {

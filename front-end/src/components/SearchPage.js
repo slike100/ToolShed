@@ -38,7 +38,6 @@ class SearchPage extends React.Component {
   render() {
     return (
       <div id="search-page">
-
         <Sidebar />
         <Map />
       </div>
