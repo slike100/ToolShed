@@ -7,9 +7,12 @@ import { Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import "materialize-css/dist/css/materialize.min.css";
+import M from "materialize-css";
+import options from "materialize-css/dist/js/materialize.min.js";
 import "./CSS/UserProfilePage.css";
 import UserToolCard from "./UserToolCard";
 import RentedToolCard from "./RentedToolCard";
+import AddToolForm from "./AddToolForm";
 
 class UserProfilePage extends React.Component {
   constructor(props) {
@@ -59,9 +62,10 @@ class UserProfilePage extends React.Component {
               </div>
 
               <button
-                class="btn-large waves-effect waves-light"
+                class="btn-large waves-effect waves-light btn modal-trigger"
                 type="submit"
                 name="action"
+                data-target="addToolModal"
               >
                 Add A Tool
               </button>
@@ -75,6 +79,7 @@ class UserProfilePage extends React.Component {
               <RentedToolCard />
             </div>
           </div>
+          <AddToolForm />
         </div>
       );
   }
