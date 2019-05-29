@@ -1,5 +1,4 @@
 import React from 'react';
-// import { addressToLatLng } from '../utils/helperFunctions';
 import { connect } from "react-redux";
 import { getToolData } from "../redux/actions/toolActions";
 import axios from 'axios';
@@ -12,9 +11,6 @@ class Sidebar extends React.Component {
       searchTool: '',
       searchAddress: '',
       searchDistance: '',
-      // searchLat: '',
-      // searchLng: '',
-      searchResults: [],
     };
   }
 
@@ -43,16 +39,15 @@ class Sidebar extends React.Component {
   // }
 
   addressToLatLng = async (location) => {
-    var _this = this;
-    var location = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+    const getResult = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
         address: location,
         key: 'AIzaSyCc4WdJOT7P6zSJ8o1Td871UXM-3Ay3Fsw'
       }
     });
 
-    const addressLat = location.data.results[0].geometry.location.lat;
-    const addressLng = location.data.results[0].geometry.location.lng;
+    const addressLat = getResult.data.results[0].geometry.location.lat;
+    const addressLng = getResult.data.results[0].geometry.location.lng;
     const { searchTool, searchDistance } = this.state;
 
     let searchObj = {

@@ -18,20 +18,22 @@ export const createTool = toolObj => {
         if (res.status === 200) {
           console.log(`Successfully created a tool!`);
 
-          console.log(res.data);
           const action = {
             type: CREATE_TOOL,
             payload: res.data
           };
+
           dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error performing the search. Error: `, err);
+
         const action = {
           type: CREATE_TOOL
           //Is a payload necessary here?
         };
+
         dispatch(action);
       });
   };
@@ -39,10 +41,6 @@ export const createTool = toolObj => {
 
 //SEARCH TOOLS/GET TOOL DATA AXIOS REQUEST
 export const getToolData = searchObj => {
-  //Will we be using state to get location or a passed in search object (state option is below)?
-  //const { lat, long } = state
-  //let s = store.getState();
-  console.log(searchObj);
   return dispatch => {
     return axios
       .get(
@@ -52,21 +50,24 @@ export const getToolData = searchObj => {
       )
       .then(res => {
         if (res.status === 200) {
-          console.log(`Success, search was performed.`);
-          console.log(res.data);
+          console.log('Successfully searched for tools!');
+
           const action = {
             type: TOOL_DATA,
             payload: res.data
           };
+
           dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error performing the search. Error: `, err);
+
         const action = {
           type: TOOL_DATA
           //Is a payload necessary here?
         };
+
         dispatch(action);
       });
   };
@@ -80,20 +81,23 @@ export const deleteTool = toolId => {
       .then(res => {
         if (res.status === 200) {
           console.log(`Success, tool was deleted.`);
-          console.log(res.data);
+
           const action = {
             type: DELETE_TOOL
             //Is a payload necessary here?
           };
+
           dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error deleting the tool. Error: `, err);
+
         const action = {
           type: DELETE_TOOL
           //Is a payload necessary here?
         };
+
         dispatch(action);
       });
   };
@@ -107,20 +111,23 @@ export const editTool = (toolId, toolObj) => {
       .then(res => {
         if (res.status === 200) {
           console.log(`Successfully edited your ${toolObj.name}!`);
-          console.log(res.data);
+
           const action = {
             type: EDIT_TOOL,
             payload: res.data
           };
+
           dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error performing the search. Error: `, err);
+
         const action = {
           type: EDIT_TOOL
           //Is a payload necessary here?
         };
+
         dispatch(action);
       });
   };
