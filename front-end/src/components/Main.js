@@ -23,29 +23,17 @@ class Main extends React.Component {
     return (
       <div>
         <Navbar />
-        {/* <AddToolForm /> */}
-        {/* <UserProfilePage /> */}
         <Switch>
-          <Route component={About} exact path="/" /> //Needs to be landing page
+          <Route component={LandingPage} exact path="/" />
           <Route component={SearchPage} exact path="/search" />
-          <Route
-            // component={ToolProfile}
-            exact
-            path="/toolProfile"
-          />
           <PrivateRoute
             component={UserProfilePage}
             exact
             path="/userProfilePage"
-            authed={this.props.auth}
+            authed={true} //hard-coded until I can get the redux state to persist on rendering new content
           />
           <PrivateRoute
-            // component={EditProfile}
-            exact
-            path="/editProfile"
-            // authed={props.user}
-          />
-          <PrivateRoute
+            //This route should open the profile page with the add tool modal already popped up?
             // component={ListTool}
             exact
             path="/listTool"
@@ -54,7 +42,7 @@ class Main extends React.Component {
         </Switch>
 
         {/* LANDING PAGE */}
-        <LandingPage />
+        {/* <LandingPage /> */}
         {/* END LANDING PAGE */}
 
         {/* <CreateNewUserForm /> */}
@@ -71,8 +59,6 @@ class Main extends React.Component {
         {/* <Checkout /> */}
 
         {/* <UserProfilePage /> */}
-
-        {/* <AddToolForm /> */}
 
         {/* <MapToolModal /> */}
       </div>
