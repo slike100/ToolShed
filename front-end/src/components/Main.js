@@ -15,8 +15,8 @@ import Checkout from "./Checkout";
 import MapToolModal from "./MapToolModal";
 
 class Main extends React.Component {
-  componentDidMount() {
-    console.log("routes are mounted");
+  constructor(props) {
+    super(props);
   }
 
   render() {
@@ -30,37 +30,9 @@ class Main extends React.Component {
             component={UserProfilePage}
             exact
             path="/userProfilePage"
-            authed={true} //hard-coded until I can get the redux state to persist on rendering new content
-          />
-          <PrivateRoute
-            //This route should open the profile page with the add tool modal already popped up?
-            // component={ListTool}
-            exact
-            path="/listTool"
-            // authed={props.user}
+            authed={this.props.auth}
           />
         </Switch>
-
-        {/* LANDING PAGE */}
-        {/* <LandingPage /> */}
-        {/* END LANDING PAGE */}
-
-        {/* <CreateNewUserForm /> */}
-        {/* <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
-          <div className="example">
-            <h1>React Stripe Elements Example</h1>
-            <Elements>
-              <CheckoutForm />
-            </Elements>
-          </div>
-
-        </StripeProvider>{" "} */}
-
-        {/* <Checkout /> */}
-
-        {/* <UserProfilePage /> */}
-
-        {/* <MapToolModal /> */}
       </div>
     );
   }

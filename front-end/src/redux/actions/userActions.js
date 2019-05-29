@@ -79,7 +79,6 @@ export function updateUser(userObj) {
       .put(`${userBaseUrl}updateUser/${userObj.uid}`, userObj)
       .then(res => {
         if (res.status === 200 && res.data) {
-          console.log("edit user fired: ", res.data);
           const action = {
             type: EDIT_USER,
             payload: res.data

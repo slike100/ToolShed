@@ -100,7 +100,6 @@ class Navbar extends React.Component {
   };
 
   componentDidMount() {
-    console.log("DidMount fired");
     firebaseAuth.onAuthStateChanged(user => {
       if (user) {
         const parsedUser = {
