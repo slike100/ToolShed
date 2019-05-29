@@ -19,20 +19,8 @@ class UserProfilePage extends React.Component {
     super(props);
     this.state = {
       user: null
-      // view: { showModal: false }
     };
   }
-
-  // handleHideModal = () => {
-  //   this.setState({ view: { showModal: false } });
-  // };
-  // handleShowModal = () => {
-  //   this.setState({ view: { showModal: true } });
-  // };
-  // handleModalChange = () => {
-  //   if (this.state.view.showModal === false) {
-  //   }
-  // };
 
   deleteUser = () => {
     var currentUser = firebaseAuth.currentUser;
@@ -77,8 +65,7 @@ class UserProfilePage extends React.Component {
                 class="btn-large waves-effect waves-light btn modal-trigger"
                 type="submit"
                 name="action"
-                data-target="modal1"
-                onClick={this.handleShowModal}
+                data-target="addToolModal"
               >
                 Add A Tool
               </button>
@@ -92,10 +79,7 @@ class UserProfilePage extends React.Component {
               <RentedToolCard />
             </div>
           </div>
-          <AddToolForm
-          // handleHideModal={this.handleHideModal}
-          // show={this.state.view.showModal}
-          />
+          <AddToolForm />
         </div>
       );
   }

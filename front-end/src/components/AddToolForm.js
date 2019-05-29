@@ -45,7 +45,9 @@ class AddToolForm extends React.Component {
     const _this = this;
     var file = document.getElementById("fileButton").files[0];
     var storageRef = firebase.storage().ref();
-    var uploadTask = storageRef.child("/images" + file.name).put(file);
+    var uploadTask = storageRef
+      .child(this.props.uid + "/" + file.name)
+      .put(file);
 
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
@@ -82,7 +84,6 @@ class AddToolForm extends React.Component {
           _this.setState({
             photoURL: downloadURL
           });
-
           _this.sendAction();
         });
       }
@@ -109,7 +110,7 @@ class AddToolForm extends React.Component {
 
   render() {
     return (
-      <div id="modal1" class="modal">
+      <div id="addToolModal" class="modal">
         <div class="modal-content">
           <div className="listToolPage">
             <div className="grid">
@@ -151,9 +152,23 @@ class AddToolForm extends React.Component {
                     placeholder="ex: 7-1/4&#8243; blade, cordless saw with 1 extra battery and charging station.."
                   />
                 </form>
+                <div className="formButtons">
+                  <input
+                    className="button"
+                    type="submit"
+                    value="Save"
+                    onClick={this.uploadPhoto}
+                  />
+                  <button
+                    id="close-button"
+                    className="-action modal-close waves-effect waves-green btn-flat"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
 
-              <section className="toolInfo grid3" id="rental-section">
+              <section className="tgrid3" id="rental-section">
                 <form className="borderRadius">
                   <h3>Rental Price</h3>
                   <label for="rentalPrice">Price per Day</label>
@@ -161,19 +176,9 @@ class AddToolForm extends React.Component {
                     type="text"
                     id="rentalPrice"
                     name="rentalPrice"
-                    placeholder="ex: $7.00"
+                    placeholder="ex: 7.00"
                   />
                 </form>
-              </section>
-
-              <section className="formButtons grid4">
-                <input
-                  className="button"
-                  type="submit"
-                  value="Save"
-                  onClick={this.uploadPhoto}
-                />
-                <input className="button" type="cancel" value="Cancel" />
               </section>
             </div>
           </div>
@@ -185,7 +190,8 @@ class AddToolForm extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.user
+    user: state.user.user,
+    uid: state.user.uid
   };
 }
 

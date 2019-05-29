@@ -53,7 +53,6 @@ body {
   box-sizing: border-box;
   display: block;
   background-color: #f0f7f4;
-  width: 800px;
 }
 
 /* -- add photo styling -- */
@@ -65,13 +64,6 @@ body {
   background-color: #d9d9d9;
   margin: 1em;
 }
-
-/* .listToolPage .photo { */
-/* margin-top: 2em; */
-/* display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
 
 .listToolPage .photo img {
   color: #3c493f;
@@ -88,7 +80,7 @@ form textarea:focus {
 
 .listToolPage button,
 input[type="submit"] {
-  margin: 2em auto;
+  margin: 4em auto;
   width: 9em;
   height: 2.4em;
   font-weight: 700;
@@ -103,13 +95,6 @@ input[type="submit"] {
 }
 
 /* -- form styling -- */
-#rental-section {
-  margin-top: 2em;
-}
-
-#toolInfo-section {
-  margin-top: 5em;
-}
 
 .listToolPage form {
   margin: 1em;
@@ -135,7 +120,7 @@ textarea {
 }
 
 .listToolPage input[type="submit"] {
-  margin: 0;
+  margin-left: 0;
   width: 6em;
 }
 
@@ -152,7 +137,7 @@ textarea {
   background-color: #f2f2f2;
 }
 
-.listToolPage .formButtons {
+.listToolPage .formButtons #cancel-button {
   margin: 1em auto;
   justify-content: center;
   text-align: center;
@@ -169,14 +154,34 @@ textarea {
 }
 
 @media only screen and (min-width: 300px) {
+  .modal {
+    max-width: 80em;
+  }
+
+  .listToolPage .formButtons {
+    margin-left: 5em;
+  }
+
+  #close-button {
+    margin-left: 1em;
+    width: 7em;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #fileButton {
+    width: 6.6em;
+    background-color: #a2e3c4;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: auto auto;
-    grid-template-rows: 1fr, 1fr, 4em;
+    grid-template-rows: auto auto auto;
   }
 
   .listToolPage section {
-    max-width: 20em;
+    max-width: 25em;
     margin: 0;
   }
 
@@ -186,8 +191,6 @@ textarea {
 
   .listToolPage .grid1 {
     width: 20em;
-    /* margin-left: auto; */
-    margin-right: 0;
   }
 
   .listToolPage .grid2 {
@@ -197,12 +200,7 @@ textarea {
 
   .listToolPage .grid3 {
     width: 20em;
-    /* margin-left: auto; */
-    /* margin-right: 0em; */
-  }
-
-  .listToolPage .grid4 {
-    grid-column-start: span 1;
-    justify-content: center;
+    margin-left: auto;
+    margin-right: 0em;
   }
 }
