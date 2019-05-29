@@ -2,17 +2,88 @@ import "materialize-css/dist/css/materialize.min.css";
 // import './CSS/UserProfilePage.css';
 import React from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 
-import './CSS/RentedToolCard.css';
+import "./CSS/RentedToolCard.css";
 
 class RentedToolCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      records: []
     };
   }
 
+  getRentalRecord = async () => {
+    if (this.props.tools.length === 0) {
+      return;
+    }
+    var _this = this;
+    var records = [];
+    console.log(this.props.tools);
+    for (let i = 0; i < this.props.tools.length; i++) {
+      console.log(this.props.tools[i]);
+      var record = await axios.get(
+        `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/rentalRecord/${
+          this.props.tools[i].toolId
+        }`
+      );
+      var user = await axios.get(
+        `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/userData/${
+          record.data[0].ownerId
+        }`
+      );
+    }
+    var recordIn = record.data[0];
+    recordIn.ownerEmail = user.data.email;
+    this.setState({
+      records: [...this.state.records, recordIn]
+    });
+  };
+
+  createToolRentingCards = () => {
+    console.log(this.props.tools);
+    if (this.state.records.length == 0) {
+      return <div>You are not currently renting any tools</div>;
+    } else {
+      console.log(this.state.records[0].dueDate);
+      var newDate = new Date(this.state.records[0].dueDate);
+      var newDateString = newDate.toString();
+      return this.props.tools.map((tool, index) => {
+        var rented;
+        if (tool.isRented == "false" || !tool.isRented) {
+          var rented = "No";
+        } else {
+          var rented = "Yes";
+        }
+        return (
+          <div className="row1">
+            <div className="card toolCard">
+              <div className="card-image">
+                <img src={tool.photo} />
+              </div>
+              <div className="card-content">
+                <span className="card-title">{tool.name}</span>
+                <h6>Due Date: {newDateString}</h6>
+                <h6>Checked In: {rented}</h6>
+              </div>
+              <div className="card-action return">
+                <h6>Owner Email: {this.state.records[0].ownerEmail}</h6>
+              </div>
+            </div>
+          </div>
+        );
+      });
+    }
+  };
+
+  componentDidMount() {
+    if (this.props.tools) {
+      this.getRentalRecord();
+    } else {
+      return;
+    }
+  }
 
   render() {
     // grab and place google photo as profile button background-image
@@ -20,27 +91,19 @@ class RentedToolCard extends React.Component {
     if (this.props.auth) {
       profilePhoto = `url(${this.props.auth.photoURL})`;
     }
-    return (
-      <div className="row1">
-
-        <div className="card toolCard">
-          <div className="card-image">
-            <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-          </div>
-          <div className="card-content">
-            <span className="card-title">Tool Name</span>
-            {/* <p>I am a very simple card. I am good at containing small bits of information.</p> */}
-            <h6>DUE DATE</h6>
-          </div>
-          <div className="card-action return">
-            <h6>Contact Owner: test@test</h6>
-
-          </div>
-        </div>
-      </div>
-    )
+    return <div>{this.createToolRentingCards()}</div>;
   }
-
 }
 
-export default RentedToolCard;
+const mapDispatchToProps = {};
+
+function mapStateToProps(state) {
+  return {
+    tools: state.tool.toolsRenting
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RentedToolCard);

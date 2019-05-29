@@ -18,7 +18,6 @@ toolController.post("/newTool", (req, res) => {
     uid: req.body.uid,
     photo: req.body.photo,
     priceRatePerDay: req.body.priceRatePerDay,
-    rentalDurationInDays: req.body.rentalDurationInDays,
     lat: req.body.lat,
     long: req.body.long
   });
@@ -26,7 +25,20 @@ toolController.post("/newTool", (req, res) => {
     db.collection("Tools").add(tool).then(ref => {
       req.body.toolsOwned.push(ref.id);
       db.collection("User").doc(req.body.uid).update({ toolsOwned: req.body.toolsOwned }).then(() => {
-        return res.status(200).send("Successfully added a new tool and added it to your current user account.");
+        db.collection("User").doc(req.body.uid).get().then(userDoc => {
+          if (!userDoc.exists) {
+            console.log("This user does not exist.");
+          } else {
+            let data = userDoc.data();
+            console.log(data.toolsOwned);
+            return res.status(200).send(data.toolsOwned);
+          }
+        });
+        // return res
+        //   .status(200)
+        //   .send(
+        //     "Successfully added a new tool and added it to your current user account."
+        //   );
       });
     });
   } catch (err) {
@@ -38,6 +50,7 @@ toolController.post("/newTool", (req, res) => {
 //START DELETE TOOL ENDPOINT//
 toolController.delete("/deleteTool", (req, res) => {
   try {
+    console.log(req.body);
     db.collection("Tools").doc(req.body.id).delete().then(() => {
       db.collection("User").doc(req.body.uid).get().then(docRef => {
         var data = docRef.data();
@@ -86,15 +99,17 @@ toolController.get("/searchTools", (req, res) => {
       docRef.where("lat", ">=", subLat).where("lat", "<=", addLat).get().then(snapshot => {
         if (snapshot.empty) {
           console.log("first No matching documents. Sam S");
-          return;
+          return res.status(500).send("No tools match your search criteria.");
         } else docRef.where("long", "<=", addLong).where("long", ">=", subLong).get().then(snapshot1 => {
           if (snapshot1.empty) {
             console.log("second No matching documents. Sam S");
-            return;
+            return res.status(500).send("No tools match your search criteria.");
           } else var matchingTools = [];
           snapshot1.docs.forEach(doc => {
             console.log(doc.id, "=>", doc.data());
-            matchingTools.push(doc.data());
+            var data = doc.data();
+            data.toolId = doc.id;
+            matchingTools.push(data);
           });
           return res.status(200).send(matchingTools);
         });
@@ -121,7 +136,9 @@ toolController.get("/searchTools", (req, res) => {
             } else var matchingTools = [];
             snapshot2.docs.forEach(doc => {
               console.log(doc.id, "=> in second if", doc.data());
-              matchingTools.push(doc.data());
+              var data = doc.data();
+              data.toolId = doc.id;
+              matchingTools.push(data);
             });
             return res.status(200).send(matchingTools);
           });

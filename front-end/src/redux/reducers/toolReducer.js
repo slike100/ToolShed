@@ -2,7 +2,9 @@ import {
   CREATE_TOOL,
   TOOL_DATA,
   DELETE_TOOL,
-  EDIT_TOOL
+  EDIT_TOOL,
+  TOOLS_OWNED,
+  TOOLS_RENTED
 } from "../types/toolTypes";
 
 const initialState = {
@@ -17,16 +19,22 @@ export default function toolReducer(state = initialState, action) {
 
   switch (type) {
     case CREATE_TOOL:
-      return { ...state, tool: payload };
+      return { ...state };
 
     case TOOL_DATA:
       return { ...state, toolsSearched: payload };
 
     case DELETE_TOOL:
-      return { ...state, tool: payload };
+      return { ...state };
 
     case EDIT_TOOL:
       return { ...state, toolsOwned: payload };
+
+    case TOOLS_OWNED:
+      return { ...state, toolsOwned: payload };
+
+    case TOOLS_RENTED:
+      return { ...state, toolsRenting: payload };
 
     default:
       return state;

@@ -4,10 +4,14 @@ import "materialize-css/dist/css/materialize.min.css";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import loginButton from "../assets/img/btn_google_signin_dark_normal_web.png";
 import logo from "../assets/img/logo.png";
-import "./CSS/Navbar.css"
+import "./CSS/Navbar.css";
 import { connect } from "react-redux";
-import { logoutUser, updateUser } from "../redux/actions/userActions";
-
+import {
+  logoutUser,
+  updateUser,
+  addNewUser
+} from "../redux/actions/userActions";
+import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +21,7 @@ class Navbar extends React.Component {
     };
   }
 
-  login = () => {
+  signUp = () => {
     this.getGeoLocation();
 
     firebaseAuth.signInWithPopup(provider).then(result => {
@@ -27,9 +31,33 @@ class Navbar extends React.Component {
         long: this.state.lng,
         email: result.user.email,
         userName: result.user.displayName,
-        avatar: result.user.photoURL
+        avatar: result.user.photoURL,
+        toolsOwned: [],
+        toolsBeingRented: [],
+        recordIds: [],
+        stripeToken: ""
+      };
+      this.props.addNewUser(authObj);
+      // this.props.getToolsOwned(authObj.uid);
+      // this.props.getToolsRented(authObj.uid);
+    });
+  };
+
+  login = () => {
+    this.getGeoLocation();
+
+    firebaseAuth.signInWithPopup(provider).then(result => {
+      const authObj = {
+        uid: result.user.uid,
+        lat: this.state.lat,
+        long: this.state.lng
+        // email: result.user.email,
+        // userName: result.user.displayName,
+        // avatar: result.user.photoURL
       };
       this.props.updateUser(authObj);
+      this.props.getToolsOwned(authObj.uid);
+      this.props.getToolsRented(authObj.uid);
     });
   };
 
@@ -77,12 +105,14 @@ class Navbar extends React.Component {
         const parsedUser = {
           uid: user.uid,
           lat: this.state.lat,
-          long: this.state.lng,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL
+          long: this.state.lng
+          // email: user.email,
+          // displayName: user.displayName,
+          // photoURL: user.photoURL
         };
         this.props.updateUser(parsedUser);
+        this.props.getToolsOwned(parsedUser.uid);
+        this.props.getToolsRented(parsedUser.uid);
       }
     });
   }
@@ -91,18 +121,23 @@ class Navbar extends React.Component {
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
     if (this.props.auth) {
-      profilePhoto = `url(${this.props.auth.photoURL})`;
+      profilePhoto = `url(${this.props.user.avatar})`;
     }
 
     return (
       <nav className="nav-wrapper grey lighten-5">
         <div className="container">
-          <img className="siteLogo" src={logo} />
+          <NavLink to="/">
+            <img className="siteLogo" src={logo} />
+          </NavLink>
           <ul className="right nav-list">
             {this.props.auth ? (
               <React.Fragment>
                 <li>
-                  <NavLink to="/" className="grey-text text-darken-3">
+                  <NavLink
+                    to="/userProfilePage"
+                    className="grey-text text-darken-3"
+                  >
                     Post a Tool
                   </NavLink>
                 </li>
@@ -117,7 +152,7 @@ class Navbar extends React.Component {
                 </li>
                 <li>
                   <NavLink
-                    to="/"
+                    to="/userProfilePage"
                     style={{
                       backgroundImage: profilePhoto,
                       backgroundSize: "cover"
@@ -132,7 +167,7 @@ class Navbar extends React.Component {
                   <NavLink
                     to="/"
                     className="grey-text text-darken-3"
-                    onClick={this.login}
+                    onClick={this.signUp}
                   >
                     Sign Up
                   </NavLink>
@@ -162,7 +197,10 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   logoutUser,
-  updateUser
+  updateUser,
+  getToolsOwned,
+  getToolsRented,
+  addNewUser
 };
 
 export default connect(

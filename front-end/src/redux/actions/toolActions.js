@@ -1,19 +1,24 @@
 import store from "../store";
 import axios from "axios";
-import { toolBaseUrl } from "../../utils/globalConstants";
+import { toolBaseUrl, userBaseUrl } from "../../utils/globalConstants";
 
 import {
   CREATE_TOOL,
   TOOL_DATA,
   DELETE_TOOL,
-  EDIT_TOOL
+  EDIT_TOOL,
+  TOOLS_OWNED,
+  TOOLS_RENTED
 } from "../types/toolTypes";
 
 //CREATE A NEW TOOL AXIOS REQUEST
 export const createTool = toolObj => {
+  console.log(toolObj);
   return dispatch => {
+    console.log(toolObj);
+
     return axios
-      .post(`${toolBaseUrl}/newTool`, toolObj)
+      .post(`${toolBaseUrl}newTool`, toolObj)
       .then(res => {
         if (res.status === 200) {
           console.log(`Successfully created a tool!`);
@@ -22,7 +27,7 @@ export const createTool = toolObj => {
             type: CREATE_TOOL,
             payload: res.data
           };
-
+          
           dispatch(action);
         }
       })
@@ -74,17 +79,17 @@ export const getToolData = searchObj => {
 };
 
 //DELETE TOOL AXIOS REQUEST
-export const deleteTool = toolId => {
+export const deleteTool = toolObj => {
+  console.log(toolObj);
   return dispatch => {
     return axios
-      .delete(`${toolBaseUrl}/deleteTool`, toolId)
+      .delete(`${toolBaseUrl}deleteTool/`, { data: toolObj })
       .then(res => {
         if (res.status === 200) {
           console.log(`Success, tool was deleted.`);
 
           const action = {
             type: DELETE_TOOL
-            //Is a payload necessary here?
           };
 
           dispatch(action);
@@ -95,7 +100,6 @@ export const deleteTool = toolId => {
 
         const action = {
           type: DELETE_TOOL
-          //Is a payload necessary here?
         };
 
         dispatch(action);
@@ -129,6 +133,61 @@ export const editTool = (toolId, toolObj) => {
         };
 
         dispatch(action);
+      });
+  };
+};
+
+//GET ALL TOOLS OWNED BY USER
+export const getToolsOwned = uid => {
+  return dispatch => {
+    return axios
+      .get(`${userBaseUrl}allToolsOwnedForOneUser/${uid}`)
+      .then(res => {
+        if (res.status === 200 && res.data) {
+          
+          const action = {
+            type: TOOLS_OWNED,
+            payload: res.data
+          };
+          
+          dispatch(action);
+        }
+      })
+      .catch(err => {
+        console.log(`There was an error getting tools owned. Error: `, err);
+      
+        const action = {
+          type: TOOLS_OWNED,
+          payload: []
+        };
+        return action;
+      });
+  };
+};
+
+//GET ALL TOOLS RENTED BY USER
+export const getToolsRented = uid => {
+  return dispatch => {
+    return axios
+      .get(`${userBaseUrl}allToolsRentedForOneUser/${uid}`)
+      .then(res => {
+        if (res.status === 200 && res.data) {
+          
+          const action = {
+            type: TOOLS_RENTED,
+            payload: res.data
+          };
+          
+          dispatch(action);
+        }
+      })
+      .catch(err => {
+        console.log(`There was an error getting tools owned. Error: `, err);
+        const action = {
+          type: TOOLS_RENTED,
+          payload: []
+        };
+        return action;
       });
   };
 };
