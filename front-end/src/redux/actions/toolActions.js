@@ -56,10 +56,16 @@ export const getToolData = searchObj => {
       .then(res => {
         if (res.status === 200) {
           console.log("Successfully searched for tools!");
+          var data;
+          console.log(res.data);
+          // if (!res.data.length === 0) {
+          //   data = [];
+          // } else {
+          data = res.data;
 
           const action = {
             type: TOOL_DATA,
-            payload: res.data
+            payload: data
           };
 
           dispatch(action);
@@ -67,10 +73,9 @@ export const getToolData = searchObj => {
       })
       .catch(err => {
         console.log(`There was an error performing the search. Error: `, err);
-
         const action = {
-          type: TOOL_DATA
-          //Is a payload necessary here?
+          type: TOOL_DATA,
+          payload: []
         };
 
         dispatch(action);
