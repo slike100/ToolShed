@@ -57,10 +57,11 @@ class UserToolCard extends React.Component {
     console.log(totalDaysRented);
     var amountToPay = totalDaysRented * this.props.record.pricePerDay * 100;
     console.log(amountToPay);
-    var amountToDisplay = totalDaysRented * this.props.record.pricePerDay * 100;
+    var amountToDisplay = totalDaysRented * this.props.record.pricePerDay;
     amountToPay = amountToPay.toFixed();
     stripeObj.amount = amountToPay;
     stripeObj.description = `Congrats! Your tool has been checked in and you should recieve your payment of $${amountToDisplay} soon!`;
+    console.log(rentee);
     stripeObj.source = rentee.data.stripeToken;
     console.log(rentee);
     await this.props.payStripe(stripeObj);

@@ -2,21 +2,28 @@ import React from "react";
 import { connect } from "react-redux";
 import { getToolData } from "../redux/actions/toolActions";
 import Checkout from "./Checkout";
-import axios from 'axios';
-import SearchCard from './SearchCard';
-
+import axios from "axios";
+import SearchCard from "./SearchCard";
 
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       searchTool: "",
       searchAddress: "",
       searchDistance: "",
-      checkOutModal: false
+      checkOutModal: false,
+      toolSelected: ""
     };
   }
+
+  getToolClicked = e => {
+    console.log(e.target.dataset.id);
+    this.setState({
+      toolSelected: e.target.dataset.id,
+      checkOutModal: !this.state.checkOutModal
+    });
+  };
 
   toggle = e => {
     this.setState(prevState => ({
@@ -41,12 +48,12 @@ class Sidebar extends React.Component {
   getAddress = (lat, lng) => {
     var geocoder = new window.google.maps.Geocoder();
     var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-    geocoder.geocode({ location: latlng }, function (results, status) {
+    geocoder.geocode({ location: latlng }, function(results, status) {
       if (status === "OK") {
         console.log(results[0]);
       }
     });
-  }
+  };
 
   addressToLatLng = async location => {
     const getResult = await axios.get(
@@ -78,7 +85,7 @@ class Sidebar extends React.Component {
     if (this.state.checkOutModal === true) {
       modal = (
         <div>
-          <Checkout onToggle={this.toggle} />
+          <Checkout onToggle={this.toggle} tool={this.state.toolSelected} />
         </div>
       );
     } else {
@@ -86,7 +93,6 @@ class Sidebar extends React.Component {
     }
     return (
       <div id="sidebar">
-        <button onClick={this.toggle}>checkout</button>
         {modal}
         <form id="sidebar-search-form" onSubmit={this.handleSubmit}>
           <label className="sidebar-search-label">
@@ -129,8 +135,7 @@ class Sidebar extends React.Component {
           <p className="sidebar-card-price">$20</p>
         </div> */}
 
-        <SearchCard />
-
+        <SearchCard toggle={this.toggle} getToolClicked={this.getToolClicked} />
       </div>
     );
   }
