@@ -42,13 +42,13 @@ class SearchPage extends React.Component {
           animation: window.google.maps.Animation.DROP,
         })
 
-        let cardInfo = `<h6>$${location.priceRatePerDay}</h6>`;
+        let cardInfo = `<h6 data-id=${location.toolId}>$${location.priceRatePerDay}</h6>`;
 
         marker.addListener('click', () => {
           marker.setAnimation(window.google.maps.Animation.BOUNCE);
           window.setTimeout(marker.setAnimation(false), 1000);
-          // infowindow.setContent(cardInfo);
-          // infowindow.open(map, marker);
+          infowindow.setContent(cardInfo);
+          infowindow.open(map, marker);
         })
         renderMarkers[renderMarkers.length] = marker;
         infowindow.setContent(cardInfo);
