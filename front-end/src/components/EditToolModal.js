@@ -2,14 +2,14 @@ import React from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
 import "./CSS/AddToolForm.css";
-import { createTool, getToolsOwned } from "../redux/actions/toolActions";
-import UserProfilePage from "./UserProfilePage";
+import { editTool, getToolsOwned } from "../redux/actions/toolActions";
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css";
 import options from "materialize-css/dist/js/materialize.min.js";
+import { stat } from "fs";
 const firebase = require("firebase");
 
-class AddToolForm extends React.Component {
+class EditToolModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,18 +19,29 @@ class AddToolForm extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.user);
+    this.setState({
+      photoURL: this.props.image
+    });
     const elems = document.querySelectorAll(".modal");
     const instances = M.Modal.init(elems, options);
   }
 
   previewFile = e => {
+    const _this = this;
     var preview = document.getElementById("toolImage");
     console.log(preview);
+    console.log(preview.src);
     var file = e.target.files[0];
     console.log(file);
     var reader = new FileReader();
     reader.onloadend = function() {
       preview.src = reader.result;
+      var image = reader.result;
+      _this.setState({
+        photoURL: image
+      });
+      _this.uploadPhoto();
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -41,7 +52,9 @@ class AddToolForm extends React.Component {
 
   uploadPhoto = async () => {
     const _this = this;
-    var file = document.getElementById("fileButton").files[0];
+    var file = document.getElementById("chooseFileButton").files[0];
+    console.log(file);
+    console.log(file.name);
     var storageRef = firebase.storage().ref();
     var uploadTask = storageRef
       .child(this.props.uid + "/" + file.name)
@@ -82,46 +95,52 @@ class AddToolForm extends React.Component {
           _this.setState({
             photoURL: downloadURL
           });
-          _this.sendAction();
+          //   _this.sendAction();
         });
       }
     );
   };
 
   sendAction = async () => {
-    console.log(this.state.photoURL);
-    let newToolObj = {
-      name: document.getElementById("toolType").value,
-      description: document.getElementById("description").value,
-      isRented: false,
+    let editedToolObj = {
+      name: document.getElementById("editToolType").value,
+      description: document.getElementById("editDescription").value,
+      isRented: this.props.isRented,
       uid: this.props.user.uid,
       photo: this.state.photoURL,
-      priceRatePerDay: parseInt(document.getElementById("rentalPrice").value),
-      rentalDurationInDays: 0,
+      priceRatePerDay: parseInt(
+        document.getElementById("editRentalPrice").value
+      ),
+      rentalDurationInDays: this.props.tools.rentalDurationInDays,
       lat: this.props.user.lat,
       long: this.props.user.long,
       toolsOwned: this.props.user.toolsOwned
     };
-    await this.props.createTool(newToolObj);
-    await this.props.getToolsOwned(this.props.user.uid);
+
+    await this.props.editTool(this.props.toolId, editedToolObj);
+    await this.props.getToolsOwned(this.props.uid);
   };
 
   render() {
     return (
-      <div id="addToolModal" class="modal">
+      <div id="editToolModal" class="modal">
         <div class="modal-content" />
         <div className="listToolPage">
           <div className="grid">
             <section className="photoContainer grid1">
               <div className="photoBackground borderRadius" id="photo-section">
                 <div className="photo">
-                  <img className="photo" id="toolImage" />
+                  <img
+                    className="photo"
+                    id="toolImage"
+                    src={this.state.photoURL}
+                  />
                 </div>
                 <div className="button">
                   <input
                     type="file"
                     name="file"
-                    id="fileButton"
+                    id="chooseFileButton"
                     class="inputFile"
                     onChange={this.previewFile}
                   />
@@ -134,17 +153,21 @@ class AddToolForm extends React.Component {
                 <h3>Tool Info</h3>
                 <label for="toolType">Tool Type</label>
                 <input
+                  defaultValue={this.props.toolName}
                   type="text"
-                  id="toolType"
+                  id="editToolType"
                   name="toolType"
-                  placeholder="ex: Circular Saw.."
+                  required={true}
+                  type="text"
                 />
                 <label for="description">Description</label>
-                <textarea
+                <input
                   className="description"
                   name="description"
-                  id="description"
-                  placeholder="ex: 7-1/4&#8243; blade, cordless saw with 1 extra battery and charging station.."
+                  id="editDescription"
+                  defaultValue={this.props.description}
+                  required={true}
+                  type="text"
                 />
               </form>
               <div className="formButtons">
@@ -156,10 +179,12 @@ class AddToolForm extends React.Component {
                 </button>
 
                 <input
-                  className="button save modal-close"
+                  className="button save  modal-close"
                   type="submit"
-                  value="Create"
-                  onClick={this.uploadPhoto}
+                  value="Save"
+                  onClick={this.sendAction}
+                  required={true}
+                  type="text"
                 />
               </div>
             </div>
@@ -170,9 +195,11 @@ class AddToolForm extends React.Component {
                 <label for="rentalPrice">Price per Day</label>
                 <input
                   type="text"
-                  id="rentalPrice"
+                  id="editRentalPrice"
                   name="rentalPrice"
-                  placeholder="ex: 7.00"
+                  defaultValue={this.props.rentalPrice}
+                  required={true}
+                  type="text"
                 />
               </form>
             </section>
@@ -186,16 +213,17 @@ class AddToolForm extends React.Component {
 function mapStateToProps(state) {
   return {
     user: state.user.user,
-    uid: state.user.user.uid
+    uid: state.user.user.uid,
+    tools: state.tool.toolsOwned
   };
 }
 
 const mapDispatchToProps = {
-  createTool,
+  editTool,
   getToolsOwned
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddToolForm);
+)(EditToolModal);

@@ -56,7 +56,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 1;
 }
 
 /* -- add photo styling -- */
@@ -76,8 +76,6 @@ body {
   border-right: 1px solid #b3bfb8;
   height: 12.1em;
   width: 18em;
-  z-index: -1;
-  display: block;
 }
 
 .listToolPage form input:focus,
@@ -161,11 +159,16 @@ textarea {
   height: 6em;
 }
 
+.edit-button {
+  width: 6em;
+}
+
 @media only screen and (min-width: 300px) {
-  .modal {
+  .modal .modal-content {
     max-width: 80em;
     overflow-y: hidden;
     overflow-x: hidden;
+    height: 60em;
   }
 
   .listToolPage .formButtons {
@@ -175,6 +178,7 @@ textarea {
 
   #close-button {
     margin-right: 1em;
+    margin-left: 0.5em;
     width: 7em;
     justify-content: center;
     text-align: center;
@@ -185,7 +189,7 @@ textarea {
     border-radius: 5px;
   }
 
-  #fileButton {
+  #fileButton #changeFileButton {
     width: 13em;
     background-color: #a2e3c4;
   }

@@ -37,16 +37,24 @@ class UserProfilePage extends React.Component {
   };
 
   render() {
+    // var modal;
+    // if (this.state.checkOutModal === true) {
+    //   modal = (
+    //     <div>
+    //       <AddToolForm onToggle={this.toggle} />
+    //     </div>
+    //   );
+    // } else {
+    //   modal = <div />;
+    // }
+
     var modal;
-    if (this.state.checkOutModal === true) {
-      modal = (
-        <div>
-          <AddToolForm onToggle={this.toggle} />
-        </div>
-      );
-    } else {
-      modal = <div />;
-    }
+
+    modal = (
+      <div>
+        <AddToolForm />
+      </div>
+    );
 
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
@@ -85,7 +93,7 @@ class UserProfilePage extends React.Component {
                 type="submit"
                 name="action"
                 data-target="addToolModal"
-                onClick={this.toggle}
+                // onClick={this.toggle}
               >
                 Add A Tool
               </button>
