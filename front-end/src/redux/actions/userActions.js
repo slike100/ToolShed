@@ -44,14 +44,14 @@ export function addNewUser(userObj) {
 }
 
 // AXIOS DELETE USER
-export function deleteUser(userId) {
-  console.log(userId);
+export function deleteUser(deleteObj) {
+  console.log(deleteObj);
 
   return dispatch => {
     return axios
-      .delete(`${userBaseUrl}/deleteUser/`, { data: { userId } })
+      .delete(`${userBaseUrl}deleteUser/`, { data: deleteObj })
       .then(res => {
-        if (res.status === 200 && res.data === "successfully deleted user") {
+        if (res.status === 200) {
           const action = {
             type: DELETE_USER
             // payload: res.data,
@@ -100,7 +100,7 @@ export function updateUser(userObj) {
 export function getUserData(id) {
   return dispatch => {
     return axios
-      .get(`${userBaseUrl}/userData/?id=${id}`)
+      .get(`${userBaseUrl}userData/${id}`)
       .then(res => {
         if (res.status === 200 && res.data) {
           console.log(`SUCCESS! Got user data`, res.data);

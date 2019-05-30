@@ -28,6 +28,8 @@ class UserToolCard extends React.Component {
     obj.id = e.target.dataset.id;
     obj.uid = this.props.user.uid;
     await this.props.deleteTool(obj);
+    await this.props.getToolsOwned(obj.uid);
+    await this.props.getUserData(obj.uid);
   };
 
   checkIn = async e => {
@@ -58,6 +60,7 @@ class UserToolCard extends React.Component {
     stripeObj.amount = amountToPay;
     stripeObj.description = `Congrats! Your tool has been checked in and you should recieve your payment of $${amountToDisplay} soon!`;
     stripeObj.source = rentee.data.stripeToken;
+    console.log(rentee);
     await this.props.payStripe(stripeObj);
     await this.props.getToolsOwned(this.props.user.uid);
   };

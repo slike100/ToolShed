@@ -182,7 +182,7 @@ export const getToolsRented = uid => {
         }
       })
       .catch(err => {
-        console.log(`There was an error getting tools owned. Error: `, err);
+        console.log(`There was an error getting tools rented. Error: `, err);
         const action = {
           type: TOOLS_RENTED,
           payload: []
