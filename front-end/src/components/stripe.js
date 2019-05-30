@@ -36,11 +36,12 @@ class CheckoutForm extends Component {
   };
 
   createRecord = async e => {
-    var d = new Date();
-    var n = d.getTime();
-    // dueDate = n + timeGivenFromCheckout
     for (let i = 0; i < this.props.tools.length; i++) {
       if (this.props.tools[i].id === e.target.dataset.id) {
+        var d = new Date();
+        var n = d.getTime();
+        var daysDueIn = e.target / (1000 * 60 * 60 * 24);
+        // dueDate = n + timeGivenFromCheckout
         var recordObj = {
           ownerId: this.props.tools[i].uid,
           rentalUserId: this.props.user.uid,
