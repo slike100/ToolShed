@@ -17,8 +17,6 @@ import stripe from "../../components/stripe";
 
 // AXIOS ADD NEW USERS
 export function addNewUser(userObj) {
-  // console.log(userObj);
-
   return dispatch => {
     return axios
       .post(`${userBaseUrl}newUser/`, userObj)
