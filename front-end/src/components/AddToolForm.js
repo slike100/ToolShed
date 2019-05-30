@@ -3,6 +3,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import "./CSS/AddToolForm.css";
 import { createTool, getToolsOwned } from "../redux/actions/toolActions";
+import { getUserData } from "../redux/actions/userActions";
 import UserProfilePage from "./UserProfilePage";
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css";
@@ -104,6 +105,10 @@ class AddToolForm extends React.Component {
     };
     await this.props.createTool(newToolObj);
     await this.props.getToolsOwned(this.props.user.uid);
+    this.setState({
+      photoURL: ""
+    });
+
   };
 
   render() {
@@ -158,7 +163,7 @@ class AddToolForm extends React.Component {
                 <input
                   className="button save modal-close"
                   type="submit"
-                  value="Save"
+                  value="Create"
                   onClick={this.uploadPhoto}
                 />
               </div>
@@ -186,13 +191,14 @@ class AddToolForm extends React.Component {
 function mapStateToProps(state) {
   return {
     user: state.user.user,
-    uid: state.user.uid
+    uid: state.user.user.uid
   };
 }
 
 const mapDispatchToProps = {
   createTool,
-  getToolsOwned
+  getToolsOwned,
+  getUserData
 };
 
 export default connect(

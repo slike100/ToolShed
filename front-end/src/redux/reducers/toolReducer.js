@@ -8,11 +8,12 @@ import {
 } from "../types/toolTypes";
 
 const initialState = {
-  toolsSearched: [],
+  toolsSearched: null,
   toolsOwned: [],
   toolsRenting: []
   //Not sure what else needs to be set in initial state
 };
+
 
 export default function toolReducer(state = initialState, action) {
   const { type, payload } = action;
@@ -22,13 +23,14 @@ export default function toolReducer(state = initialState, action) {
       return { ...state };
 
     case TOOL_DATA:
+      console.log(payload);
       return { ...state, toolsSearched: payload };
 
     case DELETE_TOOL:
       return { ...state };
 
     case EDIT_TOOL:
-      return { ...state, toolsOwned: payload };
+      return { ...state };
 
     case TOOLS_OWNED:
       return { ...state, toolsOwned: payload };

@@ -11,36 +11,51 @@ import "./CSS/Checkout.css";
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      fullTool: ""
+    };
+  }
+
+  componentDidMount() {
+    const elems = document.querySelectorAll(".modal");
+    const instances = M.Modal.init(elems, options);
   }
 
   render() {
+    console.log(this.props);
     return (
-      <div className="checkoutForm">
-        <form className="borderRadius">
-          <h3>Rental Details</h3>
+      <div id="checkoutModal" class="modal">
+        <div class="modal-content" />
+        <div className="checkoutForm">
+          <form className="borderRadius">
+            <h3>Rental Details</h3>
 
-          <label for="toolModel">Pick-up Location:</label>
-          <h5>Denver, CO</h5>
+            <label for="toolModel">Tool Description:</label>
+            <h5>{this.props.fullTool.description}</h5>
 
-          <label for="toolModel">Rental Duration:</label>
-          <h5>3 Days</h5>
+            <label for="toolModel">Rental Duration In Days:</label>
+            <input placeholder="Please enter full day amount here!" />
 
-          <label for="toolModel">Total:</label>
-          <h5>$45</h5>
+            <label for="toolModel">Total Per Day:</label>
+            <h5>$ {this.props.fullTool.priceRatePerDay}</h5>
 
-          <div className="">
-            <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
-              <div className="example">
-                <Elements>
-                  <CheckoutForm />
-                </Elements>
-              </div>
-            </StripeProvider>
-            <button id="close-button" onClick={this.props.onToggle}>
-              close
-            </button>
-          </div>
-        </form>
+            <div className="">
+              <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
+                <div className="example">
+                  <Elements>
+                    <CheckoutForm tool={this.props.fullTool} />
+                  </Elements>
+                </div>
+              </StripeProvider>
+            </div>
+          </form>
+          <button
+            id="close-button"
+            className="-action modal-close waves-effect waves-green btn-flat"
+          >
+            close
+          </button>
+        </div>
       </div>
     );
   }
@@ -48,7 +63,8 @@ class Checkout extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.user
+    user: state.user.user,
+    toolsSearched: state.tool.toolsSearched
   };
 }
 
@@ -58,35 +74,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Checkout);
-
-//this is the button functionality for whichever page will render this modal
-//be sure to put the component itself inside the render of the page that is rendering this
-//  <button
-// class="btn-large waves-effect waves-light btn modal-trigger"
-// data-target="checkoutModal"
-// >
-// checkout
-// </button>
-
-/* {
-  <div className="card checkoutCard">
-<div className="card-image">
-  <img src="https://images.unsplash.com/photo-1557240231-9378fcdeefa9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" />
-</div>
-<div className="card-content">
-  <span className="card-title">Tool Name</span>
-  <p>I am a very simple card. I am good at containing small bits of information.</p>
-  <h6 >$$/DAY</h6>
-</div>
-<div className="card-action">
-  <button
-    className="btn-small waves-effect waves-light"
-    type="submit"
-    name="action"
-  >
-    Edit Tool
-</button>
-
-</div>
-</div> 
-}*/
