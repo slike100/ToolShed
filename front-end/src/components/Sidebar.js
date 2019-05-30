@@ -4,6 +4,7 @@ import { getToolData } from "../redux/actions/toolActions";
 import Checkout from "./Checkout";
 import axios from "axios";
 import SearchCard from "./SearchCard";
+import { API_KEY } from '../utils/firebaseConfig';
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -34,18 +35,20 @@ class Sidebar extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     await this.addressToLatLng(this.state.searchAddress);
+    this.props.renderMap();
+
     // this.getAddress(searchLat, searchLng);
   };
 
-  getAddress = (lat, lng) => {
-    var geocoder = new window.google.maps.Geocoder();
-    var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-    geocoder.geocode({ location: latlng }, function(results, status) {
-      if (status === "OK") {
-        console.log(results[0]);
-      }
-    });
-  };
+  // getAddress = (lat, lng) => {
+  //   var geocoder = new window.google.maps.Geocoder();
+  //   var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  //   geocoder.geocode({ location: latlng }, function (results, status) {
+  //     if (status === "OK") {
+  //       console.log(results[0]);
+  //     }
+  //   });
+  // };
 
   addressToLatLng = async location => {
     const getResult = await axios.get(
@@ -53,7 +56,7 @@ class Sidebar extends React.Component {
       {
         params: {
           address: location,
-          key: "AIzaSyCc4WdJOT7P6zSJ8o1Td871UXM-3Ay3Fsw"
+          key: API_KEY,
         }
       }
     );
@@ -120,14 +123,8 @@ class Sidebar extends React.Component {
           <input className="sidebar-search-btn" type="submit" value="Search" />
         </form>
 
-        {/* 
-        <div className="sidebar-card">
-          <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
-          <p className="sidebar-card-name">Jackhammer</p>
-          <p className="sidebar-card-price">$20</p>
-        </div> */}
+        <SearchCard />
 
-        <SearchCard toggle={this.toggle} getToolClicked={this.getToolClicked} />
       </div>
     );
   }
