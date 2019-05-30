@@ -42,28 +42,28 @@ class Sidebar extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     await this.addressToLatLng(this.state.searchAddress);
+    this.props.renderMap();
 
     // this.getAddress(searchLat, searchLng);
   };
 
-  getAddress = (lat, lng) => {
-    var geocoder = new window.google.maps.Geocoder();
-    var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-    geocoder.geocode({ location: latlng }, function (results, status) {
-      if (status === "OK") {
-        console.log(results[0]);
-      }
-    });
-  };
+  // getAddress = (lat, lng) => {
+  //   var geocoder = new window.google.maps.Geocoder();
+  //   var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  //   geocoder.geocode({ location: latlng }, function (results, status) {
+  //     if (status === "OK") {
+  //       console.log(results[0]);
+  //     }
+  //   });
+  // };
 
   addressToLatLng = async location => {
-    let API_KEY = "";
+    let API_KEY = "AIzaSyBoBebgi0tvoGb2sPRP4C0y97n3Kgk5fNc";
     const getResult = await axios.get(
       "https://maps.googleapis.com/maps/api/geocode/json",
       {
         params: {
           address: location,
-
           key: API_KEY,
         }
       }
