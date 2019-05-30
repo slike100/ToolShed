@@ -13,6 +13,8 @@ import {
   payStripe
 } from "../redux/actions/userActions";
 
+import EditToolModal from "./EditToolModal";
+
 import "./CSS/UserToolCard.css";
 import axios from "axios";
 
@@ -65,59 +67,71 @@ class UserToolCard extends React.Component {
   createToolOwnedCards = () => {
     console.log(this.props.tools);
     var button;
-    return this.props.tools.map((tool, index) => {
-      var button;
-      if (tool.isRented) {
-        button = (
-          <button
-            className="btn-small waves-effect #e53935 red darken-1"
-            type="submit"
-            name="action"
-            data-id={tool.toolId}
-            onClick={this.checkIn}
-          >
-            Check-In
-          </button>
-        );
-      } else {
-        button = (
-          <button
-            className="btn-small waves-effect #e53935 red darken-1"
-            type="submit"
-            name="action"
-            data-id={tool.toolId}
-            onClick={this.delete}
-          >
-            Delete
-          </button>
-        );
-      }
-      return (
-        <div className="row1" key={index}>
-          <div className="card toolCard">
-            <div className="card-image">
-              <img src={tool.photo} />
-            </div>
-            <div className="card-content">
-              <span className="card-title">{tool.name}</span>
-              <p>{tool.description}</p>
-              <h6>{tool.priceRatePerDay}</h6>
-            </div>
-            <div className="card-action">
-              <button
-                className="btn-small waves-effect waves-light"
-                type="submit"
-                name="action"
-                data-id={tool.toolId}
-              >
-                Edit Tool
-              </button>
-              {button}
+    if (!this.props.tools) {
+      return;
+    } else
+      return this.props.tools.map((tool, index) => {
+        var button;
+        if (tool.isRented) {
+          button = (
+            <button
+              className="btn-small waves-effect #e53935 red darken-1"
+              type="submit"
+              name="action"
+              data-id={tool.toolId}
+              onClick={this.checkIn}
+            >
+              Check-In
+            </button>
+          );
+        } else {
+          button = (
+            <button
+              className="btn-small waves-effect #e53935 red darken-1"
+              type="submit"
+              name="action"
+              data-id={tool.toolId}
+              onClick={this.delete}
+            >
+              Delete
+            </button>
+          );
+        }
+        return (
+          <div className="row1" key={index}>
+            <div className="card toolCard">
+              <div className="card-image">
+                <img id="toolImage" src={tool.photo} />
+              </div>
+              <div className="card-content">
+                <span className="card-title">{tool.name}</span>
+                <p>{tool.description}</p>
+                <h6>${tool.priceRatePerDay} per day</h6>
+              </div>
+              <div className="card-action">
+                <button
+                  class="btn-small waves-effect waves-light btn modal-trigger edit-button"
+                  type="submit"
+                  name="action"
+                  data-id={tool.toolId}
+                  data-target="editToolModal"
+                >
+                  Edit Tool
+                </button>
+                {button}
+                <EditToolModal
+                  image={tool.photo}
+                  rentalPrice={tool.priceRatePerDay}
+                  toolName={tool.name}
+                  description={tool.description}
+                  toolId={tool.toolId}
+                  isRented={tool.isRented}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      );
-    });
+        );
+      });
   };
 
   render() {
