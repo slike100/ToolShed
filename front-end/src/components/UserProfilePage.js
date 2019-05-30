@@ -64,7 +64,7 @@ class UserProfilePage extends React.Component {
                 <div className="user1">
                   <img
                     className="circle responsive-img userImg z-depth-3"
-                    src={this.props.user.photoURL}
+                    src={this.props.user.avatar}
                     alt=""
                   />
                 </div>

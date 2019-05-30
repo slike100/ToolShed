@@ -22,6 +22,7 @@ export default function toolReducer(state = initialState, action) {
       return { ...state };
 
     case TOOL_DATA:
+      console.log(payload);
       return { ...state, toolsSearched: payload };
 
     case DELETE_TOOL:
