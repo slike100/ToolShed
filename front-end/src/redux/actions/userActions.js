@@ -1,5 +1,5 @@
 import store from "../store";
-import { userBaseUrl } from "../../utils/globalConstants";
+import { userBaseUrl, baseUrl } from "../../utils/globalConstants";
 import axios from "axios";
 
 import {
