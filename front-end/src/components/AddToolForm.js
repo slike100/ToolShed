@@ -158,7 +158,7 @@ class AddToolForm extends React.Component {
                 <input
                   className="button save modal-close"
                   type="submit"
-                  value="Save"
+                  value="Create"
                   onClick={this.uploadPhoto}
                 />
               </div>
@@ -186,7 +186,7 @@ class AddToolForm extends React.Component {
 function mapStateToProps(state) {
   return {
     user: state.user.user,
-    uid: state.user.uid
+    uid: state.user.user.uid
   };
 }
 
