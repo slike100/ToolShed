@@ -11,8 +11,9 @@ class Jumbotron extends Component {
   render() {
     return (
       <div className="background">
+        
+        {/* <img src={image} className="jumbo" /> */}
         <SearchLandingPage/>
-        <img src={image} className="jumbo" />
         {/* <p className="baseline-text-bg">Way better than buying tools</p>
         <p class="baseline-text-bg">
           Rent thousands of tools from people all over your neighborhood

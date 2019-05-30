@@ -38,15 +38,15 @@ class Sidebar extends React.Component {
     // this.getAddress(searchLat, searchLng);
   };
 
-  getAddress = (lat, lng) => {
-    var geocoder = new window.google.maps.Geocoder();
-    var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-    geocoder.geocode({ location: latlng }, function (results, status) {
-      if (status === "OK") {
-        console.log(results[0]);
-      }
-    });
-  }
+  // getAddress = (lat, lng) => {
+  //   var geocoder = new window.google.maps.Geocoder();
+  //   var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  //   geocoder.geocode({ location: latlng }, function (results, status) {
+  //     if (status === "OK") {
+  //       console.log(results[0]);
+  //     }
+  //   });
+  // }
 
   addressToLatLng = async location => {
     const getResult = await axios.get(
