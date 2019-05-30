@@ -13,6 +13,7 @@ import UserProfilePage from "./UserProfilePage";
 import LandingPage from "./LandingPage";
 import Checkout from "./Checkout";
 import MapToolModal from "./MapToolModal";
+import ConfirmationModal from "./ConfirmationModal";
 
 class Main extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Main extends React.Component {
     return (
       <div>
         <Navbar />
+        <ConfirmationModal />
         <Switch>
           <Route component={LandingPage} exact path="/" />
           <Route component={SearchPage} exact path="/search" />
