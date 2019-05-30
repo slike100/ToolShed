@@ -115,6 +115,7 @@ export const editTool = (toolId, toolObj) => {
     return axios
       .put(`${toolBaseUrl}updateTool/${toolId}`, toolObj)
       .then(res => {
+        console.log(`in the then`);
         if (res.status === 200) {
           console.log(`Successfully edited your ${toolObj.name}!`);
 
