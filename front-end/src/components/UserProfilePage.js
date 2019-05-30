@@ -49,7 +49,6 @@ class UserProfilePage extends React.Component {
     // }
 
     var modal;
-
     modal = (
       <div>
         <AddToolForm />
@@ -68,7 +67,7 @@ class UserProfilePage extends React.Component {
         <div className="body">
           <div className="row profileScroll">
             <div className="col s4">
-              <div class="col s12">
+              <div className="col s12">
                 <div className="user1">
                   <img
                     className="circle responsive-img userImg z-depth-3"

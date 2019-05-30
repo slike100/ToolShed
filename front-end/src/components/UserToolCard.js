@@ -21,8 +21,34 @@ import axios from "axios";
 class UserToolCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      tool: ""
+    };
   }
+
+  getSpecificTool = e => {
+    let toolArr = this.props.tools;
+    console.log(e.target.dataset.id);
+    // const tool = toolArr.filter(id => toolId === id);
+    // console.log(tool);
+    console.log(toolArr);
+    let tool;
+    for (var i = 0; i < toolArr.length; i++) {
+      if (e.target.dataset.id === toolArr[i].toolId) {
+        console.log(toolArr[i]);
+        tool = toolArr[i];
+      }
+    }
+    this.setState({
+      tool: tool
+    });
+    console.log(this.state.tool);
+    // console.log(this.state.tool);
+  };
+
+  //on edit button get the data.target.id property
+  //loop through tools owned match this id and grab that tool and set local state to that tool
+  //on click function that sets local state to
 
   delete = async e => {
     e.preventDefault();
@@ -115,18 +141,11 @@ class UserToolCard extends React.Component {
                   name="action"
                   data-id={tool.toolId}
                   data-target="editToolModal"
+                  onClick={this.getSpecificTool}
                 >
                   Edit Tool
                 </button>
                 {button}
-                <EditToolModal
-                  image={tool.photo}
-                  rentalPrice={tool.priceRatePerDay}
-                  toolName={tool.name}
-                  description={tool.description}
-                  toolId={tool.toolId}
-                  isRented={tool.isRented}
-                />
               </div>
             </div>
           </div>
@@ -135,7 +154,12 @@ class UserToolCard extends React.Component {
   };
 
   render() {
-    return <div>{this.createToolOwnedCards()}</div>;
+    return (
+      <div>
+        <div>{this.createToolOwnedCards()}</div>;
+        <EditToolModal tool={this.state.tool} />
+      </div>
+    );
   }
 }
 
