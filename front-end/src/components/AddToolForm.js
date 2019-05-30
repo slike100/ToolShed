@@ -24,17 +24,17 @@ class AddToolForm extends React.Component {
   }
 
   previewFile = () => {
-    // var preview = document.getElementById("toolImage");
-    // var file = document.querySelector("input[type=file]").files[0];
-    // var reader = new FileReader();
-    // reader.onloadend = function() {
-    //   preview.src = reader.result;
-    // };
-    // if (file) {
-    //   reader.readAsDataURL(file);
-    // } else {
-    //   preview.src = "";
-    // }
+    var preview = document.getElementById("toolImage");
+    var file = document.querySelector("input[type=file]").files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      preview.src = reader.result;
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      preview.src = "";
+    }
   };
 
   modal = () => {};
@@ -108,79 +108,72 @@ class AddToolForm extends React.Component {
 
   render() {
     return (
-      <div id="addToolModal" class="modal">
-        <div class="modal-content">
-          <div className="listToolPage">
-            <div className="grid">
-              <section className="photoContainer grid1">
-                <div
-                  className="photoBackground borderRadius"
-                  id="photo-section"
-                >
-                  <div className="photo">
-                    <img className="photo" id="toolImage" />
-                  </div>
-                  <div className="button">
-                    <input
-                      type="file"
-                      name="file"
-                      id="fileButton"
-                      class="inputFile"
-                      onChange={this.previewFile}
-                    />
-                  </div>
-                </div>
-              </section>
-
-              <div className="toolInfo grid2">
-                <form className="borderRadius" id="toolInfo-section">
-                  <h3>Tool Info</h3>
-                  <label for="toolType">Tool Type</label>
-                  <input
-                    type="text"
-                    id="toolType"
-                    name="toolType"
-                    placeholder="ex: Circular Saw.."
-                  />
-                  <label for="description">Description</label>
-                  <textarea
-                    className="description"
-                    name="description"
-                    id="description"
-                    placeholder="ex: 7-1/4&#8243; blade, cordless saw with 1 extra battery and charging station.."
-                  />
-                </form>
-                <div className="formButtons">
-                  <button
-                    id="close-button"
-                    className="-action modal-close waves-effect waves-green btn-flat"
-                  >
-                    Cancel
-                  </button>
-
-                  <input
-                    className="button"
-                    type="submit"
-                    value="Save"
-                    onClick={this.uploadPhoto}
-                  />
-                </div>
+      <div className="listToolPage">
+        <div className="grid">
+          <section className="photoContainer grid1">
+            <div className="photoBackground borderRadius" id="photo-section">
+              <div className="photo">
+                <img className="photo" id="toolImage" />
               </div>
+              <div className="button">
+                <input
+                  type="file"
+                  name="file"
+                  id="fileButton"
+                  class="inputFile"
+                  onChange={this.previewFile}
+                />
+              </div>
+            </div>
+          </section>
 
-              <section className="tgrid3" id="rental-section">
-                <form className="borderRadius">
-                  <h3>Rental Price</h3>
-                  <label for="rentalPrice">Price per Day</label>
-                  <input
-                    type="text"
-                    id="rentalPrice"
-                    name="rentalPrice"
-                    placeholder="ex: 7.00"
-                  />
-                </form>
-              </section>
+          <div className="toolInfo grid2">
+            <form className="borderRadius" id="toolInfo-section">
+              <h3>Tool Info</h3>
+              <label for="toolType">Tool Type</label>
+              <input
+                type="text"
+                id="toolType"
+                name="toolType"
+                placeholder="ex: Circular Saw.."
+              />
+              <label for="description">Description</label>
+              <textarea
+                className="description"
+                name="description"
+                id="description"
+                placeholder="ex: 7-1/4&#8243; blade, cordless saw with 1 extra battery and charging station.."
+              />
+            </form>
+            <div className="formButtons">
+              <button
+                id="close-button"
+                className="-action modal-close waves-effect waves-green btn-flat"
+              >
+                Cancel
+              </button>
+
+              <input
+                className="button"
+                type="submit"
+                value="Save"
+                onClick={this.uploadPhoto}
+              />
             </div>
           </div>
+
+          <section className="tgrid3" id="rental-section">
+            <form className="borderRadius">
+              <h3>Rental Price</h3>
+              <label for="rentalPrice">Price per Day</label>
+              <input
+                type="text"
+                id="rentalPrice"
+                name="rentalPrice"
+                placeholder="ex: 7.00"
+              />
+            </form>
+          </section>
         </div>
       </div>
     );
