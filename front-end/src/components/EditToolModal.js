@@ -2,102 +2,47 @@ import React from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
 import "./CSS/AddToolForm.css";
-import { createTool, getToolsOwned } from "../redux/actions/toolActions";
-import UserProfilePage from "./UserProfilePage";
+import { editTool, getToolsOwned } from "../redux/actions/toolActions";
 import "materialize-css/dist/css/materialize.min.css";
-import M from "materialize-css";
-import options from "materialize-css/dist/js/materialize.min.js";
 const firebase = require("firebase");
 
-class AddToolForm extends React.Component {
+class EditToolModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
-      photoURL: ""
+      user: null
     };
   }
 
-  previewFile = e => {
-    var preview = document.getElementById("toolImage");
-    console.log(preview);
-    var file = e.target.files[0];
-    console.log(file);
-    var reader = new FileReader();
-    reader.onloadend = function() {
-      preview.src = reader.result;
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      preview.src = "";
-    }
-  };
-
-  uploadPhoto = async () => {
-    const _this = this;
-    var file = document.getElementById("fileButton").files[0];
-    var storageRef = firebase.storage().ref();
-    var uploadTask = storageRef
-      .child(this.props.uid + "/" + file.name)
-      .put(file);
-
-    uploadTask.on(
-      firebase.storage.TaskEvent.STATE_CHANGED,
-      function(snapshot) {
-        switch (snapshot.state) {
-          case firebase.storage.TaskState.PAUSED: // or 'paused'
-            console.log("Upload is paused");
-            break;
-          case firebase.storage.TaskState.RUNNING: // or 'running'
-            console.log("Upload is running");
-            break;
-        }
-      },
-      function(error) {
-        switch (error.code) {
-          case "storage/unauthorized":
-            console.log(`You do not have permission to upload this photo.`);
-            break;
-
-          case "storage/canceled":
-            console.log(`Your photo upload has been cancelled.`);
-            break;
-
-          case "storage/unknown":
-            console.log(
-              `An unknown error occurred when trying to upload the photo.`
-            );
-            break;
-        }
-      },
-      function() {
-        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-          console.log("File available at", downloadURL);
-          _this.setState({
-            photoURL: downloadURL
-          });
-          _this.sendAction();
-        });
-      }
-    );
+  previewFile = () => {
+    // var preview = document.getElementById("toolImage");
+    // var file = document.querySelector("input[type=file]").files[0];
+    // var reader = new FileReader();
+    // reader.onloadend = function() {
+    //   preview.src = reader.result;
+    // };
+    // if (file) {
+    //   reader.readAsDataURL(file);
+    // } else {
+    //   preview.src = "";
+    // }
   };
 
   sendAction = async () => {
     console.log(this.state.photoURL);
-    let newToolObj = {
+    let editedToolObj = {
       name: document.getElementById("toolType").value,
       description: document.getElementById("description").value,
-      isRented: false,
+      isRented: this.props.tools.isRented,
       uid: this.props.user.uid,
       photo: this.state.photoURL,
       priceRatePerDay: parseInt(document.getElementById("rentalPrice").value),
-      rentalDurationInDays: 0,
+      rentalDurationInDays: this.props.tools.rentalDurationInDays,
       lat: this.props.user.lat,
       long: this.props.user.long,
       toolsOwned: this.props.user.toolsOwned
     };
-    await this.props.createTool(newToolObj);
+    await this.props.editTool(editedToolObj);
     await this.props.getToolsOwned(this.props.user.uid);
   };
 
@@ -108,7 +53,7 @@ class AddToolForm extends React.Component {
           <section className="photoContainer grid1">
             <div className="photoBackground borderRadius" id="photo-section">
               <div className="photo">
-                <img className="photo" id="toolImage" src={""} />
+                <img className="photo" id="toolImage" />
               </div>
               <div className="button">
                 <input
@@ -178,16 +123,17 @@ class AddToolForm extends React.Component {
 function mapStateToProps(state) {
   return {
     user: state.user.user,
-    uid: state.user.uid
+    uid: state.user.uid,
+    tools: state.tool.tool
   };
 }
 
 const mapDispatchToProps = {
-  createTool,
+  editTool,
   getToolsOwned
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddToolForm);
+)(EditToolModal);
