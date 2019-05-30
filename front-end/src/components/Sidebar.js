@@ -56,6 +56,7 @@ class Sidebar extends React.Component {
       {
         params: {
           address: location,
+
           key: API_KEY,
         }
       }
