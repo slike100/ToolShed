@@ -16,12 +16,13 @@ class ConfirmationModal extends React.Component {
 
   componentDidMount() {
     console.log("inside modal")
-    console.log("this is tool in Confirmation", this.props.tool)
     const elems = document.querySelectorAll(".modal");
     const instances = M.Modal.init(elems, options);
   }
 
   render() {
+    console.log("conf props", this.props.tool);
+
     return (
 
       <div id="confirmationToolModal" class="modal">
@@ -35,7 +36,7 @@ class ConfirmationModal extends React.Component {
               <h3>Hooray!</h3>
               <h6 className="confFont">You just rented a very special tool!</h6>
               <h6 className="confFont">Please contact the owner below to set up pick-up arrangements.</h6>
-              <h5 className="confFont">Total Price: $</h5>
+              <h5 className="confFont">Total Price: ${this.props.tool.priceRatePerDay}</h5>
               <h5 className="confFont">Due Date: </h5>
             </div>
             <div className="card-action">

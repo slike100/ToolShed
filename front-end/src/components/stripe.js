@@ -96,7 +96,7 @@ class CheckoutForm extends Component {
           BOOK NOW
         </button>
         <div>
-          <ConfirmationModal tool={this.state.tool} />
+          <ConfirmationModal tool={this.props.tool} />
         </div>
       </div>
     );
