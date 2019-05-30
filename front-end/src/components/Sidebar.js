@@ -1,8 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getToolData } from "../redux/actions/toolActions";
-import axios from "axios";
 import Checkout from "./Checkout";
+import axios from 'axios';
+import SearchCard from './SearchCard';
+
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -36,15 +38,15 @@ class Sidebar extends React.Component {
     // this.getAddress(searchLat, searchLng);
   };
 
-  // getAddress = (lat, lng) => {
-  //   var geocoder = new window.google.maps.Geocoder();
-  //   var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-  //   geocoder.geocode({ location: latlng }, function (results, status) {
-  //     if (status === "OK") {
-  //       console.log(results[0]);
-  //     }
-  //   });
-  // }
+  getAddress = (lat, lng) => {
+    var geocoder = new window.google.maps.Geocoder();
+    var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+    geocoder.geocode({ location: latlng }, function (results, status) {
+      if (status === "OK") {
+        console.log(results[0]);
+      }
+    });
+  }
 
   addressToLatLng = async location => {
     const getResult = await axios.get(
@@ -119,87 +121,16 @@ class Sidebar extends React.Component {
           </label>
           <input className="sidebar-search-btn" type="submit" value="Search" />
         </form>
-        <div id="sidebar-card-wrapper">
-          <div className="sidebar-card">
-            <img
-              className="sidebar-card-img"
-              src="https://via.placeholder.com/80"
-              alt=""
-            />
-            <p className="sidebar-card-name">Jackhammer</p>
-            <p className="sidebar-card-price">$20</p>
-          </div>
 
-          <div className="sidebar-card">
-            <img
-              className="sidebar-card-img"
-              src="https://via.placeholder.com/80"
-              alt=""
-            />
-            <p className="sidebar-card-name">Jackhammer</p>
-            <p className="sidebar-card-price">$20</p>
-          </div>
+        {/* 
+        <div className="sidebar-card">
+          <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
+          <p className="sidebar-card-name">Jackhammer</p>
+          <p className="sidebar-card-price">$20</p>
+        </div> */}
 
-          <div className="sidebar-card">
-            <img
-              className="sidebar-card-img"
-              src="https://via.placeholder.com/80"
-              alt=""
-            />
-            <p className="sidebar-card-name">Jackhammer</p>
-            <p className="sidebar-card-price">$20</p>
-          </div>
+        <SearchCard />
 
-          <div className="sidebar-card">
-            <img
-              className="sidebar-card-img"
-              src="https://via.placeholder.com/80"
-              alt=""
-            />
-            <p className="sidebar-card-name">Jackhammer</p>
-            <p className="sidebar-card-price">$20</p>
-          </div>
-
-          <div className="sidebar-card">
-            <img
-              className="sidebar-card-img"
-              src="https://via.placeholder.com/80"
-              alt=""
-            />
-            <p className="sidebar-card-name">Jackhammer</p>
-            <p className="sidebar-card-price">$20</p>
-          </div>
-
-          <div className="sidebar-card">
-            <img
-              className="sidebar-card-img"
-              src="https://via.placeholder.com/80"
-              alt=""
-            />
-            <p className="sidebar-card-name">Jackhammer</p>
-            <p className="sidebar-card-price">$20</p>
-          </div>
-
-          <div className="sidebar-card">
-            <img
-              className="sidebar-card-img"
-              src="https://via.placeholder.com/80"
-              alt=""
-            />
-            <p className="sidebar-card-name">Jackhammer</p>
-            <p className="sidebar-card-price">$20</p>
-          </div>
-
-          <div className="sidebar-card">
-            <img
-              className="sidebar-card-img"
-              src="https://via.placeholder.com/80"
-              alt=""
-            />
-            <p className="sidebar-card-name">Jackhammer</p>
-            <p className="sidebar-card-price">$20</p>
-          </div>
-        </div>
       </div>
     );
   }
