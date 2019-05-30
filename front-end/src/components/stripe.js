@@ -2,6 +2,9 @@ import React from "react";
 import { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { connect } from "react-redux"; // import connect from Redux
+import ConfirmationModal from "./ConfirmationModal"
+import "materialize-css/dist/css/materialize.min.css";
+
 
 import "./CSS/stripe.css";
 
@@ -16,6 +19,9 @@ import axios from "axios";
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tool: this.props.tool
+    }
   }
 
   submit = async e => {
@@ -39,7 +45,7 @@ class CheckoutForm extends Component {
   };
 
   createRecord = async days => {
-    console.log(this.props.tool);
+    console.log("this is tool", this.props.tool);
     var d = new Date();
     console.log(d);
     var n = d.getTime();
@@ -65,7 +71,7 @@ class CheckoutForm extends Component {
       .catch(err => console.log(err));
     var updatedTool = await axios.put(
       `https://us-central1-toolshed-1dd98.cloudfunctions.net/tool/updateTool/${
-        this.props.tool.toolId
+      this.props.tool.toolId
       }`,
       {
         isRented: true
@@ -84,13 +90,20 @@ class CheckoutForm extends Component {
             }
           }}
         />
-        <button className="submitBtn" onClick={this.submit}>
+        <button className="btn-large waves-effect waves-light btn modal-trigger submitBtn"
+          onClick={this.submit}
+          data-target="confirmationToolModal">
           BOOK NOW
         </button>
+        <div>
+          <ConfirmationModal tool={this.state.tool} />
+        </div>
       </div>
     );
   }
 }
+
+
 
 const Stripe = injectStripe(CheckoutForm);
 

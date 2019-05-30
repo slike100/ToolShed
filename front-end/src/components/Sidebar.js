@@ -48,7 +48,7 @@ class Sidebar extends React.Component {
   getAddress = (lat, lng) => {
     var geocoder = new window.google.maps.Geocoder();
     var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-    geocoder.geocode({ location: latlng }, function(results, status) {
+    geocoder.geocode({ location: latlng }, function (results, status) {
       if (status === "OK") {
         console.log(results[0]);
       }
@@ -61,7 +61,7 @@ class Sidebar extends React.Component {
       {
         params: {
           address: location,
-          key: "AIzaSyCc4WdJOT7P6zSJ8o1Td871UXM-3Ay3Fsw"
+          key: "AIzaSyBoBebgi0tvoGb2sPRP4C0y97n3Kgk5fNc"
         }
       }
     );

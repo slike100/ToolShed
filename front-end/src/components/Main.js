@@ -23,6 +23,10 @@ class Main extends React.Component {
     return (
       <div>
         <Navbar />
+        {/* <ConfirmationModal /> */}
+
+        {/* <Checkout /> */}
+
         <Switch>
           <Route component={LandingPage} exact path="/" />
           <Route component={SearchPage} exact path="/search" />
@@ -34,7 +38,6 @@ class Main extends React.Component {
           />
         </Switch>
 
-        {/* <ConfirmationModal /> */}
 
         {/* <CreateNewUserForm /> */}
 

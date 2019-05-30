@@ -60,6 +60,7 @@ class Checkout extends React.Component {
             </button>
           </div>
         </form>
+
       </div>
     );
   }
