@@ -86,6 +86,8 @@ export const getToolData = searchObj => {
 
 //DELETE TOOL AXIOS REQUEST
 export const deleteTool = toolObj => {
+  let s = store.getState();
+  console.log(s);
   console.log(toolObj);
   return dispatch => {
     return axios
@@ -189,7 +191,7 @@ export const getToolsRented = uid => {
         }
       })
       .catch(err => {
-        console.log(`There was an error getting tools owned. Error: `, err);
+        console.log(`There was an error getting tools rented. Error: `, err);
         const action = {
           type: TOOLS_RENTED,
           payload: []
