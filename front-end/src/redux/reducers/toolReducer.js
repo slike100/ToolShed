@@ -24,13 +24,14 @@ export default function toolReducer(state = initialState, action) {
       return { ...state };
 
     case TOOL_DATA:
+      console.log(payload);
       return { ...state, toolsSearched: payload };
 
     case DELETE_TOOL:
       return { ...state };
 
     case EDIT_TOOL:
-      return { ...state, toolsOwned: payload };
+      return { ...state };
 
     case TOOLS_OWNED:
       return { ...state, toolsOwned: payload };
