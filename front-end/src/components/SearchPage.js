@@ -3,6 +3,7 @@ import "./CSS/SearchPage.css";
 import Sidebar from "./Sidebar.js";
 import Map from "./Map.js";
 import { connect } from "react-redux";
+import { API_KEY } from '../utils/firebaseConfig';
 
 
 class SearchPage extends React.Component {
@@ -16,7 +17,6 @@ class SearchPage extends React.Component {
   }
 
   renderMap = () => {
-    const API_KEY = 'AIzaSyBoBebgi0tvoGb2sPRP4C0y97n3Kgk5fNc';
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`)
     window.initMap = this.initMap
   }
@@ -38,7 +38,7 @@ class SearchPage extends React.Component {
         let marker = new window.google.maps.Marker({
           position: { lat: location.lat, lng: location.long },
           map: map,
-          title: location.priceRatePerDay,
+          title: location.uid,
           animation: window.google.maps.Animation.DROP,
         })
 

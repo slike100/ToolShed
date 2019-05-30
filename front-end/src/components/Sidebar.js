@@ -4,6 +4,7 @@ import { getToolData } from "../redux/actions/toolActions";
 import Checkout from "./Checkout";
 import axios from "axios";
 import SearchCard from "./SearchCard";
+import { API_KEY } from '../utils/firebaseConfig';
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -58,7 +59,6 @@ class Sidebar extends React.Component {
   // };
 
   addressToLatLng = async location => {
-    let API_KEY = "AIzaSyBoBebgi0tvoGb2sPRP4C0y97n3Kgk5fNc";
     const getResult = await axios.get(
       "https://maps.googleapis.com/maps/api/geocode/json",
       {
