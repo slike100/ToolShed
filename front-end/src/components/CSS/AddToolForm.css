@@ -87,7 +87,7 @@ form textarea:focus {
 .listToolPage button,
 input[type="submit"] {
   margin: 4em auto;
-  width: 9em;
+  width: 6em;
   height: 2.4em;
   font-weight: 700;
   text-transform: uppercase;
@@ -177,6 +177,8 @@ textarea {
   }
 
   #close-button {
+    position: relative;
+    margin-left: 9em;
     margin-right: 1em;
     margin-left: 0.5em;
     width: 7em;

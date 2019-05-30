@@ -4,6 +4,7 @@ import { getToolData } from "../redux/actions/toolActions";
 import Checkout from "./Checkout";
 import axios from "axios";
 import SearchCard from "./SearchCard";
+import { API_KEY } from '../utils/firebaseConfig';
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -17,19 +18,11 @@ class Sidebar extends React.Component {
     };
   }
 
-  getToolClicked = e => {
-    console.log(e.target.dataset.id);
-    this.setState({
-      toolSelected: e.target.dataset.id,
-      checkOutModal: !this.state.checkOutModal
-    });
-  };
-
-  toggle = e => {
-    this.setState(prevState => ({
-      checkOutModal: !this.state.checkOutModal
-    }));
-  };
+  // toggle = e => {
+  //   this.setState(prevState => ({
+  //     checkOutModal: !this.state.checkOutModal
+  //   }));
+  // };
 
   handleChange = e => {
     e.preventDefault();
@@ -42,18 +35,20 @@ class Sidebar extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     await this.addressToLatLng(this.state.searchAddress);
+    this.props.renderMap();
+
     // this.getAddress(searchLat, searchLng);
   };
 
-  getAddress = (lat, lng) => {
-    var geocoder = new window.google.maps.Geocoder();
-    var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-    geocoder.geocode({ location: latlng }, function (results, status) {
-      if (status === "OK") {
-        console.log(results[0]);
-      }
-    });
-  };
+  // getAddress = (lat, lng) => {
+  //   var geocoder = new window.google.maps.Geocoder();
+  //   var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  //   geocoder.geocode({ location: latlng }, function (results, status) {
+  //     if (status === "OK") {
+  //       console.log(results[0]);
+  //     }
+  //   });
+  // };
 
   addressToLatLng = async location => {
     const getResult = await axios.get(
@@ -61,7 +56,8 @@ class Sidebar extends React.Component {
       {
         params: {
           address: location,
-          key: "AIzaSyBoBebgi0tvoGb2sPRP4C0y97n3Kgk5fNc"
+
+          key: API_KEY,
         }
       }
     );
@@ -128,14 +124,8 @@ class Sidebar extends React.Component {
           <input className="sidebar-search-btn" type="submit" value="Search" />
         </form>
 
-        {/* 
-        <div className="sidebar-card">
-          <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
-          <p className="sidebar-card-name">Jackhammer</p>
-          <p className="sidebar-card-price">$20</p>
-        </div> */}
+        <SearchCard />
 
-        <SearchCard toggle={this.toggle} getToolClicked={this.getToolClicked} />
       </div>
     );
   }

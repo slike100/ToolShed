@@ -21,8 +21,34 @@ import axios from "axios";
 class UserToolCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      tool: ""
+    };
   }
+
+  getSpecificTool = e => {
+    let toolArr = this.props.tools;
+    console.log(e.target.dataset.id);
+    // const tool = toolArr.filter(id => toolId === id);
+    // console.log(tool);
+    console.log(toolArr);
+    let tool;
+    for (var i = 0; i < toolArr.length; i++) {
+      if (e.target.dataset.id === toolArr[i].toolId) {
+        console.log(toolArr[i]);
+        tool = toolArr[i];
+      }
+    }
+    this.setState({
+      tool: tool
+    });
+    console.log(this.state.tool);
+    // console.log(this.state.tool);
+  };
+
+  //on edit button get the data.target.id property
+  //loop through tools owned match this id and grab that tool and set local state to that tool
+  //on click function that sets local state to
 
   delete = async e => {
     e.preventDefault();
@@ -30,6 +56,8 @@ class UserToolCard extends React.Component {
     obj.id = e.target.dataset.id;
     obj.uid = this.props.user.uid;
     await this.props.deleteTool(obj);
+    await this.props.getToolsOwned(obj.uid);
+    await this.props.getUserData(obj.uid);
   };
 
   checkIn = async e => {
@@ -61,6 +89,7 @@ class UserToolCard extends React.Component {
     stripeObj.description = `Congrats! Your tool has been checked in and you should recieve your payment of $${amountToDisplay} soon!`;
     console.log(rentee);
     stripeObj.source = rentee.data.stripeToken;
+    console.log(rentee);
     await this.props.payStripe(stripeObj);
     await this.props.getToolsOwned(this.props.user.uid);
   };
@@ -116,18 +145,11 @@ class UserToolCard extends React.Component {
                   name="action"
                   data-id={tool.toolId}
                   data-target="editToolModal"
+                  onClick={this.getSpecificTool}
                 >
                   Edit Tool
                 </button>
                 {button}
-                <EditToolModal
-                  image={tool.photo}
-                  rentalPrice={tool.priceRatePerDay}
-                  toolName={tool.name}
-                  description={tool.description}
-                  toolId={tool.toolId}
-                  isRented={tool.isRented}
-                />
               </div>
             </div>
           </div>
@@ -136,7 +158,12 @@ class UserToolCard extends React.Component {
   };
 
   render() {
-    return <div>{this.createToolOwnedCards()}</div>;
+    return (
+      <div>
+        <div>{this.createToolOwnedCards()}</div>;
+        <EditToolModal tool={this.state.tool} />
+      </div>
+    );
   }
 }
 

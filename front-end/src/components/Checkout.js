@@ -16,51 +16,46 @@ class Checkout extends React.Component {
     };
   }
 
-  getFullTool = () => {
-    var tool;
-    for (let i = 0; i < this.props.toolsSearched.length; i++) {
-      if (this.props.tool === this.props.toolsSearched[i].toolId) {
-        var tool = this.props.toolsSearched[i];
-      }
-    }
-    this.setState({
-      fullTool: tool
-    });
-  };
-
   componentDidMount() {
-    this.getFullTool();
+    const elems = document.querySelectorAll(".modal");
+    const instances = M.Modal.init(elems, options);
   }
 
   render() {
+    console.log(this.props);
     return (
-      <div className="checkoutForm">
-        <form className="borderRadius">
-          <h3>Rental Details</h3>
+      <div id="checkoutModal" class="modal">
+        <div class="modal-content" />
+        <div className="checkoutForm">
+          <form className="borderRadius">
+            <h3>Rental Details</h3>
 
-          <label for="toolModel">Pick-up Location:</label>
-          <h5>Denver, CO</h5>
+            <label for="toolModel">Tool Description:</label>
+            <h5>{this.props.fullTool.description}</h5>
 
-          <label for="toolModel">Rental Duration In Days:</label>
-          <input placeholder="Please enter full day amount here!" />
+            <label for="toolModel">Rental Duration In Days:</label>
+            <input placeholder="Please enter full day amount here!" />
 
-          <label for="toolModel">Total Per Day:</label>
-          <h5>$ {this.state.fullTool.priceRatePerDay}</h5>
+            <label for="toolModel">Total Per Day:</label>
+            <h5>$ {this.props.fullTool.priceRatePerDay}</h5>
 
-          <div className="">
-            <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
-              <div className="example">
-                <Elements>
-                  <CheckoutForm tool={this.state.fullTool} />
-                </Elements>
-              </div>
-            </StripeProvider>
-            <button id="close-button" onClick={this.props.onToggle}>
-              close
-            </button>
-          </div>
-        </form>
-
+            <div className="">
+              <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
+                <div className="example">
+                  <Elements>
+                    <CheckoutForm tool={this.props.fullTool} />
+                  </Elements>
+                </div>
+              </StripeProvider>
+            </div>
+          </form>
+          <button
+            id="close-button"
+            className="-action modal-close waves-effect waves-green btn-flat"
+          >
+            close
+          </button>
+        </div>
       </div>
     );
   }

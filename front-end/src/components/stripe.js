@@ -39,7 +39,7 @@ class CheckoutForm extends Component {
     // console.log(user);
     var updated = await this.props.updateUser({
       uid: this.props.user.uid,
-      stripeToken: token
+      stripeToken: token.id
     });
     console.log(updated);
   };
