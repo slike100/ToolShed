@@ -8,11 +8,11 @@
 #map {
   height: 93.3vh; /* 92.2vh to account for navbar height - glitchy */
   float: right;
-  width: 70%;
+  width: 75%;
 }
 
 #sidebar {
-  width: 30%;
+  width: 25%;
   height: 93.3vh;
   position: fixed;
   z-index: 100;

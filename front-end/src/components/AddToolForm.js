@@ -3,6 +3,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import "./CSS/AddToolForm.css";
 import { createTool, getToolsOwned } from "../redux/actions/toolActions";
+import { getUserData } from "../redux/actions/userActions";
 import UserProfilePage from "./UserProfilePage";
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css";
@@ -107,6 +108,7 @@ class AddToolForm extends React.Component {
     this.setState({
       photoURL: ""
     });
+
   };
 
   render() {
@@ -195,7 +197,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   createTool,
-  getToolsOwned
+  getToolsOwned,
+  getUserData
 };
 
 export default connect(

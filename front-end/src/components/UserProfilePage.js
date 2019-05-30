@@ -14,6 +14,7 @@ import UserToolCard from "./UserToolCard";
 import RentedToolCard from "./RentedToolCard";
 import AddToolForm from "./AddToolForm";
 import Checkout from "./Checkout";
+import { deleteUser } from "../redux/actions/userActions";
 
 class UserProfilePage extends React.Component {
   constructor(props) {
@@ -29,7 +30,14 @@ class UserProfilePage extends React.Component {
     }));
   };
 
-  deleteUser = () => {
+  deleteUser = async () => {
+    const { uid, toolsOwned } = this.props.user;
+    console.log(uid, toolsOwned);
+    var deleteObj = {
+      uid: uid,
+      toolsOwned: toolsOwned
+    };
+    await this.props.deleteUser(deleteObj);
     var currentUser = firebaseAuth.currentUser;
     currentUser.delete().then(function() {
       console.log("user deleted");
@@ -71,7 +79,7 @@ class UserProfilePage extends React.Component {
                 <div className="user1">
                   <img
                     className="circle responsive-img userImg z-depth-3"
-                    src={this.props.user.photoURL}
+                    src={this.props.user.avatar}
                     alt=""
                   />
                 </div>
@@ -81,6 +89,7 @@ class UserProfilePage extends React.Component {
                   className="btn-small waves-effect #e53935 red darken-1 deleteUser"
                   type="submit"
                   name="action"
+                  onClick={this.deleteUser}
                 >
                   Delete Account
                 </button>
@@ -119,7 +128,9 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  deleteUser
+};
 
 export default connect(
   mapStateToProps,

@@ -10,7 +10,7 @@ toolController.use(cors({ origin: true }));
 
 //START POST NEW TOOL//
 toolController.post("/newTool", (req, res) => {
-  const name = req.body.name.toLowerCase();
+  const name = req.body.name.toLowerCase().trim();
   var tool = Object.assign({}, {
     name: name,
     description: req.body.description,

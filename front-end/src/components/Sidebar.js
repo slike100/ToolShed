@@ -2,27 +2,27 @@ import React from "react";
 import { connect } from "react-redux";
 import { getToolData } from "../redux/actions/toolActions";
 import Checkout from "./Checkout";
-import axios from 'axios';
-import SearchCard from './SearchCard';
-
+import axios from "axios";
+import SearchCard from "./SearchCard";
+import { API_KEY } from '../utils/firebaseConfig';
 
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       searchTool: "",
       searchAddress: "",
       searchDistance: "",
-      checkOutModal: false
+      checkOutModal: false,
+      toolSelected: ""
     };
   }
 
-  toggle = e => {
-    this.setState(prevState => ({
-      checkOutModal: !this.state.checkOutModal
-    }));
-  };
+  // toggle = e => {
+  //   this.setState(prevState => ({
+  //     checkOutModal: !this.state.checkOutModal
+  //   }));
+  // };
 
   handleChange = e => {
     e.preventDefault();
@@ -35,18 +35,20 @@ class Sidebar extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     await this.addressToLatLng(this.state.searchAddress);
+    this.props.renderMap();
+
     // this.getAddress(searchLat, searchLng);
   };
 
-  getAddress = (lat, lng) => {
-    var geocoder = new window.google.maps.Geocoder();
-    var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-    geocoder.geocode({ location: latlng }, function (results, status) {
-      if (status === "OK") {
-        console.log(results[0]);
-      }
-    });
-  }
+  // getAddress = (lat, lng) => {
+  //   var geocoder = new window.google.maps.Geocoder();
+  //   var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  //   geocoder.geocode({ location: latlng }, function (results, status) {
+  //     if (status === "OK") {
+  //       console.log(results[0]);
+  //     }
+  //   });
+  // };
 
   addressToLatLng = async location => {
     const getResult = await axios.get(
@@ -54,7 +56,7 @@ class Sidebar extends React.Component {
       {
         params: {
           address: location,
-          key: "AIzaSyCc4WdJOT7P6zSJ8o1Td871UXM-3Ay3Fsw"
+          key: API_KEY,
         }
       }
     );
@@ -78,7 +80,7 @@ class Sidebar extends React.Component {
     if (this.state.checkOutModal === true) {
       modal = (
         <div>
-          <Checkout onToggle={this.toggle} />
+          <Checkout onToggle={this.toggle} tool={this.state.toolSelected} />
         </div>
       );
     } else {
@@ -86,7 +88,6 @@ class Sidebar extends React.Component {
     }
     return (
       <div id="sidebar">
-        <button onClick={this.toggle}>checkout</button>
         {modal}
         <form id="sidebar-search-form" onSubmit={this.handleSubmit}>
           <label className="sidebar-search-label">
@@ -121,13 +122,6 @@ class Sidebar extends React.Component {
           </label>
           <input className="sidebar-search-btn" type="submit" value="Search" />
         </form>
-
-        {/* 
-        <div className="sidebar-card">
-          <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
-          <p className="sidebar-card-name">Jackhammer</p>
-          <p className="sidebar-card-price">$20</p>
-        </div> */}
 
         <SearchCard />
 
