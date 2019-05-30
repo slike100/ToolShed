@@ -11,7 +11,8 @@ import store from "../src/redux/store.js";
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <Route path="/:filter?" component={App} />
+      {/* <Route path="/:filter?" component={App} /> */}
+      <App />
     </Router>
   </Provider>,
   document.getElementById("root")
