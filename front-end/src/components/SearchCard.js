@@ -1,15 +1,48 @@
 import React from "react";
+import { connect } from "react-redux";
 
 class SearchCard extends React.Component {
+
+  createSearchCards = () => {
+    console.log(this.props.toolsSearched);
+    if (this.props.toolsSearched.length === 0) {
+      return <div className="sidebar-card">
+        <p>No Tools for you!</p>
+      </div>
+    } else {
+      return this.props.toolsSearched.map((tool, index) => {
+        console.log(tool);
+        return (
+          <div className="sidebar-card">
+            <img className="sidebar-card-img" src={tool.photo} alt="" />
+            <p className="sidebar-card-name">{tool.name}</p>
+            <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
+          </div>
+        )
+      })
+    }
+  }
+
   render() {
     return (
-      <div className="sidebar-card">
-        <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
-        <p className="sidebar-card-name">Jackhammer</p>
-        <p className="sidebar-card-price">$20</p>
+      <div id="sidebar-card-wrapper">
+        {this.createSearchCards()}
       </div>
+
     )
   }
 }
 
-export default SearchCard;
+function mapStateToProps(state) {
+  return {
+    toolsSearched: state.tool.toolsSearched
+  };
+}
+
+const mapDispatchToProps = {
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchCard);
