@@ -105,7 +105,10 @@ class AddToolForm extends React.Component {
     };
     await this.props.createTool(newToolObj);
     await this.props.getToolsOwned(this.props.user.uid);
-    await this.props.getUserData(this.props.user.uid);
+    this.setState({
+      photoURL: ""
+    });
+
   };
 
   render() {

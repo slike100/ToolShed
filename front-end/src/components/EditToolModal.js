@@ -19,12 +19,11 @@ class EditToolModal extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user);
-    this.setState({
-      photoURL: this.props.image
-    });
     const elems = document.querySelectorAll(".modal");
     const instances = M.Modal.init(elems, options);
+    this.setState({ photoURL: this.props.tool.photo }, function() {
+      console.log(this.state.photoURL);
+    });
   }
 
   previewFile = e => {
@@ -41,10 +40,13 @@ class EditToolModal extends React.Component {
       _this.setState({
         photoURL: image
       });
-      _this.uploadPhoto();
+      //   _this.uploadPhoto();
     };
     if (file) {
       reader.readAsDataURL(file);
+      _this.setState({
+        photoURL: ""
+      });
     } else {
       preview.src = "";
     }
@@ -102,6 +104,7 @@ class EditToolModal extends React.Component {
   };
 
   sendAction = async () => {
+    console.log("hi");
     let editedToolObj = {
       name: document.getElementById("editToolType").value,
       description: document.getElementById("editDescription").value,
@@ -111,17 +114,28 @@ class EditToolModal extends React.Component {
       priceRatePerDay: parseInt(
         document.getElementById("editRentalPrice").value
       ),
-      rentalDurationInDays: this.props.tools.rentalDurationInDays,
+      rentalDurationInDays: this.props.tool.rentalDurationInDays,
       lat: this.props.user.lat,
       long: this.props.user.long,
       toolsOwned: this.props.user.toolsOwned
     };
-
-    await this.props.editTool(this.props.toolId, editedToolObj);
+    console.log(editedToolObj);
+    await this.props.editTool(this.props.tool.toolId, editedToolObj);
     await this.props.getToolsOwned(this.props.uid);
   };
 
   render() {
+    console.log(this.props);
+    console.log(this.state);
+    let picture;
+
+    if (!this.state.photoURL) {
+      picture = this.props.tool.photo;
+      console.log(picture);
+    } else {
+      picture = this.state.photoURL;
+    }
+
     return (
       <div id="editToolModal" class="modal">
         <div class="modal-content" />
@@ -130,11 +144,7 @@ class EditToolModal extends React.Component {
             <section className="photoContainer grid1">
               <div className="photoBackground borderRadius" id="photo-section">
                 <div className="photo">
-                  <img
-                    className="photo"
-                    id="toolImage"
-                    src={this.state.photoURL}
-                  />
+                  <img className="photo" id="toolImage" src={picture} />
                 </div>
                 <div className="button">
                   <input
@@ -153,7 +163,7 @@ class EditToolModal extends React.Component {
                 <h3>Tool Info</h3>
                 <label for="toolType">Tool Type</label>
                 <input
-                  defaultValue={this.props.toolName}
+                  defaultValue={this.props.tool.name}
                   type="text"
                   id="editToolType"
                   name="toolType"
@@ -165,7 +175,7 @@ class EditToolModal extends React.Component {
                   className="description"
                   name="description"
                   id="editDescription"
-                  defaultValue={this.props.description}
+                  defaultValue={this.props.tool.description}
                   required={true}
                   type="text"
                 />
@@ -173,19 +183,20 @@ class EditToolModal extends React.Component {
               <div className="formButtons">
                 <button
                   id="close-button"
-                  className="-action modal-close waves-effect waves-green btn-flat"
+                  className="-action modal-close waves-effect waves-green btn-flat "
                 >
                   Cancel
                 </button>
 
-                <input
-                  className="button save  modal-close"
+                <button
+                  className="button save modal-close"
                   type="submit"
-                  value="Save"
                   onClick={this.sendAction}
                   required={true}
                   type="text"
-                />
+                >
+                  Save
+                </button>
               </div>
             </div>
 
@@ -197,7 +208,7 @@ class EditToolModal extends React.Component {
                   type="text"
                   id="editRentalPrice"
                   name="rentalPrice"
-                  defaultValue={this.props.rentalPrice}
+                  defaultValue={this.props.tool.priceRatePerDay}
                   required={true}
                   type="text"
                 />
