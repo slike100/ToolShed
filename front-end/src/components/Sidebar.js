@@ -18,19 +18,11 @@ class Sidebar extends React.Component {
     };
   }
 
-  getToolClicked = e => {
-    console.log(e.target.dataset.id);
-    this.setState({
-      toolSelected: e.target.dataset.id,
-      checkOutModal: !this.state.checkOutModal
-    });
-  };
-
-  toggle = e => {
-    this.setState(prevState => ({
-      checkOutModal: !this.state.checkOutModal
-    }));
-  };
+  // toggle = e => {
+  //   this.setState(prevState => ({
+  //     checkOutModal: !this.state.checkOutModal
+  //   }));
+  // };
 
   handleChange = e => {
     e.preventDefault();
