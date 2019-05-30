@@ -27,7 +27,7 @@ export const createTool = toolObj => {
             type: CREATE_TOOL,
             payload: res.data
           };
-          
+
           dispatch(action);
         }
       })
@@ -54,6 +54,7 @@ export const getToolData = searchObj => {
         }&name=${searchObj.name}&distance=${searchObj.distance}`
       )
       .then(res => {
+        console.log(res.data);
         if (res.status === 200) {
           console.log('Successfully searched for tools!');
 
@@ -69,8 +70,8 @@ export const getToolData = searchObj => {
         console.log(`There was an error performing the search. Error: `, err);
 
         const action = {
-          type: TOOL_DATA
-          //Is a payload necessary here?
+          type: TOOL_DATA,
+          payload: [],
         };
 
         dispatch(action);
@@ -144,18 +145,18 @@ export const getToolsOwned = uid => {
       .get(`${userBaseUrl}allToolsOwnedForOneUser/${uid}`)
       .then(res => {
         if (res.status === 200 && res.data) {
-          
+
           const action = {
             type: TOOLS_OWNED,
             payload: res.data
           };
-          
+
           dispatch(action);
         }
       })
       .catch(err => {
         console.log(`There was an error getting tools owned. Error: `, err);
-      
+
         const action = {
           type: TOOLS_OWNED,
           payload: []
@@ -172,12 +173,12 @@ export const getToolsRented = uid => {
       .get(`${userBaseUrl}allToolsRentedForOneUser/${uid}`)
       .then(res => {
         if (res.status === 200 && res.data) {
-          
+
           const action = {
             type: TOOLS_RENTED,
             payload: res.data
           };
-          
+
           dispatch(action);
         }
       })

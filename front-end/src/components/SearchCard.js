@@ -4,8 +4,11 @@ import { connect } from "react-redux";
 class SearchCard extends React.Component {
 
   createSearchCards = () => {
-    console.log(this.props.toolsSearched);
-    if (this.props.toolsSearched.length === 0) {
+    if (!this.props.toolsSearched) {
+      return <div className="sidebar-card">
+        <p>^ Search for tools above ^</p>
+      </div>
+    } else if (this.props.toolsSearched.length === 0) {
       return <div className="sidebar-card">
         <p>No Tools for you!</p>
       </div>

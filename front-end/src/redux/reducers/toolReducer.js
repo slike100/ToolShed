@@ -8,14 +8,16 @@ import {
 } from "../types/toolTypes";
 
 const initialState = {
-  toolsSearched: [],
+  toolsSearched: null,
   toolsOwned: [],
   toolsRenting: []
   //Not sure what else needs to be set in initial state
 };
 
+
 export default function toolReducer(state = initialState, action) {
   const { type, payload } = action;
+  console.log(state.toolsSearched);
 
   switch (type) {
     case CREATE_TOOL:

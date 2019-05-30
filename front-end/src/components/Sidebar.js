@@ -35,6 +35,7 @@ class Sidebar extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     await this.addressToLatLng(this.state.searchAddress);
+
     // this.getAddress(searchLat, searchLng);
   };
 
@@ -49,12 +50,14 @@ class Sidebar extends React.Component {
   }
 
   addressToLatLng = async location => {
+    let API_KEY = "";
     const getResult = await axios.get(
       "https://maps.googleapis.com/maps/api/geocode/json",
       {
         params: {
           address: location,
-          key: "AIzaSyCc4WdJOT7P6zSJ8o1Td871UXM-3Ay3Fsw"
+
+          key: API_KEY,
         }
       }
     );
@@ -121,13 +124,6 @@ class Sidebar extends React.Component {
           </label>
           <input className="sidebar-search-btn" type="submit" value="Search" />
         </form>
-
-        {/* 
-        <div className="sidebar-card">
-          <img className="sidebar-card-img" src="https://via.placeholder.com/80" alt="" />
-          <p className="sidebar-card-name">Jackhammer</p>
-          <p className="sidebar-card-price">$20</p>
-        </div> */}
 
         <SearchCard />
 
