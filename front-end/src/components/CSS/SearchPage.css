@@ -26,6 +26,10 @@
   align-items: center;
 }
 
+.sidebar-search-btn {
+  max-width: 8em;
+}
+
 .sidebar-search-label {
   margin-top: 1em;
   width: 90%;
@@ -54,4 +58,11 @@
 .sidebar-card-price {
   margin-right: 1em;
   font-size: 18px;
+}
+
+.sidebar-card-img {
+  width: 80px;
+  height: 80px;
+  display: cover;
+  border-radius: 5px;
 }
