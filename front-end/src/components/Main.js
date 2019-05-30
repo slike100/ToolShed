@@ -18,17 +18,6 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
   }
-  //   this.state = {
-  //     checkOutModal: false
-  //   };
-  // }
-
-  // toggle = () => {
-  //   this.setState(prevState => ({
-  //     checkOutModal: !prevState.checkOutModal
-  //   }));
-  // };
-
   render() {
     return (
       <div>

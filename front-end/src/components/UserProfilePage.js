@@ -41,7 +41,7 @@ class UserProfilePage extends React.Component {
     if (this.state.checkOutModal === true) {
       modal = (
         <div>
-          <Checkout onToggle={this.toggle} />
+          <AddToolForm onToggle={this.toggle} />
         </div>
       );
     } else {
@@ -85,10 +85,10 @@ class UserProfilePage extends React.Component {
                 type="submit"
                 name="action"
                 data-target="addToolModal"
+                onClick={this.toggle}
               >
                 Add A Tool
               </button>
-              <button onClick={this.toggle}>checkout</button>
             </div>
             <div className="col s4 toolsOwned">
               Tools Owned
@@ -99,7 +99,7 @@ class UserProfilePage extends React.Component {
               <RentedToolCard />
             </div>
           </div>
-          <AddToolForm />
+          {modal}
         </div>
       );
   }

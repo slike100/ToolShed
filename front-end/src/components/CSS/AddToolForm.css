@@ -53,6 +53,10 @@ body {
   box-sizing: border-box;
   display: block;
   background-color: #f0f7f4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 /* -- add photo styling -- */
@@ -72,6 +76,8 @@ body {
   border-right: 1px solid #b3bfb8;
   height: 12.1em;
   width: 18em;
+  z-index: -1;
+  display: block;
 }
 
 .listToolPage form input:focus,
@@ -180,7 +186,7 @@ textarea {
   }
 
   #fileButton {
-    width: 6.6em;
+    width: 13em;
     background-color: #a2e3c4;
   }
 
