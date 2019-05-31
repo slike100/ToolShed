@@ -6,7 +6,6 @@ import ConfirmationModal from "./ConfirmationModal";
 import "materialize-css/dist/css/materialize.min.css";
 import { userBaseUrl, baseUrl } from "../utils/globalConstants";
 
-
 import "./CSS/stripe.css";
 
 import {
@@ -23,11 +22,11 @@ class CheckoutForm extends Component {
     this.state = {
       tool: this.props.tool,
       ownerEmail: "",
-      ownerName: "",
-    }
+      ownerName: ""
+    };
   }
 
-  getUserData = (id) => {
+  getUserData = id => {
     return axios
       .get(`${userBaseUrl}userData/${id}`)
       .then(res => {
@@ -42,9 +41,7 @@ class CheckoutForm extends Component {
       .catch(err => {
         console.log("Error getting user data: ", err);
       });
-  }
-
-
+  };
 
   submit = async e => {
     e.preventDefault();
@@ -60,15 +57,13 @@ class CheckoutForm extends Component {
     // );
     // console.log(user);
 
-
     var updated = await this.props.updateUser({
       uid: this.props.user.uid,
       stripeToken: token.id
     });
     console.log(updated);
 
-
-    await this.getUserData(this.props.tool.uid)
+    await this.getUserData(this.props.tool.uid);
   };
 
   createRecord = async (days, token) => {
@@ -143,6 +138,24 @@ class CheckoutForm extends Component {
   };
 
   render() {
+    let changeButton;
+    if (this.props.auth === true) {
+      changeButton = (
+        <button
+          className="btn-large waves-effect waves-light btn modal-trigger submitBtn"
+          onClick={this.submit}
+          data-target="confirmationToolModal"
+        >
+          BOOK NOW
+        </button>
+      );
+    } else if (this.props.auth == false) {
+      changeButton = (
+        <p className="btn-large waves-effect waves-light btn">
+          Please Sign in to Book
+        </p>
+      );
+    }
     return (
       <div className="checkout">
         <CardElement
@@ -152,15 +165,13 @@ class CheckoutForm extends Component {
             }
           }}
         />
-        <button
-          className="btn-large waves-effect waves-light btn modal-trigger submitBtn"
-          onClick={this.submit}
-          data-target="confirmationToolModal"
-        >
-          BOOK NOW
-        </button>
+        {changeButton}
         <div>
-          <ConfirmationModal tool={this.props.tool} ownerName={this.state.ownerName} ownerEmail={this.state.ownerEmail} />
+          <ConfirmationModal
+            tool={this.props.tool}
+            ownerName={this.state.ownerName}
+            ownerEmail={this.state.ownerEmail}
+          />
         </div>
       </div>
     );
@@ -180,6 +191,7 @@ const mapDispatchToProps = {
 function mapStateToProps(state) {
   return {
     user: state.user.user,
+    auth: state.user.auth,
     tools: state.tool.toolsSearched
   };
 }

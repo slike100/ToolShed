@@ -12,9 +12,7 @@ import {
   updateUser,
   addNewUser
 } from "../redux/actions/userActions";
-import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 const firebase = require("firebase");
-
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -78,7 +76,7 @@ class Navbar extends React.Component {
       maximumAge: 0
     };
     navigator.geolocation.getCurrentPosition(
-      function (position) {
+      function(position) {
         let objLocation = {
           lat: position.coords.latitude, // Latitude
           lng: position.coords.longitude // Longitude
@@ -86,7 +84,7 @@ class Navbar extends React.Component {
 
         change_state(objLocation); //Invoke Function to change the local state
       },
-      function (error) {
+      function(error) {
         if (error.code == 1) {
           alert("Error: Access is denied!");
         } else if (error.code == 2) {
@@ -113,7 +111,6 @@ class Navbar extends React.Component {
   //   });
   // }
 
-
   render() {
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
@@ -130,12 +127,9 @@ class Navbar extends React.Component {
           {this.props.auth ? (
             <React.Fragment>
               <li>
-                <NavLink
-                  to="/search"
-                  className="grey-text text-darken-3"
-                >
+                <NavLink to="/search" className="grey-text text-darken-3">
                   Search
-                  </NavLink>
+                </NavLink>
               </li>
               <li>
                 <NavLink
@@ -144,7 +138,7 @@ class Navbar extends React.Component {
                   onClick={this.logout}
                 >
                   Logout
-                  </NavLink>
+                </NavLink>
               </li>
               <li>
                 <NavLink
@@ -158,33 +152,30 @@ class Navbar extends React.Component {
               </li>
             </React.Fragment>
           ) : (
-              <React.Fragment>
-                <li>
-                  <NavLink
-                    to="/search"
-                    className="grey-text text-darken-3"
-                  >
-                    Search
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/"
-                    className="grey-text text-darken-3"
-                    onClick={this.signUp}
-                  >
-                    Sign Up
-                  </NavLink>
-                </li>
-                <li>
-                  <img
-                    className="loginBtn nav-right"
-                    src={loginButton}
-                    onClick={this.login}
-                  />
-                </li>
-              </React.Fragment>
-            )}
+            <React.Fragment>
+              <li>
+                <NavLink to="/search" className="grey-text text-darken-3">
+                  Search
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/"
+                  className="grey-text text-darken-3"
+                  onClick={this.signUp}
+                >
+                  Sign Up
+                </NavLink>
+              </li>
+              <li>
+                <img
+                  className="loginBtn nav-right"
+                  src={loginButton}
+                  onClick={this.login}
+                />
+              </li>
+            </React.Fragment>
+          )}
         </ul>
       </nav>
     );
