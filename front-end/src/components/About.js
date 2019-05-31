@@ -15,106 +15,99 @@ class About extends Component {
           <p className="moneyTitle titleBorder">
             Helping you get projects done faster
           </p>
-          <p className="savingMoney">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <div className="savingMoney">
+            <p />
+          </div>
+
           <img className="moneyPig" src={picture2} alt="moneyPig" />
+
           <p className="connectingTitle titleBorder">
             Connecting you to the tools you need now
           </p>
-          <p className="connectingPeople">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <div className="connectinPeople">
+            <p className="question">Why do I need ToolShed?</p>
+            <p className="answer">My love of hammers</p>
+            <p className="question">How does ToolShed Work?</p>
+            <li className="answer">Search for tools to rent near you </li>
+
+            {/* <p className="question">Favorite DIY project?</p>
+            <p className="answer">Nailing things with my hammer</p>  */}
+          </div>
           <div className="lionContainer connectionPicture">
             <img src={picture4} alt="Monkey" />
-            <p>C</p>
+            <p>David Brown</p>
           </div>
 
           <p className="profitTitle titleBorder">Profit of your unused tools</p>
-          <p className="profit">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <div className="profit">
+            <p className="question">Favorite Tool:</p>
+            <p className="answer">Hammer</p>
+            <p className="question">What brought you to ToolShed?</p>
+            <p className="answer">My love of hammers</p>
+            <p className="question">Favorite DIY project?</p>
+            <p className="answer">Nailing things with my hammer</p>
+          </div>
+
           <div className="celebrationPicture">
             <img src={picture3} alt="Monkey" />
-            <p>David Brown</p>
+            <p>Julio Parra-Sanchez</p>
           </div>
 
           <p className="fourthTitle titleBorder">Third Person</p>
-          <p className="fourth">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <div className="fourth">
+            <p className="question">Favorite Tool:</p>
+            <p className="answer">Hammer</p>
+            <p className="question">What brought you to ToolShed?</p>
+            <p className="answer">My love of hammers</p>
+            <p className="question">Favorite DIY project?</p>
+            <p className="answer">Nailing things with my hammer</p>
+          </div>
+
           <div className="fourthPicture">
             <img src={picture3} alt="Monkey" />
-            <p>David Brown</p>
+            <p>Sam Morgan</p>
           </div>
 
           <p className="fifthTitle titleBorder">Fourth Person</p>
-          <p className="fifth">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <div className="fifth">
+            <p className="question">Favorite Tool:</p>
+            <p className="answer">Hammer</p>
+            <p className="question">What brought you to ToolShed?</p>
+            <p className="answer">My love of hammers</p>
+            <p className="question">Favorite DIY project?</p>
+            <p className="answer">Nailing things with my hammer</p>
+          </div>
           <div className="fifthPicture">
             <img src={picture3} alt="Monkey" />
-            <p>David Brown</p>
+            <p>Dan Scanland</p>
           </div>
 
           <p className="sixthTitle titleBorder">Fith Person</p>
-          <p className="sixth">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <div className="sixth">
+            <p className="question">Favorite Tool:</p>
+            <p className="answer">Hammer</p>
+            <p className="question">What brought you to ToolShed?</p>
+            <p className="answer">My love of hammers</p>
+            <p className="question">Favorite DIY project?</p>
+            <p className="answer">Nailing things with my hammer</p>
+          </div>
           <div className="sixthPicture">
             <img src={picture3} alt="Monkey" />
-            <p>David Brown</p>
+            <p>Nathaniel Wendt</p>
           </div>
 
           <p className="seventhTitle titleBorder">Sixth Person</p>
-          <p className="seventh">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <div className="seventh">
+            <p className="question">Favorite Tool:</p>
+            <p className="answer">Hammer</p>
+            <p className="question">What brought you to ToolShed?</p>
+            <p className="answer">My love of hammers</p>
+            <p className="question">Favorite DIY project?</p>
+            <p className="answer">Nailing things with my hammer</p>
+          </div>
           <div className="seventhPicture">
             <img src={picture3} alt="Monkey" />
-            <p>David Brown</p>
+            <p>Sam Sliker</p>
           </div>
         </section>
       </div>

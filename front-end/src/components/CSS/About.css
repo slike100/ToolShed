@@ -1,3 +1,11 @@
+/* -- global colors --
+    #3C493F;
+    #7E8D85;
+    #B3BFB8;
+    #F0F7F4;
+    #A2E3C4;
+ */
+
 #aboutSection {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -14,7 +22,7 @@
   margin: 0 auto;
   width: 40%;
   padding-top: 20px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(22, 138, 82);
 }
 
 #aboutSection > .titleBorder:before {
@@ -23,7 +31,7 @@
   margin: 0 auto;
   width: 40%;
   padding-top: 20px;
-  border-top: 1px solid black;
+  border-top: 1px solid rgb(22, 138, 82);
 }
 
 /* ******* SAVING MONEY ********* */
@@ -236,7 +244,7 @@
   font-weight: 200;
 }
 
-#aboutSection > .seventh {
+#aboutSection > .seventhPicture {
   grid-column: 2 / span 1;
   grid-row: 20 / span 2;
   width: 50%;
@@ -246,14 +254,6 @@
 }
 
 /* ***** TEAM SECTION ***** */
-#aboutSection > .teamTitle {
-  text-align: center;
-  font-size: 1.5em;
-  margin-top: 10%;
-  margin-bottom: 5%;
-  grid-row: 10;
-  grid-column: 1 / span 2;
-}
 
 #aboutSection > div > img {
   border-radius: 100px;
@@ -281,6 +281,18 @@
 #aboutSection > div {
   margin-bottom: 4%;
   margin-top: 7%;
+}
+
+.question {
+  font-weight: 500;
+  font-size: 1.5em;
+  color: rgb(22, 138, 82);
+  /* rgb(36, 187, 114); */
+}
+
+.answer {
+  font-size: 1.1em;
+  font-weight: 300;
 }
 
 /* ***** CEO ****** */
