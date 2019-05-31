@@ -107,7 +107,7 @@ class UserProfilePage extends React.Component {
                 Add A Tool
               </button>
             </div>
-            <div className="col s4 toolsOwned">
+            <div className="col s4 toolsOwned" id="tool-scroll">
               Tools Owned
               <UserToolCard />
             </div>
