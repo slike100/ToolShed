@@ -12,7 +12,7 @@ stripeController.post("/", async (req, res) => {
       amount: req.body.amount,
       currency: "usd",
       description: req.body.description,
-      customer: req.body.source
+      source: req.body.source
     });
     console.log("payment", { payment });
     res.status(200).send("Made the payment");
@@ -21,7 +21,6 @@ stripeController.post("/", async (req, res) => {
     res.status(500).send(err);
   }
 });
-
 
 stripeController.post("/createUser", async (req, res) => {
   console.log(req.body);

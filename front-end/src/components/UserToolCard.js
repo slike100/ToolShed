@@ -65,33 +65,33 @@ class UserToolCard extends React.Component {
     e.preventDefault();
     var data = e.target.dataset.id;
     var obj = { isRented: false };
-    var stripeObj = {};
     await this.props.getRecordData(e.target.dataset.id);
-    var rentee = await axios.get(
-      `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/userData/${
-        this.props.record.rentalUserId
-      }`
-    );
     await this.props.editTool(data, obj);
-    console.log(this.props.record);
-    var rentalStartTime =
-      this.props.record.rentalStartTime / (1000 * 60 * 60 * 24);
-    console.log(rentalStartTime);
-    var timeCheckedInDays =
-      this.props.record.timeCheckedIn / (1000 * 60 * 60 * 24);
-    console.log(timeCheckedInDays);
-    var totalDaysRented = timeCheckedInDays - rentalStartTime;
-    console.log(totalDaysRented);
-    var amountToPay = totalDaysRented * this.props.record.pricePerDay * 100;
-    console.log(amountToPay);
-    var amountToDisplay = totalDaysRented * this.props.record.pricePerDay;
-    amountToPay = amountToPay.toFixed();
-    stripeObj.amount = amountToPay;
-    stripeObj.description = `Congrats! Your tool has been checked in and you should recieve your payment of $${amountToDisplay} soon!`;
-    console.log(rentee);
-    stripeObj.source = rentee.data.stripeToken;
-    console.log(rentee);
-    await this.props.payStripe(stripeObj);
+    // var rentee = await axios.get(
+    //   `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/userData/${
+    //     this.props.record.rentalUserId
+    //   }`
+    // );
+    // var stripeObj = {};
+    // console.log(this.props.record);
+    // var rentalStartTime =
+    //   this.props.record.rentalStartTime / (1000 * 60 * 60 * 24);
+    // console.log(rentalStartTime);
+    // var timeCheckedInDays =
+    //   this.props.record.timeCheckedIn / (1000 * 60 * 60 * 24);
+    // console.log(timeCheckedInDays);
+    // var totalDaysRented = timeCheckedInDays - rentalStartTime;
+    // console.log(totalDaysRented);
+    // var amountToPay = totalDaysRented * this.props.record.pricePerDay * 100;
+    // console.log(amountToPay);
+    // var amountToDisplay = totalDaysRented * this.props.record.pricePerDay;
+    // amountToPay = amountToPay.toFixed();
+    // stripeObj.amount = amountToPay;
+    // stripeObj.description = `Congrats! Your tool has been checked in and you should recieve your payment of $${amountToDisplay} soon!`;
+    // console.log(rentee);
+    // stripeObj.source = rentee.data.stripeToken;
+    // console.log(rentee);
+    // await this.props.payStripe(stripeObj);
     await this.props.getToolsOwned(this.props.user.uid);
   };
 

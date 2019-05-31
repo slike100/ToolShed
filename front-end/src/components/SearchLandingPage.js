@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { getToolData } from "../redux/actions/toolActions";
 import axios from "axios";
 import { API_KEY } from '../utils/firebaseConfig';
@@ -15,7 +15,6 @@ class SearchLandingPage extends Component {
         searchLandingTool: "",
         searchLandingAddress: "",
         searchLandingDistance: "",
-        redirect: false
        };
    }
 
@@ -30,10 +29,6 @@ class SearchLandingPage extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     await this.addressToLatLng(this.state.searchLandingAddress);
-    // this.props.renderMap();
-    this.setState({
-        redirect: true
-    })
   };
 
   addressToLatLng = async location => {
@@ -58,12 +53,10 @@ class SearchLandingPage extends Component {
     };
 
     await this.props.getToolData(searchObj);
+    this.props.history.push('/search');
   };
 
    render(){
-       if(this.state.redirect === true){
-            return <Redirect to='/search' />
-       }
        return(
             <div className="form">
                 <form className="col s12" onSubmit={this.handleSubmit}>
@@ -85,12 +78,12 @@ class SearchLandingPage extends Component {
                         <div className="input-field col s2">
                             {/* <i className="material-icons prefix">email</i> */}
                             <div className="input-field">
-                            <input id="distance" name="searchLandingDistance" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingDistance}/>
-                            <label for="distance">Distance</label>  
+                                <input id="distance" name="searchLandingDistance" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingDistance}/>
+                                <label for="distance">Distance</label>  
                             </div>
                         </div>
                         <div className="button col s1">
-                        <input className="sidebar-search-btn" type="submit" value="Search" />
+                            <input className="sidebar-search-btn" type="submit" value="Search" />
                         </div>
                         
                     </div>
@@ -114,5 +107,5 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SearchLandingPage);
+)(withRouter(SearchLandingPage));
 

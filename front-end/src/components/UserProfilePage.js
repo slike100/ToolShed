@@ -39,7 +39,7 @@ class UserProfilePage extends React.Component {
     };
     await this.props.deleteUser(deleteObj);
     var currentUser = firebaseAuth.currentUser;
-    currentUser.delete().then(function() {
+    currentUser.delete().then(function () {
       console.log("user deleted");
     });
   };
@@ -102,16 +102,16 @@ class UserProfilePage extends React.Component {
                 type="submit"
                 name="action"
                 data-target="addToolModal"
-                // onClick={this.toggle}
+              // onClick={this.toggle}
               >
                 Add A Tool
               </button>
             </div>
-            <div className="col s4 toolsOwned">
+            <div className="col s4 toolsOwned" id="tool-scroll">
               Tools Owned
               <UserToolCard />
             </div>
-            <div className="col s4 toolsRenting">
+            <div className="col s4 toolsRenting" id="tool-scroll">
               Tools Rented
               <RentedToolCard />
             </div>

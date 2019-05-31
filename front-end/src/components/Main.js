@@ -8,7 +8,7 @@ import Navbar from "./Navbar";
 import SearchPage from "./SearchPage";
 import AddToolForm from "./AddToolForm";
 import About from "./About";
-import CreateNewUserForm from "./CreateNewUserForm";
+// import CreateNewUserForm from "./CreateNewUserForm";
 import UserProfilePage from "./UserProfilePage";
 import LandingPage from "./LandingPage";
 import Checkout from "./Checkout";
@@ -23,7 +23,6 @@ class Main extends React.Component {
     return (
       <div>
         <Navbar />
-        {/* <ConfirmationModal /> */}
 
         {/* <Checkout /> */}
 
@@ -39,6 +38,7 @@ class Main extends React.Component {
         </Switch>
 
 
+        {/* <ConfirmationModal /> */}
         {/* <CreateNewUserForm /> */}
 
         {/* <AddToolForm /> */}

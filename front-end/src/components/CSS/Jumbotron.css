@@ -19,8 +19,8 @@
 }
 
 .form {
-  border: 2px solid #fff;
-  background: #fff;
+  /* border: 2px solid #fff;
+  background: #fff; */
   position: absolute;
   max-width: 1920px;
   padding: 0.1em;
@@ -30,10 +30,12 @@
   width: 90%;
   margin: 11em 2em 4em 4em;
   height: 13rem;
-  
+  border-radius: 15px;
 }
 .col{
   overflow: hidden;
+  margin-top: 0.5rem;
+  border-radius: 15px;
 }
 .waves-effect {
   margin: 2em;
@@ -62,6 +64,7 @@
   overflow: visible;
   margin-left: 1.1rem;
   margin-top: 3.7rem;
+  padding-left: 3rem;
 }
 @media only screen and (max-width: 900px) {
   /* .jumbo {
@@ -69,6 +72,7 @@
     height: 0.2em;
   } */
 }
+
 
 /* .imagen {
     background-image: url('../../assets/img/LandingPageImage.jpg');

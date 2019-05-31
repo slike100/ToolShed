@@ -1,19 +1,18 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import "./CSS/Navbar.css";
 import "materialize-css/dist/css/materialize.min.css";
-import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
+import React from "react";
 import loginButton from "../assets/img/btn_google_signin_dark_normal_web.png";
 import logo from "../assets/img/logo.png";
-import "./CSS/Navbar.css";
+import { NavLink } from "react-router-dom";
+import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import { connect } from "react-redux";
+import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 import {
   logoutUser,
   updateUser,
   addNewUser
 } from "../redux/actions/userActions";
-import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 const firebase = require("firebase");
-
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -96,20 +95,21 @@ class Navbar extends React.Component {
     );
   };
 
-  componentDidMount() {
-    firebaseAuth.onAuthStateChanged(user => {
-      if (user) {
-        const parsedUser = {
-          uid: user.uid,
-          lat: this.state.lat,
-          long: this.state.lng
-        };
-        this.props.updateUser(parsedUser);
-        this.props.getToolsOwned(parsedUser.uid);
-        this.props.getToolsRented(parsedUser.uid);
-      }
-    });
-  }
+  //GETTING RID OF PERSISTENT LOGIN
+  // componentDidMount() {
+  //   firebaseAuth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       const parsedUser = {
+  //         uid: user.uid,
+  //         lat: this.state.lat,
+  //         long: this.state.lng
+  //       };
+  //       this.props.updateUser(parsedUser);
+  //       this.props.getToolsOwned(parsedUser.uid);
+  //       this.props.getToolsRented(parsedUser.uid);
+  //     }
+  //   });
+  // }
 
   render() {
     // grab and place google photo as profile button background-image
@@ -120,63 +120,63 @@ class Navbar extends React.Component {
 
     return (
       <nav className="nav-wrapper grey lighten-5">
-        <div className="container">
-          <NavLink to="/">
-            <img className="siteLogo" src={logo} />
-          </NavLink>
-          <ul className="right nav-list">
-            {this.props.auth ? (
-              <React.Fragment>
-                <li>
-                  <NavLink
-                    to="/userProfilePage"
-                    className="grey-text text-darken-3"
-                  >
-                    Post a Tool
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/"
-                    className="grey-text text-darken-3"
-                    onClick={this.logout}
-                  >
-                    Logout
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/userProfilePage"
-                    style={{
-                      backgroundImage: profilePhoto,
-                      backgroundSize: "cover"
-                    }}
-                    className="btn btn-floating blue lighten-1"
-                  />
-                </li>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <li>
-                  <NavLink
-                    to="/"
-                    className="grey-text text-darken-3"
-                    onClick={this.signUp}
-                  >
-                    Sign Up
-                  </NavLink>
-                </li>
-                <li>
-                  <img
-                    className="loginBtn"
-                    src={loginButton}
-                    onClick={this.login}
-                  />
-                </li>
-              </React.Fragment>
-            )}
-          </ul>
-        </div>
+        <NavLink to="/">
+          <img className="siteLogo" src={logo} />
+        </NavLink>
+        <ul className="right nav-list">
+          {this.props.auth ? (
+            <React.Fragment>
+              <li>
+                <NavLink to="/search" className="grey-text text-darken-3">
+                  Search
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/"
+                  className="grey-text text-darken-3"
+                  onClick={this.logout}
+                >
+                  Logout
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/userProfilePage"
+                  className="btn btn-floating blue lighten-1"
+                  style={{
+                    backgroundImage: profilePhoto,
+                    backgroundSize: "cover"
+                  }}
+                />
+              </li>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <li>
+                <NavLink to="/search" className="grey-text text-darken-3">
+                  Search
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/"
+                  className="grey-text text-darken-3"
+                  onClick={this.signUp}
+                >
+                  Sign Up
+                </NavLink>
+              </li>
+              <li>
+                <img
+                  className="loginBtn nav-right"
+                  src={loginButton}
+                  onClick={this.login}
+                />
+              </li>
+            </React.Fragment>
+          )}
+        </ul>
       </nav>
     );
   }

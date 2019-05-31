@@ -47,32 +47,61 @@ class SearchCard extends React.Component {
       return this.props.toolsSearched.map((tool, index) => {
         var button;
         console.log(tool.isRented);
-        if (!tool.isRented) {
-          button = (
-            <button
-              class="btn-small waves-effect waves-light btn modal-trigger edit-button"
-              type="submit"
-              name="action"
-              data-id={tool.toolId}
-              data-target="checkoutModal"
-              onClick={this.getFullTool}
-            >
-              Details
-            </button>
-          );
-        } else if (tool.isRented) {
-          button = <p>Sorry, this tool is currently being rented.</p>;
-        }
-        return (
-          <div>
-            <div className="sidebar-card" key={index}>
-              <img className="sidebar-card-img" src={tool.photo} alt="" />
-              <p className="sidebar-card-name">{tool.name}</p>
-              <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
-              {button}
+        if (this.props.auth === true || this.props.user === null) {
+          if (!tool.isRented && this.props.uid !== tool.uid) {
+            button = (
+              <button
+                class="btn-small waves-effect waves-light btn modal-trigger edit-button"
+                type="submit"
+                name="action"
+                data-id={tool.toolId}
+                data-target="checkoutModal"
+                onClick={this.getFullTool}
+              >
+                Details
+              </button>
+            );
+          } else if (tool.isRented) {
+            button = <p>Sorry, this tool is currently being rented.</p>;
+          }
+          return (
+            <div>
+              <div className="sidebar-card" key={index}>
+                <img className="sidebar-card-img" src={tool.photo} alt="" />
+                <p className="sidebar-card-name">{tool.name}</p>
+                <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
+                {button}
+              </div>
             </div>
-          </div>
-        );
+          );
+        } else if (this.props.auth === false) {
+          if (!tool.isRented) {
+            button = (
+              <button
+                class="btn-small waves-effect waves-light btn modal-trigger edit-button"
+                type="submit"
+                name="action"
+                data-id={tool.toolId}
+                data-target="checkoutModal"
+                onClick={this.getFullTool}
+              >
+                Details
+              </button>
+            );
+          } else if (tool.isRented) {
+            button = <p>Sorry, this tool is currently being rented.</p>;
+          }
+          return (
+            <div>
+              <div className="sidebar-card" key={index}>
+                <img className="sidebar-card-img" src={tool.photo} alt="" />
+                <p className="sidebar-card-name">{tool.name}</p>
+                <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
+                {button}
+              </div>
+            </div>
+          );
+        }
       });
     }
   };
@@ -91,7 +120,9 @@ class SearchCard extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    toolsSearched: state.tool.toolsSearched
+    toolsSearched: state.tool.toolsSearched,
+    user: state.user.user,
+    auth: state.user.auth
   };
 }
 

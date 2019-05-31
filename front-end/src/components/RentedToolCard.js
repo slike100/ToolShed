@@ -25,12 +25,12 @@ class RentedToolCard extends React.Component {
       console.log(this.props.tools[i]);
       var record = await axios.get(
         `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/rentalRecord/${
-          this.props.tools[i].toolId
+        this.props.tools[i].toolId
         }`
       );
       var user = await axios.get(
         `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/userData/${
-          record.data[0].ownerId
+        record.data[0].ownerId
         }`
       );
     }
@@ -48,13 +48,14 @@ class RentedToolCard extends React.Component {
     } else {
       console.log(this.state.records[0].dueDate);
       var newDate = new Date(this.state.records[0].dueDate);
-      var newDateString = newDate.toString();
+      var newDateString = newDate.toDateString();
       return this.props.tools.map((tool, index) => {
+        console.log(tool.isRented);
         var rented;
-        if (tool.isRented == "false" || !tool.isRented) {
-          var rented = "No";
-        } else {
+        if (tool.isRented == false || !tool.isRented) {
           var rented = "Yes";
+        } else {
+          var rented = "No";
         }
         return (
           <div className="row1">
