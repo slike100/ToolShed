@@ -12,6 +12,8 @@ import {
   addNewUser
 } from "../redux/actions/userActions";
 import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
+import image from "../assets/img/ToolShed-Loading-Spinner.gif";
+
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
