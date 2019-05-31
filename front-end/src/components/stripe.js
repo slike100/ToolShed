@@ -22,7 +22,8 @@ class CheckoutForm extends Component {
     this.state = {
       tool: this.props.tool,
       ownerEmail: "",
-      ownerName: ""
+      ownerName: "",
+      dueDate: ""
     };
   }
 
@@ -76,7 +77,15 @@ class CheckoutForm extends Component {
     var daysDueIn = days * (1000 * 60 * 60 * 24);
     console.log(daysDueIn);
     var dueDate = parseInt(n) + parseInt(daysDueIn);
+
     console.log(dueDate);
+
+    var checkInDate = n + daysDueIn;
+
+    // this.setState({
+    //   dueDate: moment(new Date(checkInDate)).format("MMM Do YYYY")
+    // });
+
     var recordObj = {
       ownerId: this.props.tool.uid,
       rentalUserId: this.props.user.uid,
@@ -169,6 +178,7 @@ class CheckoutForm extends Component {
         <div>
           <ConfirmationModal
             tool={this.props.tool}
+            dueDate={this.state.dueDate}
             ownerName={this.state.ownerName}
             ownerEmail={this.state.ownerEmail}
           />
