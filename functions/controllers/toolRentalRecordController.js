@@ -14,7 +14,7 @@ toolRecordRentalController.post("/newRentalRecord", (req, res) => {
   console.log("We are in the add rental record route!");
   console.log("this is req.body for rental record route", req.body);
   var timestamp = firebase.firestore.Timestamp.now().toMillis();
-  var dueDateMillis = req.body.dueDate * 86400000;
+  // var dueDateMillis = req.body.dueDate * 86400000;
   console.log(timestamp, "timeObject");
   var toolRentalRecord = Object.assign({}, {
     ownerId: req.body.ownerId,
@@ -22,7 +22,7 @@ toolRecordRentalController.post("/newRentalRecord", (req, res) => {
     toolId: req.body.toolId,
     rentalStartTime: timestamp,
     timeCheckedIn: null,
-    dueDate: dueDateMillis,
+    dueDate: req.body.dueDate,
     pricePerDay: req.body.pricePerDay
   });
   try {

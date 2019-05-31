@@ -24,8 +24,7 @@ export default function userReducer(state = initialState, action) {
       console.log("We are in the Pay Stripe Reducer");
       console.log(payload);
       return {
-        ...state,
-        stripeToken: payload
+        ...state
       };
 
     case NEW_USER:

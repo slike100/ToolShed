@@ -3,12 +3,15 @@ import options from "materialize-css/dist/js/materialize.min.js";
 import React from "react";
 import { connect } from "react-redux";
 import M from "materialize-css";
+import { Link } from "react-router-dom";
 
 import "./CSS/ConfirmationModal.css";
 
 class ConfirmationModal extends React.Component {
   constructor(props) {
     super(props);
+    // this.onUnload = this.onUnload.bind(this);
+
     this.state = {
       tool: this.props.tool,
     }
@@ -18,10 +21,14 @@ class ConfirmationModal extends React.Component {
     console.log("inside modal")
     const elems = document.querySelectorAll(".modal");
     const instances = M.Modal.init(elems, options);
+
   }
 
+
+
   render() {
-    console.log("conf props", this.props.tool);
+
+    console.log("conf props", this.props);
 
     return (
 
@@ -29,7 +36,7 @@ class ConfirmationModal extends React.Component {
 
         < div className="card horizontal confirm z-depth-4" >
           <div className="card-image">
-            <img className="toolImage" src="https://images.unsplash.com/photo-1501623364001-70bfe454b916?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" />
+            <img className="toolImage" src={this.props.tool.photo} />
           </div>
           <div className="card-stacked">
             <div className="card-content">
@@ -37,12 +44,15 @@ class ConfirmationModal extends React.Component {
               <h6 className="confFont">You just rented a very special tool!</h6>
               <h6 className="confFont">Please contact the owner below to set up pick-up arrangements.</h6>
               <h5 className="confFont">Total Price: ${this.props.tool.priceRatePerDay}</h5>
-              <h5 className="confFont">Due Date: </h5>
+              <h5 className="confFont">Due Date: {this.props.dueDate}</h5>
+              <h5 className="confFont">Owner: {this.props.ownerName}</h5>
+              <h5 className="confFont">Onwer Email: {this.props.ownerEmail}</h5>
+              <Link to="/">
+                <button className="btn-small red darken-1">
+                  Close
+                </button>
+              </Link>
             </div>
-            <div className="card-action">
-              <h5 className="confFont">Owner Email: </h5>
-            </div >
-
           </div >
         </div>
       </div >
