@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color:#f2f2f2;
+  background-color: #f2f2f2;
   overflow: auto;
   /* height: 100vh; */
 }
@@ -18,16 +18,17 @@
 
 .profileScroll {
   display: flex;
-  /* overflow: auto; */
-
+  overflow: auto;
 }
 
 .body {
-  background-color:#f2f2f2;
+  background-color: #f2f2f2;
   height: 90vh;
   width: 100%;
   display: flex;
   overflow: auto;
-
 }
 
+#tool-scroll {
+  overflow: auto;
+}
