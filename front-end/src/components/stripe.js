@@ -5,7 +5,6 @@ import { connect } from "react-redux"; // import connect from Redux
 import ConfirmationModal from "./ConfirmationModal";
 import "materialize-css/dist/css/materialize.min.css";
 import { userBaseUrl, baseUrl } from "../utils/globalConstants";
-// import moment from "moment";
 
 import "./CSS/stripe.css";
 
@@ -148,6 +147,24 @@ class CheckoutForm extends Component {
   };
 
   render() {
+    let changeButton;
+    if (this.props.auth === true) {
+      changeButton = (
+        <button
+          className="btn-large waves-effect waves-light btn modal-trigger submitBtn"
+          onClick={this.submit}
+          data-target="confirmationToolModal"
+        >
+          BOOK NOW
+        </button>
+      );
+    } else if (this.props.auth == false) {
+      changeButton = (
+        <p className="btn-large waves-effect waves-light btn">
+          Please Sign in to Book
+        </p>
+      );
+    }
     return (
       <div className="checkout">
         <CardElement
@@ -157,13 +174,7 @@ class CheckoutForm extends Component {
             }
           }}
         />
-        <button
-          className="btn-large waves-effect waves-light btn modal-trigger submitBtn"
-          onClick={this.submit}
-          data-target="confirmationToolModal"
-        >
-          BOOK NOW
-        </button>
+        {changeButton}
         <div>
           <ConfirmationModal
             tool={this.props.tool}
@@ -190,6 +201,7 @@ const mapDispatchToProps = {
 function mapStateToProps(state) {
   return {
     user: state.user.user,
+    auth: state.user.auth,
     tools: state.tool.toolsSearched
   };
 }
