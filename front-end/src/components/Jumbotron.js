@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.min.css";
 import "../components/CSS/Jumbotron.css";
 
-import image from "../assets/img/LandingPageImage.jpg";
+import image from "../assets/img/background.jpg";
+
 import About from "./About";
 
 class Jumbotron extends Component {
