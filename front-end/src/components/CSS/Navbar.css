@@ -1,9 +1,10 @@
 .right {
-  height: 1em;
+  height: 1em; /* added to remove sizing bug on homepage jumbotron image */
+  margin-right: 1em;
 }
 
 .loginBtn {
-  margin-top: 0.6em;
+  margin: 0.6em 0 0 0.6em;
 }
 
 .loginBtn:hover {
@@ -16,5 +17,9 @@
 
 .siteLogo {
   height: 4.2em;
-  margin-top: 0.1 em;
+  margin: 0.1em 0 0 1em;
+}
+
+.nav-right {
+  margin-right: 2em;
 }

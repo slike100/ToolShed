@@ -50,11 +50,12 @@ class RentedToolCard extends React.Component {
       var newDate = new Date(this.state.records[0].dueDate);
       var newDateString = newDate.toString();
       return this.props.tools.map((tool, index) => {
+        console.log(tool.isRented);
         var rented;
-        if (tool.isRented == "false" || !tool.isRented) {
-          var rented = "No";
-        } else {
+        if (tool.isRented == false || !tool.isRented) {
           var rented = "Yes";
+        } else {
+          var rented = "No";
         }
         return (
           <div className="row1">
