@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom'
 import { getToolData } from "../redux/actions/toolActions";
 import axios from "axios";
 import { API_KEY } from '../utils/firebaseConfig';
@@ -14,6 +15,7 @@ class SearchLandingPage extends Component {
         searchLandingTool: "",
         searchLandingAddress: "",
         searchLandingDistance: "",
+        redirect: false
        };
    }
 
@@ -29,6 +31,9 @@ class SearchLandingPage extends Component {
     e.preventDefault();
     await this.addressToLatLng(this.state.searchLandingAddress);
     // this.props.renderMap();
+    this.setState({
+        redirect: true
+    })
   };
 
   addressToLatLng = async location => {
@@ -56,26 +61,35 @@ class SearchLandingPage extends Component {
   };
 
    render(){
+       if(this.state.redirect === true){
+            return <Redirect to='/search' />
+       }
        return(
             <div className="form">
                 <form className="col s12" onSubmit={this.handleSubmit}>
                     <div className="row">
                         <div className="input-field col s4">
                             {/* <i className="material-icons prefix">account_circle</i> */}
-                            <input id="tool-name" name="searchLandingTool" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingTool}/>
-                            <label for="tool-name">Tools Name</label>
+                            <div className="input-field">
+                                <input id="tool-name" name="searchLandingTool" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingTool}/>
+                                <label for="tool-name">Tools Name</label>
+                            </div>
                         </div>
                         <div className="input-field col s4">
                             {/* <i className="material-icons prefix">email</i> */}
-                            <input id="address" name="searchLandingAddress" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingAddress}/>
-                            <label for="address">Address</label>
+                            <div className="input-field">
+                                <input id="address" name="searchLandingAddress" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingAddress}/>
+                                <label for="address">Address</label>
+                            </div>
                         </div>
                         <div className="input-field col s2">
                             {/* <i className="material-icons prefix">email</i> */}
+                            <div className="input-field">
                             <input id="distance" name="searchLandingDistance" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingDistance}/>
                             <label for="distance">Distance</label>  
+                            </div>
                         </div>
-                        <div className="col s2">
+                        <div className="button col s1">
                         <input className="sidebar-search-btn" type="submit" value="Search" />
                         </div>
                         
