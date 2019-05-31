@@ -2,9 +2,8 @@ import React from "react";
 import { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { connect } from "react-redux"; // import connect from Redux
-import ConfirmationModal from "./ConfirmationModal"
+import ConfirmationModal from "./ConfirmationModal";
 import "materialize-css/dist/css/materialize.min.css";
-
 
 import "./CSS/stripe.css";
 
@@ -13,7 +12,7 @@ import {
   getRecordData,
   updateUser
 } from "../redux/actions/userActions";
-import { editTool } from "../redux/actions/toolActions";
+import { editTool, getToolsRented } from "../redux/actions/toolActions";
 import axios from "axios";
 
 class CheckoutForm extends Component {
@@ -21,16 +20,16 @@ class CheckoutForm extends Component {
     super(props);
     this.state = {
       tool: this.props.tool
-    }
+    };
   }
 
   submit = async e => {
     e.preventDefault();
-    console.log(e.target.childNodes[0].parentElement.form[0].value);
-    this.createRecord(e.target.childNodes[0].parentElement.form[0].value);
+    var days = e.target.childNodes[0].parentElement.form[0].value;
     let { token } = await this.props.stripe.createToken({
       name: this.props.user.displayName
     });
+    await this.createRecord(days, token);
     console.log(token);
     // var user = await axios.post(
     //   `https://us-central1-toolshed-1dd98.cloudfunctions.net/stripe/createUser/`,
@@ -44,14 +43,16 @@ class CheckoutForm extends Component {
     console.log(updated);
   };
 
-  createRecord = async days => {
+  createRecord = async (days, token) => {
     console.log("this is tool", this.props.tool);
+    console.log(days);
     var d = new Date();
     console.log(d);
     var n = d.getTime();
     console.log(n);
-    var daysDueIn = days / (1000 * 60 * 60 * 24);
-    var dueDate = n + daysDueIn;
+    var daysDueIn = days * (1000 * 60 * 60 * 24);
+    console.log(daysDueIn);
+    var dueDate = parseInt(n) + parseInt(daysDueIn);
     console.log(dueDate);
     var recordObj = {
       ownerId: this.props.tool.uid,
@@ -71,13 +72,46 @@ class CheckoutForm extends Component {
       .catch(err => console.log(err));
     var updatedTool = await axios.put(
       `https://us-central1-toolshed-1dd98.cloudfunctions.net/tool/updateTool/${
-      this.props.tool.toolId
+        this.props.tool.toolId
       }`,
       {
         isRented: true
       }
     );
     console.log(updatedTool);
+    var arr = this.props.user.toolsBeingRented;
+    console.log(arr);
+    arr.push(this.props.tool.toolId);
+    console.log(arr);
+    await axios
+      .put(
+        `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/updateUser/${
+          this.props.user.uid
+        }`,
+        { toolsBeingRented: arr }
+      )
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+
+    var stripeObj = {};
+    console.log(days);
+    console.log(this.props.tool);
+    var amountToDisplay = days * this.props.tool.priceRatePerDay;
+    var amountToPay = (days * this.props.tool.priceRatePerDay).toFixed() * 100;
+    console.log(amountToDisplay);
+    console.log(amountToPay);
+    stripeObj.amount = amountToPay;
+    stripeObj.description = `User (UID:${
+      this.props.user.uid
+    }) has paid ${amountToDisplay}. They have rented TOOL-ID: ${
+      this.props.tool.toolId
+    } for ${days}`;
+    stripeObj.source = token.id;
+    await this.props.payStripe(stripeObj);
+    console.log(
+      `Congrats! You have successfully rented a tool! $${amountToDisplay} will be charged to your card soon! Please be aware that you will be charged any subsiquent late fees if you do not check the tool in on time.`
+    );
+    this.props.getToolsRented(this.props.user.uid);
   };
 
   render() {
@@ -90,9 +124,11 @@ class CheckoutForm extends Component {
             }
           }}
         />
-        <button className="btn-large waves-effect waves-light btn modal-trigger submitBtn"
+        <button
+          className="btn-large waves-effect waves-light btn modal-trigger submitBtn"
           onClick={this.submit}
-          data-target="confirmationToolModal">
+          data-target="confirmationToolModal"
+        >
           BOOK NOW
         </button>
         <div>
@@ -103,15 +139,14 @@ class CheckoutForm extends Component {
   }
 }
 
-
-
 const Stripe = injectStripe(CheckoutForm);
 
 const mapDispatchToProps = {
   payStripe,
   getRecordData,
   editTool,
-  updateUser
+  updateUser,
+  getToolsRented
 };
 
 function mapStateToProps(state) {
