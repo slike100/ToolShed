@@ -13,6 +13,8 @@ import {
 } from "../redux/actions/userActions";
 import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 const firebase = require("firebase");
+
+
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
