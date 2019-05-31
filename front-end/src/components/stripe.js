@@ -4,6 +4,8 @@ import { CardElement, injectStripe } from "react-stripe-elements";
 import { connect } from "react-redux"; // import connect from Redux
 import ConfirmationModal from "./ConfirmationModal"
 import "materialize-css/dist/css/materialize.min.css";
+import { userBaseUrl, baseUrl } from "../utils/globalConstants";
+
 
 
 import "./CSS/stripe.css";
@@ -20,9 +22,30 @@ class CheckoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tool: this.props.tool
+      tool: this.props.tool,
+      ownerEmail: "",
+      ownerName: "",
     }
   }
+
+  getUserData = (id) => {
+    return axios
+      .get(`${userBaseUrl}userData/${id}`)
+      .then(res => {
+        if (res.status === 200 && res.data) {
+          console.log(`SUCCESS! Got user data`, res.data);
+          this.setState({
+            ownerEmail: res.data.email,
+            ownerName: res.data.userName
+          });
+        }
+      })
+      .catch(err => {
+        console.log("Error getting user data: ", err);
+      });
+  }
+
+
 
   submit = async e => {
     e.preventDefault();
@@ -37,11 +60,16 @@ class CheckoutForm extends Component {
     //   { source: token, email: this.props.user.email }
     // );
     // console.log(user);
+
+
     var updated = await this.props.updateUser({
       uid: this.props.user.uid,
       stripeToken: token.id
     });
     console.log(updated);
+
+
+    await this.getUserData(this.props.tool.uid)
   };
 
   createRecord = async days => {
@@ -96,7 +124,7 @@ class CheckoutForm extends Component {
           BOOK NOW
         </button>
         <div>
-          <ConfirmationModal tool={this.props.tool} />
+          <ConfirmationModal tool={this.props.tool} ownerName={this.state.ownerName} ownerEmail={this.state.ownerEmail} />
         </div>
       </div>
     );
