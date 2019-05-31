@@ -114,6 +114,7 @@ class Navbar extends React.Component {
   // }
 
 
+
   render() {
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
