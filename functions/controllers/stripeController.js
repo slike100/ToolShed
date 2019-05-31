@@ -17,7 +17,7 @@ stripeController.post("/", (() => {
         amount: req.body.amount,
         currency: "usd",
         description: req.body.description,
-        customer: req.body.source
+        source: req.body.source
       });
       console.log("payment", { payment });
       res.status(200).send("Made the payment");
