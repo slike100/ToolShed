@@ -86,7 +86,6 @@ form textarea:focus {
   justify-content: center;
 }
 
-.checkoutForm button,
 input[type="submit"] {
   margin: 2em auto;
   justify-content: center;

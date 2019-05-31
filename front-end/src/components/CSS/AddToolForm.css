@@ -84,7 +84,7 @@ form textarea:focus {
   border: 1px solid #7e8d85;
 }
 
-.listToolPage button,
+/* .listToolPage button,
 input[type="submit"] {
   margin: 4em auto;
   width: 6em;
@@ -98,7 +98,10 @@ input[type="submit"] {
   text-shadow: 0px -2px #90d5af;
   border-radius: 5px;
   cursor: pointer;
-}
+} */
+
+/* -- form styling -- */
+
 /* -- fo
 rm styling -- */
 
