@@ -67,6 +67,8 @@ class CheckoutForm extends Component {
     await this.getUserData(this.props.tool.uid);
   };
 
+
+
   createRecord = async (days, token) => {
     console.log("this is tool", this.props.tool);
     console.log(days);
@@ -79,12 +81,6 @@ class CheckoutForm extends Component {
     var dueDate = parseInt(n) + parseInt(daysDueIn);
 
     console.log(dueDate);
-
-    var checkInDate = n + daysDueIn;
-
-    // this.setState({
-    //   dueDate: moment(new Date(checkInDate)).format("MMM Do YYYY")
-    // });
 
     var recordObj = {
       ownerId: this.props.tool.uid,
@@ -104,7 +100,7 @@ class CheckoutForm extends Component {
       .catch(err => console.log(err));
     var updatedTool = await axios.put(
       `https://us-central1-toolshed-1dd98.cloudfunctions.net/tool/updateTool/${
-        this.props.tool.toolId
+      this.props.tool.toolId
       }`,
       {
         isRented: true
@@ -118,7 +114,7 @@ class CheckoutForm extends Component {
     await axios
       .put(
         `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/updateUser/${
-          this.props.user.uid
+        this.props.user.uid
         }`,
         { toolsBeingRented: arr }
       )
@@ -135,15 +131,19 @@ class CheckoutForm extends Component {
     stripeObj.amount = amountToPay;
     stripeObj.description = `User (UID:${
       this.props.user.uid
-    }) has paid ${amountToDisplay}. They have rented TOOL-ID: ${
+      }) has paid ${amountToDisplay}. They have rented TOOL-ID: ${
       this.props.tool.toolId
-    } for ${days}`;
+      } for ${days}`;
     stripeObj.source = token.id;
     await this.props.payStripe(stripeObj);
     console.log(
       `Congrats! You have successfully rented a tool! $${amountToDisplay} will be charged to your card soon! Please be aware that you will be charged any subsiquent late fees if you do not check the tool in on time.`
     );
     this.props.getToolsRented(this.props.user.uid);
+
+    this.setState({
+      dueDate: new Date(dueDate).toDateString()
+    })
   };
 
   render() {
