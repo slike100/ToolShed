@@ -164,7 +164,7 @@ export const getRecordData = toolId => {
           return axios
             .put(
               `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/updateToolRentalRecord/${
-                res.data[0].recordId
+              res.data[0].recordId
               }`
             )
             .then(res => {
