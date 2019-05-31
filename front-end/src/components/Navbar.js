@@ -7,14 +7,14 @@ import { NavLink } from "react-router-dom";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import { connect } from "react-redux";
 import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
+import axios from "axios";
+import { userBaseUrl } from "../utils/globalConstants";
 import {
   logoutUser,
   updateUser,
   addNewUser
 } from "../redux/actions/userActions";
-import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 const firebase = require("firebase");
-
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -25,24 +25,29 @@ class Navbar extends React.Component {
     };
   }
 
+  checkForExistingUser = id => {
+    return axios
+      .get(`${userBaseUrl}userData/${id}`)
+      .then(res => {
+        if (res.status === 200 && res.data.uid) {
+          // this.login();
+          console.log("There is an existing user");
+        } else {
+          console.log("This is a new user");
+        }
+      })
+      .catch(err => {
+        console.log("Error getting user data: ", err);
+      });
+  };
+
   signUp = () => {
-    function getUserData(id) {
-        return axios
-          .get(`${userBaseUrl}userData/${id}`)
-          .then(res => {
-            if (res.status === 200 && res.data.uid)  {
-              console.log(`SUCCESS! Got user data`, res.data);
-            }
-          })
-          .catch(err => {
-            console.log("Error getting user data: ", err)
-          });
-      
-    
     //Do a get of getUserData, if response is userObject call login. If response is not an object, proceed with post.
     this.getGeoLocation();
 
     firebaseAuth.signInWithPopup(provider).then(result => {
+      this.checkForExistingUser();
+
       const authObj = {
         uid: result.user.uid,
         lat: this.state.lat,
@@ -92,7 +97,7 @@ class Navbar extends React.Component {
       maximumAge: 0
     };
     navigator.geolocation.getCurrentPosition(
-      function (position) {
+      function(position) {
         let objLocation = {
           lat: position.coords.latitude, // Latitude
           lng: position.coords.longitude // Longitude
@@ -100,7 +105,7 @@ class Navbar extends React.Component {
 
         change_state(objLocation); //Invoke Function to change the local state
       },
-      function (error) {
+      function(error) {
         if (error.code == 1) {
           alert("Error: Access is denied!");
         } else if (error.code == 2) {
@@ -127,8 +132,6 @@ class Navbar extends React.Component {
   //   });
   // }
 
-
-
   render() {
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
@@ -145,12 +148,9 @@ class Navbar extends React.Component {
           {this.props.auth ? (
             <React.Fragment>
               <li>
-                <NavLink
-                  to="/search"
-                  className="grey-text text-darken-3"
-                >
+                <NavLink to="/search" className="grey-text text-darken-3">
                   Search
-                  </NavLink>
+                </NavLink>
               </li>
               <li>
                 <NavLink
@@ -159,7 +159,7 @@ class Navbar extends React.Component {
                   onClick={this.logout}
                 >
                   Logout
-                  </NavLink>
+                </NavLink>
               </li>
               <li>
                 <NavLink
@@ -173,33 +173,30 @@ class Navbar extends React.Component {
               </li>
             </React.Fragment>
           ) : (
-              <React.Fragment>
-                <li>
-                  <NavLink
-                    to="/search"
-                    className="grey-text text-darken-3"
-                  >
-                    Search
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/"
-                    className="grey-text text-darken-3"
-                    onClick={this.signUp}
-                  >
-                    Sign Up
-                  </NavLink>
-                </li>
-                <li>
-                  <img
-                    className="loginBtn nav-right"
-                    src={loginButton}
-                    onClick={this.login}
-                  />
-                </li>
-              </React.Fragment>
-            )}
+            <React.Fragment>
+              <li>
+                <NavLink to="/search" className="grey-text text-darken-3">
+                  Search
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/"
+                  className="grey-text text-darken-3"
+                  onClick={this.signUp}
+                >
+                  Sign Up
+                </NavLink>
+              </li>
+              <li>
+                <img
+                  className="loginBtn nav-right"
+                  src={loginButton}
+                  onClick={this.login}
+                />
+              </li>
+            </React.Fragment>
+          )}
         </ul>
       </nav>
     );
