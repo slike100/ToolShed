@@ -73,6 +73,10 @@ export function deleteUser(deleteObj) {
 
 // AXIOS EDIT USERS, this also creates users on sign-up
 export function updateUser(userObj) {
+  if (userObj.lat === 0 && userObj.long === 0) {
+    delete userObj.lat;
+    delete userObj.long;
+  }
   return dispatch => {
     return axios
       .put(`${userBaseUrl}updateUser/${userObj.uid}`, userObj)

@@ -12,6 +12,9 @@ import {
   addNewUser
 } from "../redux/actions/userActions";
 import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
+const firebase = require("firebase");
+
+
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -38,22 +41,16 @@ class Navbar extends React.Component {
         stripeToken: ""
       };
       this.props.addNewUser(authObj);
-      // this.props.getToolsOwned(authObj.uid);
-      // this.props.getToolsRented(authObj.uid);
     });
   };
 
   login = () => {
     this.getGeoLocation();
-
     firebaseAuth.signInWithPopup(provider).then(result => {
       const authObj = {
         uid: result.user.uid,
         lat: this.state.lat,
         long: this.state.lng
-        // email: result.user.email,
-        // userName: result.user.displayName,
-        // avatar: result.user.photoURL
       };
       this.props.updateUser(authObj);
       this.props.getToolsOwned(authObj.uid);
@@ -106,9 +103,6 @@ class Navbar extends React.Component {
           uid: user.uid,
           lat: this.state.lat,
           long: this.state.lng
-          // email: user.email,
-          // displayName: user.displayName,
-          // photoURL: user.photoURL
         };
         this.props.updateUser(parsedUser);
         this.props.getToolsOwned(parsedUser.uid);
