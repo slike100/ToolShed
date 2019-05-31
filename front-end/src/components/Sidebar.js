@@ -90,7 +90,7 @@ class Sidebar extends React.Component {
     return (
       <div id="sidebar">
         {modal}
-        <form id="sidebar-search-form" onSubmit={this.handleSubmit}>
+        {/* <form id="sidebar-search-form" onSubmit={this.handleSubmit}>
           <label className="sidebar-search-label">
             What Tool do you need to rent?
             <input
@@ -122,6 +122,21 @@ class Sidebar extends React.Component {
             />
           </label>
           <input className="sidebar-search-btn" type="submit" value="Search" />
+        </form> */}
+
+        <form id="sidebar-search-form">
+          <div class="input-field">
+            <input type="text" id="search-form-tool" />
+            <label class="active" for="search-tool">What tool do you want to rent?</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="search-form-address" />
+            <label class="active" for="search-form-address">What is your full physical address?</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="search-form-distance" />
+            <label class="active" for="search-form-distance">How far are you willing to travel?</label>
+          </div>
         </form>
 
         <SearchCard />
