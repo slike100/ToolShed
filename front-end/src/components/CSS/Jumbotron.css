@@ -5,15 +5,64 @@
   height: 44em;
   overflow: hidden;
   width: 100%;
+  background-image: url("../../assets/img/LandingPageImage.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+
 }
 
 .jumbo {
   width: 100%;
   position: relative;
   top: -5em;
-  /*  */
 }
 
+.form {
+  border: 2px solid #fff;
+  background: #fff;
+  position: absolute;
+  max-width: 1920px;
+  padding: 0.1em;
+  display: flex;
+  flex-direction: column;
+  /* z-index: 1; */
+  width: 90%;
+  margin: 11em 2em 4em 4em;
+  height: 13rem;
+  
+}
+.col{
+  overflow: hidden;
+}
+.waves-effect {
+  margin: 2em;
+}
+.input-field {
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 0rem;
+}
+
+.row .col.s4{
+  overflow: hidden;
+  padding: 0.5rem;
+}
+.row .col.s2 {
+  overflow: hidden;
+  padding: 0.5rem;
+  left: 0.7rem;
+
+}
+
+.row .col.s1 {
+  width: 14.333333%;
+  left: auto;
+  right: auto;
+  overflow: visible;
+  margin-left: 1.1rem;
+  margin-top: 3.7rem;
+}
 @media only screen and (max-width: 900px) {
   /* .jumbo {
     width: 0.2em;
