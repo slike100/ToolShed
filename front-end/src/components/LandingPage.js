@@ -6,6 +6,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import Navbar from "./Navbar";
 import About from "./About";
 import Jumbotron from "./Jumbotron";
+import SearchLandingPage from "./SearchLandingPage";
 //
 
 class LandingPage extends Component {
@@ -14,6 +15,7 @@ class LandingPage extends Component {
       <div>
         {/* <Navbar />  */}
         <Jumbotron />
+        
         <About />
       </div>
     );

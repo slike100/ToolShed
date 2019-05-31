@@ -50,6 +50,7 @@ class Sidebar extends React.Component {
   //   });
   // };
 
+
   addressToLatLng = async location => {
     const getResult = await axios.get(
       "https://maps.googleapis.com/maps/api/geocode/json",
