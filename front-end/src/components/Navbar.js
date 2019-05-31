@@ -1,10 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import "./CSS/Navbar.css";
 import "materialize-css/dist/css/materialize.min.css";
-import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
+import React from "react";
 import loginButton from "../assets/img/btn_google_signin_dark_normal_web.png";
 import logo from "../assets/img/logo.png";
-import "./CSS/Navbar.css";
+import { NavLink } from "react-router-dom";
+import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import { connect } from "react-redux";
 import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 import {
@@ -12,8 +12,6 @@ import {
   updateUser,
   addNewUser
 } from "../redux/actions/userActions";
-
-const firebase = require("firebase");
 
 class Navbar extends React.Component {
   constructor(props) {

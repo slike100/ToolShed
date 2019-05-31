@@ -1,5 +1,5 @@
 .right {
-  height: 1em;
+  height: 1em; /* added to remove sizing bug on homepage jumbotron image */
   margin-right: 1em;
 }
 
@@ -23,4 +23,3 @@
 .nav-right {
   margin-right: 2em;
 }
-
