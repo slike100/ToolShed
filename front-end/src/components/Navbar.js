@@ -6,12 +6,13 @@ import loginButton from "../assets/img/btn_google_signin_dark_normal_web.png";
 import logo from "../assets/img/logo.png";
 import "./CSS/Navbar.css";
 import { connect } from "react-redux";
+import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 import {
   logoutUser,
   updateUser,
   addNewUser
 } from "../redux/actions/userActions";
-import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
+
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -80,7 +81,7 @@ class Navbar extends React.Component {
       maximumAge: 0
     };
     navigator.geolocation.getCurrentPosition(
-      function(position) {
+      function (position) {
         let objLocation = {
           lat: position.coords.latitude, // Latitude
           lng: position.coords.longitude // Longitude
@@ -88,7 +89,7 @@ class Navbar extends React.Component {
 
         change_state(objLocation); //Invoke Function to change the local state
       },
-      function(error) {
+      function (error) {
         if (error.code == 1) {
           alert("Error: Access is denied!");
         } else if (error.code == 2) {
@@ -126,43 +127,46 @@ class Navbar extends React.Component {
 
     return (
       <nav className="nav-wrapper grey lighten-5">
-        <div className="container">
-          <NavLink to="/">
-            <img className="siteLogo" src={logo} />
-          </NavLink>
-          <ul className="right nav-list">
-            {this.props.auth ? (
+        <NavLink to="/">
+          <img className="siteLogo" src={logo} />
+        </NavLink>
+        <ul className="right nav-list">
+          {this.props.auth ? (
+            <React.Fragment>
+              <li>
+                <NavLink
+                  to="/search"
+                  className="grey-text text-darken-3"
+                >
+                  Search
+                  </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/"
+                  className="grey-text text-darken-3"
+                  onClick={this.logout}
+                >
+                  Logout
+                  </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/userProfilePage"
+                  className="btn btn-floating blue lighten-1"
+                />
+              </li>
+            </React.Fragment>
+          ) : (
               <React.Fragment>
                 <li>
                   <NavLink
-                    to="/userProfilePage"
+                    to="/search"
                     className="grey-text text-darken-3"
                   >
-                    Post a Tool
+                    Search
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="/"
-                    className="grey-text text-darken-3"
-                    onClick={this.logout}
-                  >
-                    Logout
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/userProfilePage"
-                    style={{
-                      backgroundImage: profilePhoto,
-                      backgroundSize: "cover"
-                    }}
-                    className="btn btn-floating blue lighten-1"
-                  />
-                </li>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
                 <li>
                   <NavLink
                     to="/"
@@ -174,15 +178,14 @@ class Navbar extends React.Component {
                 </li>
                 <li>
                   <img
-                    className="loginBtn"
+                    className="loginBtn nav-right"
                     src={loginButton}
                     onClick={this.login}
                   />
                 </li>
               </React.Fragment>
             )}
-          </ul>
-        </div>
+        </ul>
       </nav>
     );
   }
