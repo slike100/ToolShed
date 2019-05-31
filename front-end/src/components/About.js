@@ -120,15 +120,15 @@ class About extends Component {
           </p>
           <div className="seventh">
             <p className="question">Favorite Tool:</p>
-            <p className="answer">Hammer</p>
+            <p className="answer">Manual Rebar Cutter</p>
             <p className="question">What brought you to ToolShed?</p>
-            <p className="answer">My love of hammers</p>
+            <p className="answer">My love of manual rebar cutters.</p>
             <p className="question">Favorite DIY project?</p>
             <p className="answer">Nailing things with my hammer</p>
           </div>
           <div className="seventhPicture">
             <img src={picture3} alt="Monkey" />
-            <p>Sam Sliker</p>
+            <p>Sam Slike</p>
           </div>
         </section>
       </div>
