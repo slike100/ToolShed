@@ -14,7 +14,6 @@ import {
 import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
 const firebase = require("firebase");
 
-
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -96,20 +95,21 @@ class Navbar extends React.Component {
     );
   };
 
-  componentDidMount() {
-    firebaseAuth.onAuthStateChanged(user => {
-      if (user) {
-        const parsedUser = {
-          uid: user.uid,
-          lat: this.state.lat,
-          long: this.state.lng
-        };
-        this.props.updateUser(parsedUser);
-        this.props.getToolsOwned(parsedUser.uid);
-        this.props.getToolsRented(parsedUser.uid);
-      }
-    });
-  }
+  //GETTING RID OF PERSISTENT LOGIN
+  // componentDidMount() {
+  //   firebaseAuth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       const parsedUser = {
+  //         uid: user.uid,
+  //         lat: this.state.lat,
+  //         long: this.state.lng
+  //       };
+  //       this.props.updateUser(parsedUser);
+  //       this.props.getToolsOwned(parsedUser.uid);
+  //       this.props.getToolsRented(parsedUser.uid);
+  //     }
+  //   });
+  // }
 
   render() {
     // grab and place google photo as profile button background-image
