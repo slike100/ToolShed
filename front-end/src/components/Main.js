@@ -23,7 +23,6 @@ class Main extends React.Component {
     return (
       <div>
         <Navbar />
-        {/* <ConfirmationModal /> */}
 
         {/* <Checkout /> */}
 
@@ -39,6 +38,7 @@ class Main extends React.Component {
         </Switch>
 
 
+        {/* <ConfirmationModal /> */}
         {/* <CreateNewUserForm /> */}
 
         {/* <AddToolForm /> */}
