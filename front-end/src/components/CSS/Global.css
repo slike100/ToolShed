@@ -1,0 +1,14 @@
+input[type="submit"] {
+  margin: 4em auto;
+  width: 6em;
+  height: 2.4em;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1em;
+  color: #fff;
+  background-color: #a2e3c4;
+  border-bottom: 3px solid #90d5af;
+  text-shadow: 0px -2px #90d5af;
+  border-radius: 5px;
+  cursor: pointer;
+}

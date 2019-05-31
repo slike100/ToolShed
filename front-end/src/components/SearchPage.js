@@ -23,7 +23,7 @@ class SearchPage extends React.Component {
 
   initMap = () => {
     let map = new window.google.maps.Map(document.getElementById('map'), {
-      center: { lat: 40.1672, lng: -105.1019 },
+      center: { lat: 40.0150, lng: -105.2705 },
       zoom: 13,
       mapTypeControl: false
     });
