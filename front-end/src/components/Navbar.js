@@ -25,6 +25,20 @@ class Navbar extends React.Component {
   }
 
   signUp = () => {
+    function getUserData(id) {
+        return axios
+          .get(`${userBaseUrl}userData/${id}`)
+          .then(res => {
+            if (res.status === 200 && res.data.uid)  {
+              console.log(`SUCCESS! Got user data`, res.data);
+            }
+          })
+          .catch(err => {
+            console.log("Error getting user data: ", err)
+          });
+      
+    
+    //Do a get of getUserData, if response is userObject call login. If response is not an object, proceed with post.
     this.getGeoLocation();
 
     firebaseAuth.signInWithPopup(provider).then(result => {
