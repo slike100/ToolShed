@@ -116,8 +116,7 @@ class EditToolModal extends React.Component {
       ),
       rentalDurationInDays: this.props.tool.rentalDurationInDays,
       lat: this.props.user.lat,
-      long: this.props.user.long,
-      toolsOwned: this.props.user.toolsOwned
+      long: this.props.user.long
     };
     console.log(editedToolObj);
     await this.props.editTool(this.props.tool.toolId, editedToolObj);

@@ -129,7 +129,7 @@ class UserToolCard extends React.Component {
           );
         }
         return (
-          <div className="row1" key={index}>
+          <div className="row1" key={tool.name + index.toString()}>
             <div className="card toolCard">
               <div className="card-image">
                 <img id="toolImage" src={tool.photo} />
