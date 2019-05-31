@@ -23,8 +23,10 @@ toolController.post("/newTool", (req, res) => {
   });
   try {
     db.collection("Tools").add(tool).then(ref => {
-      req.body.toolsOwned.push(ref.id);
-      db.collection("User").doc(req.body.uid).update({ toolsOwned: req.body.toolsOwned }).then(() => {
+      // req.body.toolsOwned.push(ref.id);
+      db.collection("User").doc(req.body.uid).update({
+        toolsOwned: firebase.firestore.FieldValue.arrayUnion(ref.id)
+      }).then(() => {
         db.collection("User").doc(req.body.uid).get().then(userDoc => {
           if (!userDoc.exists) {
             console.log("This user does not exist.");
