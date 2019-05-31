@@ -29,11 +29,14 @@ class Navbar extends React.Component {
     return axios
       .get(`${userBaseUrl}userData/${id}`)
       .then(res => {
-        if (res.status === 200 && res.data.uid) {
-          // this.login();
-          console.log("There is an existing user");
+        console.log("checkForExistingUser fired!");
+        if (res.status === 200 && res.data.userName) {
+          this.login();
+          console.log("There is an existing user w name: ", res.data.userName);
         } else {
+          this.signUp();
           console.log("This is a new user");
+          return false;
         }
       })
       .catch(err => {
@@ -45,22 +48,26 @@ class Navbar extends React.Component {
     //Do a get of getUserData, if response is userObject call login. If response is not an object, proceed with post.
     this.getGeoLocation();
 
-    firebaseAuth.signInWithPopup(provider).then(result => {
-      this.checkForExistingUser();
-
-      const authObj = {
-        uid: result.user.uid,
-        lat: this.state.lat,
-        long: this.state.lng,
-        email: result.user.email,
-        userName: result.user.displayName,
-        avatar: result.user.photoURL,
-        toolsOwned: [],
-        toolsBeingRented: [],
-        recordIds: [],
-        stripeToken: ""
-      };
-      this.props.addNewUser(authObj);
+    firebaseAuth.signInWithPopup(provider).then(async result => {
+      console.log(result.user.uid);
+      if ((await this.checkForExistingUser(result.user.uid)) === true) {
+        this.login();
+        return;
+      } else {
+        const authObj = {
+          uid: result.user.uid,
+          lat: this.state.lat,
+          long: this.state.lng,
+          email: result.user.email,
+          userName: result.user.displayName,
+          avatar: result.user.photoURL,
+          toolsOwned: [],
+          toolsBeingRented: [],
+          recordIds: [],
+          stripeToken: ""
+        };
+        this.props.addNewUser(authObj);
+      }
     });
   };
 
