@@ -17,6 +17,7 @@ import EditToolModal from "./EditToolModal";
 
 import "./CSS/UserToolCard.css";
 import axios from "axios";
+import image from "../assets/img/ToolShed-Loading-Spinner.gif";
 
 class UserToolCard extends React.Component {
   constructor(props) {
@@ -98,7 +99,7 @@ class UserToolCard extends React.Component {
     console.log(this.props.tools);
     var button;
     if (!this.props.tools) {
-      return;
+      return <img src={image} />;
     } else
       return this.props.tools.map((tool, index) => {
         var button;
@@ -158,9 +159,12 @@ class UserToolCard extends React.Component {
   };
 
   render() {
+    if (this.props.tools.length == 0) {
+      return <h1>Post some tools to make some extra cash!</h1>;
+    }
     return (
       <div>
-        <div>{this.createToolOwnedCards()}</div>;
+        <div>{this.createToolOwnedCards()}</div>
         <EditToolModal tool={this.state.tool} />
       </div>
     );
