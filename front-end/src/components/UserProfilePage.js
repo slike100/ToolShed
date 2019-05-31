@@ -68,6 +68,7 @@ class UserProfilePage extends React.Component {
     if (this.props.auth) {
       profilePhoto = `url(${this.props.auth.photoURL})`;
     }
+
     if (!this.props.user) {
       return <div>Loading...</div>;
     } else
