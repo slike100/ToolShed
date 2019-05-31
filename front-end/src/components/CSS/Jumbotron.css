@@ -5,11 +5,10 @@
   height: 44em;
   overflow: hidden;
   width: 100%;
-  background-image: url("../../assets/img/LandingPageImage.jpg");
+  background-image: url("../../assets/img/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-
 }
 
 .jumbo {
@@ -32,7 +31,7 @@
   height: 13rem;
   border-radius: 15px;
 }
-.col{
+.col {
   overflow: hidden;
   margin-top: 0.5rem;
   border-radius: 15px;
@@ -46,7 +45,7 @@
   margin-bottom: 0rem;
 }
 
-.row .col.s4{
+.row .col.s4 {
   overflow: hidden;
   padding: 0.5rem;
 }
@@ -54,7 +53,6 @@
   overflow: hidden;
   padding: 0.5rem;
   left: 0.7rem;
-
 }
 
 .row .col.s1 {
@@ -72,7 +70,6 @@
     height: 0.2em;
   } */
 }
-
 
 /* .imagen {
     background-image: url('../../assets/img/LandingPageImage.jpg');
