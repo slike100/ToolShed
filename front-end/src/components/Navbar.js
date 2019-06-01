@@ -25,64 +25,70 @@ class Navbar extends React.Component {
     };
   }
 
-  checkForExistingUser = id => {
-    return axios
-      .get(`${userBaseUrl}userData/${id}`)
-      .then(res => {
-        console.log("checkForExistingUser fired!");
-        if (res.status === 200 && res.data.userName) {
-          this.login();
-          console.log("There is an existing user w name: ", res.data.userName);
-        } else {
-          this.signUp();
-          console.log("This is a new user");
-          return false;
-        }
-      })
-      .catch(err => {
-        console.log("Error getting user data: ", err);
-      });
+  checkForExistingUser = () => {
+    firebaseAuth.signInWithPopup(provider).then(result => {
+      // console.log(result);
+
+      axios
+        .get(`${userBaseUrl}userData/${result.user.uid}`)
+        .then(res => {
+          console.log("checkForExistingUser fired!");
+          if (res.status === 200 && res.data.userName) {
+            this.login(result);
+            console.log(
+              "There is an existing user w name: ",
+              res.data.userName
+            );
+          } else {
+            this.signUp(result);
+            console.log("This is a new user");
+            return false;
+          }
+        })
+        .catch(err => {
+          console.log("Error getting user data: ", err);
+        });
+    });
   };
 
-  signUp = () => {
+  signUp = result => {
+    console.log("signUp fired");
     //Do a get of getUserData, if response is userObject call login. If response is not an object, proceed with post.
     this.getGeoLocation();
 
-    firebaseAuth.signInWithPopup(provider).then(async result => {
-      console.log(result.user.uid);
-      if ((await this.checkForExistingUser(result.user.uid)) === true) {
-        this.login();
-        return;
-      } else {
-        const authObj = {
-          uid: result.user.uid,
-          lat: this.state.lat,
-          long: this.state.lng,
-          email: result.user.email,
-          userName: result.user.displayName,
-          avatar: result.user.photoURL,
-          toolsOwned: [],
-          toolsBeingRented: [],
-          recordIds: [],
-          stripeToken: ""
-        };
-        this.props.addNewUser(authObj);
-      }
-    });
+    // firebaseAuth.signInWithPopup(provider).then(result => {
+    // console.log(result.user.uid);
+    // if ((await this.checkForExistingUser(result.user.uid)) === true) {
+    //   this.login();
+    //   return;
+    // } else {
+    const authObj = {
+      uid: result.user.uid,
+      lat: this.state.lat,
+      long: this.state.lng,
+      email: result.user.email,
+      userName: result.user.displayName,
+      avatar: result.user.photoURL,
+      toolsOwned: [],
+      toolsBeingRented: [],
+      recordIds: [],
+      stripeToken: ""
+    };
+    this.props.addNewUser(authObj);
   };
 
-  login = () => {
+  login = result => {
     this.getGeoLocation();
-    firebaseAuth.signInWithPopup(provider).then(result => {
-      const authObj = {
-        uid: result.user.uid,
-        lat: this.state.lat,
-        long: this.state.lng
-      };
-      this.props.updateUser(authObj);
-      this.props.getToolsOwned(authObj.uid);
-      this.props.getToolsRented(authObj.uid);
-    });
+    // firebaseAuth.signInWithPopup(provider).then(result => {
+    const authObj = {
+      uid: result.user.uid,
+      lat: this.state.lat,
+      long: this.state.lng
+    };
+    this.props.updateUser(authObj);
+    this.props.getToolsOwned(authObj.uid);
+    this.props.getToolsRented(authObj.uid);
+    // });
   };
 
   logout = () => {
@@ -190,7 +196,7 @@ class Navbar extends React.Component {
                 <NavLink
                   to="/"
                   className="grey-text text-darken-3"
-                  onClick={this.signUp}
+                  onClick={this.checkForExistingUser}
                 >
                   Sign Up
                 </NavLink>
@@ -199,7 +205,7 @@ class Navbar extends React.Component {
                 <img
                   className="loginBtn nav-right"
                   src={loginButton}
-                  onClick={this.login}
+                  onClick={this.checkForExistingUser}
                 />
               </li>
             </React.Fragment>
