@@ -32,7 +32,7 @@ class Navbar extends React.Component {
       axios
         .get(`${userBaseUrl}userData/${result.user.uid}`)
         .then(res => {
-          console.log("checkForExistingUser fired!");
+          console.log("checkForExistingUser fired! Here is the res: ", res);
           if (res.status === 200 && res.data.userName) {
             this.login(result);
             console.log(
