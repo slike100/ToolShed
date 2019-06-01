@@ -2,9 +2,9 @@
   width: 80%;
 }
 
-button {
+/* button {  //commented out because it was coloring the button on the tools detail page as well - needs more specific styling
   background-color: red;
-}
+} */
 
 .card-action {
   display: flex;

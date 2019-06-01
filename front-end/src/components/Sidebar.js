@@ -81,44 +81,46 @@ class Sidebar extends React.Component {
         {modal}
 
         <form id="sidebar-search-form" onSubmit={this.handleSubmit}>
-          <h5 class="sidebar-search-form-h5">Search for Tools</h5>
+          <h5 className="sidebar-search-form-h5">Search for Tools</h5>
           <div id="sidebar-search-form-inner">
-            <div class="input-field" id="margin-fix">
-              <label for="search-tool">What tool do you want to rent?</label>
+            <div className="input-field" id="margin-fix">
+              <label htmlFor="search-tool">What tool do you want to rent?</label>
               <input
                 type="text"
                 id="search-form-tool"
-                class="sidebar-search-form-center-text"
+                className="sidebar-search-form-center-text"
                 value={this.state.searchTool}
                 name="searchTool"
                 onChange={this.handleChange}
               />
             </div>
-            <div class="input-field">
-              <label for="search-form-address">What is your City and State?</label>
+            <div className="input-field">
+              <label htmlFor="search-form-address">What is your City and State?</label>
               <input
                 type="text"
                 id="search-form-address"
-                class="sidebar-search-form-center-text"
+                className="sidebar-search-form-center-text"
                 value={this.state.searchAddress}
                 name="searchAddress"
                 onChange={this.handleChange}
               />
             </div>
-            <div class="input-field">
-              <label for="search-form-distance">How many miles will you travel?</label>
+            <div className="input-field">
+              <label htmlFor="search-form-distance">How many miles will you travel?</label>
               <input
                 type="text"
                 id="search-form-distance"
-                class="sidebar-search-form-center-text"
+                className="sidebar-search-form-center-text"
                 value={this.state.searchDistance}
                 name="searchDistance"
                 onChange={this.handleChange}
+                pattern="[0-9]*"
+                maxLength="3"
               />
             </div>
-            <div class="sidebar-search-form-button">
+            <div className="sidebar-search-form-button">
               <input
-                class="sidebar-search-form-submit"
+                className="sidebar-search-form-submit"
                 type="submit"
                 value="Search"
               />

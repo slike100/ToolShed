@@ -12,7 +12,7 @@
 }
 
 #sidebar {
-  width: 24em;
+  width: 26em;
   height: 93.3vh;
   position: fixed;
   z-index: 100;
@@ -70,13 +70,17 @@
   border-radius: 5px;
 }
 
-[class~='sidebar-card']:last-of-type  {
+[class='sidebar-card']:last-of-type  {
   margin-bottom: 4em;
+}
+
+.webkit-appearance-none {
+  -webkit-appearance: none;
 }
 
 .sidebar-card-price {
   margin-right: 1em;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .sidebar-card-img {
@@ -84,4 +88,22 @@
   height: 80px;
   display: cover;
   border-radius: 5px;
+}
+
+.sidebar-card-null {
+  margin: 0.8em auto;
+  text-align: center;
+  width: 90%;
+  border: 1px solid #B3BFB8;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+}
+
+.sidebar-card-triangle-margin-right{
+  margin-right: 0.6em;
+}
+
+.sidebar-card-btn-orange {
+  color: #FF9700;
+  opacity: 0.7;
 }

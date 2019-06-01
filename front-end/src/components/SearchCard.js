@@ -11,7 +11,7 @@ class SearchCard extends React.Component {
     };
   }
 
-  getFullTool = e => {
+  getFullTool = (e) => {
     var tool;
     for (let i = 0; i < this.props.toolsSearched.length; i++) {
       if (e.target.dataset.id === this.props.toolsSearched[i].toolId) {
@@ -23,82 +23,43 @@ class SearchCard extends React.Component {
     });
   };
 
-  // getToolClicked = e => {
-  //   console.log(e.target.dataset.id);
-  //   this.setState({
-  //     toolSelected: e.target.dataset.id
-  //   });
-  // };
-
   createSearchCards = () => {
     if (!this.props.toolsSearched) {
       return (
-        <div className="sidebar-card">
-          <p>^ Search for tools above ^</p>
+        <div className="sidebar-card-null">
+          <p>Search for tools above &nbsp;<i className="far fa-hand-point-up"></i></p>
         </div>
       );
     } else if (this.props.toolsSearched.length === 0) {
       return (
-        <div className="sidebar-card">
-          <p>No Tools found in your area!</p>
+        <div className="sidebar-card-null">
+          <p>No Tools found. &nbsp;<i className="fas fa-exclamation-triangle"></i></p>
         </div>
       );
     } else {
       return this.props.toolsSearched.map((tool, index) => {
-        var button;
-        console.log(tool.isRented);
-        if (this.props.auth === true || this.props.user === null) {
-          if (!tool.isRented && this.props.uid !== tool.uid) {
-            button = (
-              <button
-                class="btn-small waves-effect waves-light btn modal-trigger edit-button"
-                type="submit"
-                name="action"
-                data-id={tool.toolId}
-                data-target="checkoutModal"
-                onClick={this.getFullTool}
-              >
-                Details
-              </button>
-            );
-          } else if (tool.isRented) {
-            button = <p>Sorry, this tool is currently being rented.</p>;
-          }
+        if (!tool.isRented) {
           return (
-            <div>
-              <div className="sidebar-card" key={index}>
-                <img className="sidebar-card-img" src={tool.photo} alt="" />
-                <p className="sidebar-card-name">{tool.name}</p>
-                <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
-                {button}
-              </div>
+            <div
+              class="sidebar-card modal-trigger webkit-appearance-none"
+              key={index}
+              type="submit"
+              name="action"
+              data-id={tool.toolId}
+              data-target="checkoutModal"
+              onClick={this.getFullTool}
+            >
+              <img className="sidebar-card-img" src={tool.photo} alt="" />
+              <p className="sidebar-card-name">{tool.name}</p>
+              <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
             </div>
           );
-        } else if (this.props.auth === false) {
-          if (!tool.isRented) {
-            button = (
-              <button
-                class="btn-small waves-effect waves-light btn modal-trigger edit-button"
-                type="submit"
-                name="action"
-                data-id={tool.toolId}
-                data-target="checkoutModal"
-                onClick={this.getFullTool}
-              >
-                Details
-              </button>
-            );
-          } else if (tool.isRented) {
-            button = <p>Sorry, this tool is currently being rented.</p>;
-          }
+        } else if (tool.isRented) {
           return (
-            <div>
-              <div className="sidebar-card" key={index}>
-                <img className="sidebar-card-img" src={tool.photo} alt="" />
-                <p className="sidebar-card-name">{tool.name}</p>
-                <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
-                {button}
-              </div>
+            <div class="sidebar-card modal-trigger" key={index}>
+              <img className="sidebar-card-img" src={tool.photo} alt="" />
+              <p className="sidebar-card-name">{tool.name}</p>
+              <i className="fas fa-exclamation-triangle fa-2x sidebar-card-triangle-margin-right sidebar-card-btn-orange"></i>
             </div>
           );
         }
@@ -107,10 +68,17 @@ class SearchCard extends React.Component {
   };
 
   render() {
+    var modalBuffer; // Added to fix race condition between setState and Modal pop-up
+    if (!this.state.toolSelected) {
+      modalBuffer = <div></div>;
+    } else {
+      modalBuffer = <Checkout fullTool={this.state.toolSelected} />
+    }
+
     return (
       <div>
         <div>
-          <Checkout fullTool={this.state.toolSelected} />
+          {modalBuffer}
         </div>
         <div id="sidebar-card-wrapper">{this.createSearchCards()}</div>
       </div>
