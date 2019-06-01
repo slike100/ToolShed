@@ -26,10 +26,10 @@ class Navbar extends React.Component {
   }
 
   checkForExistingUser = () => {
-    firebaseAuth.signInWithPopup(provider).then(result => {
+    firebaseAuth.signInWithPopup(provider).then(async result => {
       // console.log(result);
 
-      axios
+      return await axios
         .get(`${userBaseUrl}userData/${result.user.uid}`)
         .then(res => {
           console.log("checkForExistingUser fired! Here is the res: ", res);
