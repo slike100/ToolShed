@@ -25,14 +25,13 @@ class Navbar extends React.Component {
     };
   }
 
-  checkForExistingUser = () => {
+  //checkForExistingUser fires for both login and sign-up buttons
+  //It would be good to add if user clicks sign-up and they already have an account, an alert or modal informing them that their account already exists.
+  checkForExistingUser = e => {
     firebaseAuth.signInWithPopup(provider).then(async result => {
-      // console.log(result);
-
       return await axios
         .get(`${userBaseUrl}userData/${result.user.uid}`)
         .then(res => {
-          console.log("checkForExistingUser fired! Here is the res: ", res);
           if (res.status === 200 && res.data.userName) {
             this.login(result);
             console.log(
@@ -51,17 +50,8 @@ class Navbar extends React.Component {
     });
   };
 
-  signUp = result => {
-    console.log("signUp fired");
-    //Do a get of getUserData, if response is userObject call login. If response is not an object, proceed with post.
-    this.getGeoLocation();
-
-    // firebaseAuth.signInWithPopup(provider).then(result => {
-    // console.log(result.user.uid);
-    // if ((await this.checkForExistingUser(result.user.uid)) === true) {
-    //   this.login();
-    //   return;
-    // } else {
+  signUp = async result => {
+    await this.getGeoLocation();
     const authObj = {
       uid: result.user.uid,
       lat: this.state.lat,
@@ -77,9 +67,8 @@ class Navbar extends React.Component {
     this.props.addNewUser(authObj);
   };
 
-  login = result => {
-    this.getGeoLocation();
-    // firebaseAuth.signInWithPopup(provider).then(result => {
+  login = async result => {
+    await this.getGeoLocation();
     const authObj = {
       uid: result.user.uid,
       lat: this.state.lat,
@@ -129,7 +118,7 @@ class Navbar extends React.Component {
     );
   };
 
-  //GETTING RID OF PERSISTENT LOGIN
+  //First iteration of persistent login-in below. Should be done properly with firebase auth SDK and index DB.
   // componentDidMount() {
   //   firebaseAuth.onAuthStateChanged(user => {
   //     if (user) {
@@ -203,6 +192,7 @@ class Navbar extends React.Component {
               </li>
               <li>
                 <img
+                  id="googleLogin"
                   className="loginBtn nav-right"
                   src={loginButton}
                   onClick={this.checkForExistingUser}
