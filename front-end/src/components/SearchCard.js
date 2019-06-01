@@ -23,13 +23,6 @@ class SearchCard extends React.Component {
     });
   };
 
-  // getToolClicked = e => {
-  //   console.log(e.target.dataset.id);
-  //   this.setState({
-  //     toolSelected: e.target.dataset.id
-  //   });
-  // };
-
   createSearchCards = () => {
     if (!this.props.toolsSearched) {
       return (
@@ -45,34 +38,32 @@ class SearchCard extends React.Component {
       );
     } else {
       return this.props.toolsSearched.map((tool, index) => {
-        var button;
         if (!tool.isRented) {
-          button = (
-            <button
-              className="btn-small waves-effect waves-light btn modal-trigger edit-button"
-              // className="modal-trigger searchcard-clear-button"
+          return (
+            <div
+              class="sidebar-card modal-trigger webkit-appearance-none"
+              key={index}
               type="submit"
               name="action"
               data-id={tool.toolId}
               data-target="checkoutModal"
               onClick={this.getFullTool}
             >
-              <i className="fas fa-info-circle fa-2x"></i>
-            </button>
-          );
-        } else if (tool.isRented) {
-          button = <i className="fas fa-exclamation-triangle fa-2x triangle-margin-right btn-yellow"></i>;
-        }
-        return (
-          <div>
-            <div className="sidebar-card" key={index}>
               <img className="sidebar-card-img" src={tool.photo} alt="" />
               <p className="sidebar-card-name">{tool.name}</p>
               <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
-              {button}
             </div>
-          </div>
-        );
+          );
+        } else if (tool.isRented) {
+          return (
+            <div class="sidebar-card modal-trigger" key={index}>
+              <img className="sidebar-card-img" src={tool.photo} alt="" />
+              <p className="sidebar-card-name">{tool.name}</p>
+              <i className="fas fa-exclamation-triangle fa-2x sidebar-card-triangle-margin-right sidebar-card-btn-orange"></i>
+            </div>
+          );
+
+        }
       });
     }
   };

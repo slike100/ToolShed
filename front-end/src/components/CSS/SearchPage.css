@@ -13,7 +13,7 @@
 
 #sidebar {
   width: 26em;
-  height: 95vh;
+  height: 93.3vh;
   position: fixed;
   z-index: 100;
   background-color: #F0F7F4;
@@ -70,13 +70,17 @@
   border-radius: 5px;
 }
 
-[className='sidebar-card']:last-of-type  {
+[class='sidebar-card']:last-of-type  {
   margin-bottom: 4em;
+}
+
+.webkit-appearance-none {
+  -webkit-appearance: none;
 }
 
 .sidebar-card-price {
   margin-right: 1em;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .sidebar-card-img {
@@ -84,11 +88,6 @@
   height: 80px;
   display: cover;
   border-radius: 5px;
-}
-
-.sidebar-card-center-align {
-  text-align: center;
-  margin: 0 auto;
 }
 
 .sidebar-card-null {
@@ -100,14 +99,11 @@
   border-radius: 5px;
 }
 
-.triangle-margin-right{
-  margin-right: 0.4em;
+.sidebar-card-triangle-margin-right{
+  margin-right: 0.6em;
 }
 
-.searchcard-clear-button {
-  background-color: white;
-}
-
-.btn-yellow {
+.sidebar-card-btn-orange {
   color: #FF9700;
+  opacity: 0.7;
 }
