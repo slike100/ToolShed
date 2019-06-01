@@ -12,8 +12,8 @@
 }
 
 #sidebar {
-  width: 24em;
-  height: 93.3vh;
+  width: 26em;
+  height: 95vh;
   position: fixed;
   z-index: 100;
   background-color: #F0F7F4;
@@ -70,7 +70,7 @@
   border-radius: 5px;
 }
 
-[class~='sidebar-card']:last-of-type  {
+[className='sidebar-card']:last-of-type  {
   margin-bottom: 4em;
 }
 
@@ -84,4 +84,30 @@
   height: 80px;
   display: cover;
   border-radius: 5px;
+}
+
+.sidebar-card-center-align {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.sidebar-card-null {
+  margin: 0.8em auto;
+  text-align: center;
+  width: 90%;
+  border: 1px solid #B3BFB8;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+}
+
+.triangle-margin-right{
+  margin-right: 0.4em;
+}
+
+.searchcard-clear-button {
+  background-color: white;
+}
+
+.btn-yellow {
+  color: #FF9700;
 }
