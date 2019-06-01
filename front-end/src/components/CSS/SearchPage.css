@@ -8,11 +8,11 @@
 #map {
   height: 93.3vh; /* 92.2vh to account for navbar height - glitchy */
   float: right;
-  width: 75%;
+  width: 90%;
 }
 
 #sidebar {
-  width: 25%;
+  width: 24em;
   height: 93.3vh;
   position: fixed;
   z-index: 100;
@@ -21,22 +21,41 @@
 }
 
 #sidebar-search-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sidebar-search-btn {
-  max-width: 8em;
-}
-
-.sidebar-search-label {
-  margin-top: 1em;
   width: 90%;
+  margin: 1em auto;
+  border: 1px solid #B3BFB8;
+  background-color: #FAFAFA;
+  border-radius: 5px;
 }
 
-.sidebar-search-input {
-  font-size: 10px;
+.search-form-input {
+  max-width: 90%;
+}
+
+#sidebar-search-form-inner {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.sidebar-search-form-h5 {
+  margin: 0.6em auto 0.6em;
+  text-align: center;
+}
+
+#margin-fix {
+  margin-top: 0;
+}
+
+.sidebar-search-form-button {
+  text-align: center;
+}
+
+.sidebar-search-form-submit {
+  max-width: 10em;
+  margin: 0 auto;
+}
+
+.sidebar-search-form-center-text {
   text-align: center;
 }
 

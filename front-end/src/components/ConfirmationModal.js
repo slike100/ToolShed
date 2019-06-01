@@ -56,6 +56,7 @@ class ConfirmationModal extends React.Component {
           </div >
         </div>
       </div >
+
     );
   }
 }
