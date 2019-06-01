@@ -7,6 +7,8 @@ import { NavLink } from "react-router-dom";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import { connect } from "react-redux";
 import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
+import axios from "axios";
+import { userBaseUrl } from "../utils/globalConstants";
 import {
   logoutUser,
   updateUser,
@@ -23,38 +25,59 @@ class Navbar extends React.Component {
     };
   }
 
-  signUp = () => {
-    this.getGeoLocation();
-
-    firebaseAuth.signInWithPopup(provider).then(result => {
-      const authObj = {
-        uid: result.user.uid,
-        lat: this.state.lat,
-        long: this.state.lng,
-        email: result.user.email,
-        userName: result.user.displayName,
-        avatar: result.user.photoURL,
-        toolsOwned: [],
-        toolsBeingRented: [],
-        recordIds: [],
-        stripeToken: ""
-      };
-      this.props.addNewUser(authObj);
+  //checkForExistingUser fires for both login and sign-up buttons
+  //It would be good to add if user clicks sign-up and they already have an account, an alert or modal informing them that their account already exists.
+  checkForExistingUser = e => {
+    firebaseAuth.signInWithPopup(provider).then(async result => {
+      return await axios
+        .get(`${userBaseUrl}userData/${result.user.uid}`)
+        .then(res => {
+          if (res.status === 200 && res.data.userName) {
+            this.login(result);
+            console.log(
+              "There is an existing user w name: ",
+              res.data.userName
+            );
+          } else {
+            this.signUp(result);
+            console.log("This is a new user");
+            return false;
+          }
+        })
+        .catch(err => {
+          console.log("Error getting user data: ", err);
+        });
     });
   };
 
-  login = () => {
-    this.getGeoLocation();
-    firebaseAuth.signInWithPopup(provider).then(result => {
-      const authObj = {
-        uid: result.user.uid,
-        lat: this.state.lat,
-        long: this.state.lng
-      };
-      this.props.updateUser(authObj);
-      this.props.getToolsOwned(authObj.uid);
-      this.props.getToolsRented(authObj.uid);
-    });
+  signUp = async result => {
+    await this.getGeoLocation();
+    const authObj = {
+      uid: result.user.uid,
+      lat: this.state.lat,
+      long: this.state.lng,
+      email: result.user.email,
+      userName: result.user.displayName,
+      avatar: result.user.photoURL,
+      toolsOwned: [],
+      toolsBeingRented: [],
+      recordIds: [],
+      stripeToken: ""
+    };
+    this.props.addNewUser(authObj);
+  };
+
+  login = async result => {
+    await this.getGeoLocation();
+    const authObj = {
+      uid: result.user.uid,
+      lat: this.state.lat,
+      long: this.state.lng
+    };
+    this.props.updateUser(authObj);
+    this.props.getToolsOwned(authObj.uid);
+    this.props.getToolsRented(authObj.uid);
+    // });
   };
 
   logout = () => {
@@ -95,7 +118,7 @@ class Navbar extends React.Component {
     );
   };
 
-  //GETTING RID OF PERSISTENT LOGIN
+  //First iteration of persistent login-in below. Should be done properly with firebase auth SDK and index DB.
   // componentDidMount() {
   //   firebaseAuth.onAuthStateChanged(user => {
   //     if (user) {
@@ -162,16 +185,17 @@ class Navbar extends React.Component {
                 <NavLink
                   to="/"
                   className="grey-text text-darken-3"
-                  onClick={this.signUp}
+                  onClick={this.checkForExistingUser}
                 >
                   Sign Up
                 </NavLink>
               </li>
               <li>
                 <img
+                  id="googleLogin"
                   className="loginBtn nav-right"
                   src={loginButton}
-                  onClick={this.login}
+                  onClick={this.checkForExistingUser}
                 />
               </li>
             </React.Fragment>
