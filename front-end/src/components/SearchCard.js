@@ -62,7 +62,6 @@ class SearchCard extends React.Component {
               <i className="fas fa-exclamation-triangle fa-2x sidebar-card-triangle-margin-right sidebar-card-btn-orange"></i>
             </div>
           );
-
         }
       });
     }
@@ -89,7 +88,9 @@ class SearchCard extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    toolsSearched: state.tool.toolsSearched
+    toolsSearched: state.tool.toolsSearched,
+    user: state.user.user,
+    auth: state.user.auth
   };
 }
 
