@@ -4,3 +4,8 @@
   margin-top: 1em;
   font-size: 20px;
 }
+.checkoutBtn {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
