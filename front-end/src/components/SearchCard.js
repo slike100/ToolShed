@@ -41,17 +41,21 @@ class SearchCard extends React.Component {
         if (!tool.isRented) {
           return (
             <div
-              class="sidebar-card modal-trigger webkit-appearance-none"
+              class="sidebar-card position-relative"
               key={index}
-              type="submit"
-              name="action"
-              data-id={tool.toolId}
-              data-target="checkoutModal"
-              onClick={this.getFullTool}
             >
               <img className="sidebar-card-img" src={tool.photo} alt="" />
               <p className="sidebar-card-name">{tool.name}</p>
               <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
+              <div className="sidebar-card-overlay modal-trigger webkit-appearance-none"
+                type="submit"
+                name="action"
+                data-id={tool.toolId}
+                data-target="checkoutModal"
+                onClick={this.getFullTool}
+              >
+
+              </div>
             </div>
           );
         } else if (tool.isRented) {
