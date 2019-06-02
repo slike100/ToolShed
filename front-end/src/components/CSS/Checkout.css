@@ -103,7 +103,7 @@ form textarea:focus {
   justify-content: center;
 }
 
-input[type="submit"] {
+/* input[type="submit"] {
   margin: 2em auto;
   justify-content: center;
   width: 100%;
@@ -117,7 +117,7 @@ input[type="submit"] {
   text-shadow: 0px -2px #90d5af;
   border-radius: 5px;
   cursor: pointer;
-}
+} */
 
 /* -- form styling -- */
 
