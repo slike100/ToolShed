@@ -299,10 +299,12 @@
 
 .answer {
   font-size: 1.1em;
-  font-weight: 300;
+  font-weight: 400;
 }
 
-.title {
+.name {
+  color: rgb(22, 138, 82);
+  font-weight: 600;
 }
 
 /* ***** CEO ****** */
