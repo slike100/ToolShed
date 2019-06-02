@@ -8,7 +8,8 @@ import {
   DELETE_TOOL,
   EDIT_TOOL,
   TOOLS_OWNED,
-  TOOLS_RENTED
+  TOOLS_RENTED,
+  TOOL_SEARCH
 } from "../types/toolTypes";
 
 //CREATE A NEW TOOL AXIOS REQUEST
@@ -50,7 +51,7 @@ export const getToolData = searchObj => {
     return axios
       .get(
         `${toolBaseUrl}searchTools/?lat=${searchObj.lat}&long=${
-        searchObj.long
+          searchObj.long
         }&name=${searchObj.name}&distance=${searchObj.distance}`
       )
       .then(res => {
@@ -153,7 +154,6 @@ export const getToolsOwned = uid => {
       .get(`${userBaseUrl}allToolsOwnedForOneUser/${uid}`)
       .then(res => {
         if (res.status === 200 && res.data) {
-
           const action = {
             type: TOOLS_OWNED,
             payload: res.data
@@ -181,7 +181,6 @@ export const getToolsRented = uid => {
       .get(`${userBaseUrl}allToolsRentedForOneUser/${uid}`)
       .then(res => {
         if (res.status === 200 && res.data) {
-
           const action = {
             type: TOOLS_RENTED,
             payload: res.data
@@ -198,5 +197,12 @@ export const getToolsRented = uid => {
         };
         return action;
       });
+  };
+};
+
+export const toolSearchLocation = searchObj => {
+  const action = {
+    type: TOOL_SEARCH,
+    payload: searchObj
   };
 };
