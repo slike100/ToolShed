@@ -32,16 +32,54 @@ class UserProfilePage extends React.Component {
 
   deleteUser = async () => {
     const { uid, toolsOwned } = this.props.user;
-    console.log(uid, toolsOwned);
-    var deleteObj = {
-      uid: uid,
-      toolsOwned: toolsOwned
-    };
-    await this.props.deleteUser(deleteObj);
-    var currentUser = firebaseAuth.currentUser;
-    currentUser.delete().then(function () {
-      console.log("user deleted");
-    });
+    var toolsIOwn = this.props.tool.toolsOwned;
+    var toolsBorrowing = this.props.tool.toolsRenting;
+    var toolsCurrentlyRentingOut;
+    var toolsCurrentlyBorrowing;
+    console.log(this.props.tool);
+    console.log(this.props.tool.toolsOwned.length);
+
+    if (toolsIOwn.length === 0) {
+      toolsCurrentlyRentingOut = false;
+    } else if (toolsIOwn.length > 0) {
+      for (var i = 0; i < toolsIOwn.length; i++) {
+        if (toolsIOwn[i].isRented === true) {
+          toolsCurrentlyRentingOut = true;
+        } else if (toolsIOwn[i].isRented === false) {
+          toolsCurrentlyRentingOut = false;
+        }
+      }
+    }
+
+    console.log(toolsCurrentlyRentingOut);
+
+    if (toolsBorrowing.length === 0) {
+      toolsCurrentlyBorrowing = false;
+    } else if (toolsBorrowing.length > 0) {
+      toolsCurrentlyBorrowing = true;
+    }
+    console.log(toolsCurrentlyBorrowing);
+
+    if (toolsCurrentlyRentingOut === true || toolsCurrentlyBorrowing === true) {
+      console.log(`cant delete`);
+      window.confirm(
+        `Our records indicate that you are currently renting out or borrowing tools. You cannot delete your account until you mark your tools as checked in or until you return the tools you're borrowing.`
+      );
+    } else if (
+      toolsCurrentlyRentingOut === false ||
+      toolsCurrentlyBorrowing === false
+    ) {
+      console.log(`can delete account`);
+      var deleteObj = {
+        uid: uid,
+        toolsOwned: toolsOwned
+      };
+      await this.props.deleteUser(deleteObj);
+      var currentUser = firebaseAuth.currentUser;
+      currentUser.delete().then(function() {
+        console.log("user deleted");
+      });
+    }
   };
 
   render() {
@@ -55,7 +93,7 @@ class UserProfilePage extends React.Component {
     // } else {
     //   modal = <div />;
     // }
-
+    console.log("TOOLS", this.props.tool);
     var modal;
     modal = (
       <div>
@@ -102,7 +140,7 @@ class UserProfilePage extends React.Component {
                 type="submit"
                 name="action"
                 data-target="addToolModal"
-              // onClick={this.toggle}
+                // onClick={this.toggle}
               >
                 Add A Tool
               </button>
@@ -125,7 +163,8 @@ class UserProfilePage extends React.Component {
 function mapStateToProps(state) {
   return {
     auth: state.user.auth,
-    user: state.user.user
+    user: state.user.user,
+    tool: state.tool
   };
 }
 
