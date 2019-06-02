@@ -20,8 +20,16 @@ class EditToolModal extends React.Component {
 
   componentDidMount() {
     const elems = document.querySelectorAll(".modal");
-    const instances = M.Modal.init(elems, options);
-    this.setState({ photoURL: this.props.tool.photo }, function () {
+    const instances = M.Modal.init(elems, {
+      onOpenStart: function() {
+        console.log(
+          `I trigger as soon as the page is loaded, current props: `,
+          this.props
+        );
+      }
+    });
+
+    this.setState({ photoURL: this.props.tool.photo }, function() {
       console.log(this.state.photoURL);
     });
   }
@@ -34,7 +42,7 @@ class EditToolModal extends React.Component {
     var file = e.target.files[0];
     console.log(file);
     var reader = new FileReader();
-    reader.onloadend = function () {
+    reader.onloadend = function() {
       preview.src = reader.result;
       var image = reader.result;
       _this.setState({
@@ -64,7 +72,7 @@ class EditToolModal extends React.Component {
 
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
-      function (snapshot) {
+      function(snapshot) {
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
             console.log("Upload is paused");
@@ -74,7 +82,7 @@ class EditToolModal extends React.Component {
             break;
         }
       },
-      function (error) {
+      function(error) {
         switch (error.code) {
           case "storage/unauthorized":
             console.log(`You do not have permission to upload this photo.`);
@@ -91,8 +99,8 @@ class EditToolModal extends React.Component {
             break;
         }
       },
-      function () {
-        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+      function() {
+        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
           console.log("File available at", downloadURL);
           _this.setState({
             photoURL: downloadURL
@@ -185,16 +193,16 @@ class EditToolModal extends React.Component {
                     onClick={this.sendAction}
                     required={true}
                     type="text"
+                    id="editToolSave"
                   >
                     Save
                   </button>
-                  <button
+                  {/* <button
                     id="closeBtn"
                     className="-action modal-close btn-small #e53935 red darken-1"
                   >
                     Cancel
-                </button>
-
+                </button> */}
                 </div>
               </form>
             </div>

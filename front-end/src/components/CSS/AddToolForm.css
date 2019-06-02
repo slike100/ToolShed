@@ -121,7 +121,7 @@ rm styling -- */
 
 .inputFile {
   /* margin-left: 1.3em; */
-  width: 98%
+  width: 98%;
 }
 
 .listToolPage label {
@@ -180,26 +180,26 @@ textarea {
 }
 
 /* @media only screen and (min-width: 300px) { */
-  .modal .modal-content {
-    max-width: 80em;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    height: 60em;
-  }
+.modal .modal-content {
+  max-width: 80em;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: 31em;
+}
 
-  .listToolPage .formButtons {
-    margin-top: 2em;
-    margin-bottom: 1em;
-    /* margin: 2em; */
-    display: flex;
-    justify-content: space-between;
-    justify-items: center;
-    align-items: center;
-    /* margin-left: 15%; */
-    /* width: 100%; */
-  }
+.listToolPage .formButtons {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  /* margin: 2em; */
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  /* margin-left: 15%; */
+  /* width: 100%; */
+}
 
-  /* #close-button {
+/* #close-button {
     position: relative;
     margin-left: 9em;
     margin-right: 1em;
@@ -214,45 +214,43 @@ textarea {
     border-radius: 5px;
   } */
 
-  #fileButton #changeFileButton {
-    width: 13em;
-    background-color: #a2e3c4;
-  }
+#fileButton #changeFileButton {
+  width: 13em;
+  background-color: #a2e3c4;
+}
 
-  .grid {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto auto;
-    align-content: center;
-    justify-items: center;
-  }
+.grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto;
+  align-content: center;
+  justify-items: center;
+}
 
-  .listToolPage section {
-    max-width: 25em;
-    margin: 0;
-  }
+.listToolPage section {
+  max-width: 25em;
+  margin: 0;
+}
 
-  .listToolPage .photoBackground {
-    height: 12.1em;
-  }
+.listToolPage .photoBackground {
+  height: 12.1em;
+}
 
-  .listToolPage .grid1 {
-    width: 20em;
-    justify-items: center;
- 
-  }
+.listToolPage .grid1 {
+  width: 20em;
+  justify-items: center;
+}
 
-  .listToolPage .grid2 {
-    width: 25em;
-    grid-row-start: span 2;
-    justify-items: center;
-    /* display: flex; */
-    
-  }
+.listToolPage .grid2 {
+  width: 25em;
+  grid-row-start: span 2;
+  justify-items: center;
+  /* display: flex; */
+}
 
-  .listToolPage .grid3 {
-    width: 20em;
-    margin-left: auto;
-    margin-right: 0em;
-  }
+.listToolPage .grid3 {
+  width: 20em;
+  margin-left: auto;
+  margin-right: 0em;
+}
 /* } */

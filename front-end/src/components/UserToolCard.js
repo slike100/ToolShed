@@ -165,7 +165,7 @@ class UserToolCard extends React.Component {
     return (
       <div>
         <div>{this.createToolOwnedCards()}</div>
-        {/* <EditToolModal tool={this.state.tool} /> */}
+        <EditToolModal tool={this.state.tool} />
       </div>
     );
   }
