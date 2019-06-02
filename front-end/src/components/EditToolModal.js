@@ -23,7 +23,7 @@ class EditToolModal extends React.Component {
     const instances = M.Modal.init(elems, {
       onOpenStart: function() {
         console.log(
-          "I trigger as soon as the page is loaded, current props: ",
+          `I trigger as soon as the page is loaded, current props: `,
           this.props
         );
       }
@@ -192,15 +192,16 @@ class EditToolModal extends React.Component {
                     onClick={this.sendAction}
                     required={true}
                     type="text"
+                    id="editToolSave"
                   >
                     Save
                   </button>
-                  <button
+                  {/* <button
                     id="closeBtn"
                     className="-action modal-close btn-small #e53935 red darken-1"
                   >
                     Cancel
-                  </button>
+                </button> */}
                 </div>
               </form>
             </div>
