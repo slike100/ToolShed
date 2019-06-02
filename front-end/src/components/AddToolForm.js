@@ -30,7 +30,7 @@ class AddToolForm extends React.Component {
     var file = e.target.files[0];
     console.log(file);
     var reader = new FileReader();
-    reader.onloadend = function () {
+    reader.onloadend = function() {
       preview.src = reader.result;
     };
     if (file) {
@@ -50,7 +50,7 @@ class AddToolForm extends React.Component {
 
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
-      function (snapshot) {
+      function(snapshot) {
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
             console.log("Upload is paused");
@@ -60,7 +60,7 @@ class AddToolForm extends React.Component {
             break;
         }
       },
-      function (error) {
+      function(error) {
         switch (error.code) {
           case "storage/unauthorized":
             console.log(`You do not have permission to upload this photo.`);
@@ -77,8 +77,8 @@ class AddToolForm extends React.Component {
             break;
         }
       },
-      function () {
-        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+      function() {
+        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
           console.log("File available at", downloadURL);
           _this.setState({
             photoURL: downloadURL
@@ -108,7 +108,6 @@ class AddToolForm extends React.Component {
     this.setState({
       photoURL: ""
     });
-
   };
 
   render() {
@@ -152,22 +151,21 @@ class AddToolForm extends React.Component {
                   placeholder="ex: 7-1/4&#8243; blade, cordless saw with 1 extra battery and charging station.."
                 />
                 <div className="formButtons">
-
                   <input
                     className=" waves-light btn-small save modal-close"
+                    id="createButton"
                     type=""
                     value="Create"
                     onClick={this.uploadPhoto}
                   />
-                  <button
+                  {/* <button
                     id="closeBtn"
                     className="-action modal-close btn-small #e53935 red darken-1"
                   >
                     Cancel
-                </button>
+                </button> */}
                 </div>
               </form>
-
             </div>
 
             <section className="tgrid3" id="rental-section">

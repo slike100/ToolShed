@@ -46,7 +46,13 @@ class CheckoutForm extends Component {
 
   submit = async e => {
     e.preventDefault();
-    var days = e.target.childNodes[0].parentElement.form[0].value;
+    // console.log(
+    //   e.target.parentElement.parentElement.parentElement.parentElement
+    //     .parentElement.childNodes[6].value
+    // );
+    var days =
+      e.target.parentElement.parentElement.parentElement.parentElement
+        .parentElement.childNodes[6].value;
     let { token } = await this.props.stripe.createToken({
       name: this.props.user.displayName
     });
@@ -66,8 +72,6 @@ class CheckoutForm extends Component {
 
     await this.getUserData(this.props.tool.uid);
   };
-
-
 
   createRecord = async (days, token) => {
     console.log("this is tool", this.props.tool);
@@ -100,7 +104,7 @@ class CheckoutForm extends Component {
       .catch(err => console.log(err));
     var updatedTool = await axios.put(
       `https://us-central1-toolshed-1dd98.cloudfunctions.net/tool/updateTool/${
-      this.props.tool.toolId
+        this.props.tool.toolId
       }`,
       {
         isRented: true
@@ -114,7 +118,7 @@ class CheckoutForm extends Component {
     await axios
       .put(
         `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/updateUser/${
-        this.props.user.uid
+          this.props.user.uid
         }`,
         { toolsBeingRented: arr }
       )
@@ -131,9 +135,9 @@ class CheckoutForm extends Component {
     stripeObj.amount = amountToPay;
     stripeObj.description = `User (UID:${
       this.props.user.uid
-      }) has paid ${amountToDisplay}. They have rented TOOL-ID: ${
+    }) has paid ${amountToDisplay}. They have rented TOOL-ID: ${
       this.props.tool.toolId
-      } for ${days}`;
+    } for ${days}`;
     stripeObj.source = token.id;
     await this.props.payStripe(stripeObj);
     console.log(
@@ -143,7 +147,7 @@ class CheckoutForm extends Component {
 
     this.setState({
       dueDate: new Date(dueDate).toDateString()
-    })
+    });
   };
 
   render() {
@@ -154,6 +158,7 @@ class CheckoutForm extends Component {
           className="btn-large waves-effect waves-light btn modal-trigger submitBtn"
           onClick={this.submit}
           data-target="confirmationToolModal"
+          id="bookNowBtn"
         >
           BOOK NOW
         </button>
@@ -174,10 +179,7 @@ class CheckoutForm extends Component {
             }
           }}
         />
-        <div className="checkoutBtn">
-          {changeButton}
-
-        </div>
+        <div className="checkoutBtn">{changeButton}</div>
         <div>
           <ConfirmationModal
             tool={this.props.tool}

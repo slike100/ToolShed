@@ -16,6 +16,7 @@ h3 {
   margin: 0 auto 0.5em;
   color: #7e8d85;
   font-weight: 500;
+  font-size: 2.3em;
 }
 
 p,
@@ -125,7 +126,7 @@ rm styling -- */
 }
 
 .listToolPage label {
-  font-size: 0.8em;
+  font-size: 1em;
   color: #3c493f;
 }
 
@@ -177,6 +178,14 @@ textarea {
 
 .edit-button {
   width: 6em;
+}
+
+#createButton {
+  margin-left: 4em;
+}
+
+#editToolSave {
+  margin-left: 9em;
 }
 
 /* @media only screen and (min-width: 300px) { */
