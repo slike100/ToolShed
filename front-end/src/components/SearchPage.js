@@ -3,30 +3,38 @@ import "./CSS/SearchPage.css";
 import Sidebar from "./Sidebar.js";
 import Map from "./Map.js";
 import { connect } from "react-redux";
-import { API_KEY } from '../utils/firebaseConfig';
-
+import { API_KEY } from "../utils/firebaseConfig";
 
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lat: '',
-      lng: '',
-      markers: [],
+      lat: "",
+      lng: "",
+      markers: []
     };
   }
 
   renderMap = () => {
-    loadScript(`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`)
-    window.initMap = this.initMap
-  }
+    loadScript(
+      `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`
+    );
+    window.initMap = this.initMap;
+  };
 
   initMap = () => {
-    let map = new window.google.maps.Map(document.getElementById('map'), {
-      center: { lat: 40.0150, lng: -105.2705 },
+    console.log(this.props.user.lat);
+    // if (!this.props.user) {
+    //   var userLat = 40;
+    //   var userLng = -105;
+    // } else {
+    //   var userLat = this.props.user.lat;
+    //   var userLng = this.props.user.lng;
+    // }
+    let map = new window.google.maps.Map(document.getElementById("map"), {
+      center: { lat: this.props.user.lat, lng: this.props.user.lng },
       zoom: 13,
-      mapTypeControl: false,
-
+      mapTypeControl: false
     });
 
     let infowindow = new window.google.maps.InfoWindow();
@@ -40,26 +48,26 @@ class SearchPage extends React.Component {
           position: { lat: location.lat, lng: location.long },
           map: map,
           title: location.uid,
-          animation: window.google.maps.Animation.DROP,
-        })
+          animation: window.google.maps.Animation.DROP
+        });
 
-        let cardInfo = `<h6 data-id=${location.toolId}>$${location.priceRatePerDay}</h6>`;
+        let cardInfo = `<h6 data-id=${location.toolId}>$${
+          location.priceRatePerDay
+        }</h6>`;
 
-        marker.addListener('click', () => {
+        marker.addListener("click", () => {
           marker.setAnimation(window.google.maps.Animation.BOUNCE);
           window.setTimeout(marker.setAnimation(false), 1000);
           infowindow.setContent(cardInfo);
           infowindow.open(map, marker);
-        })
+        });
         renderMarkers[renderMarkers.length] = marker;
         infowindow.setContent(cardInfo);
         infowindow.open(map, marker);
-      })
+      });
       this.setState({ markers: renderMarkers });
     }
-
-
-  }
+  };
 
   // centerMarker = (latlng) => {
   //   map.setCenter(latlng);
@@ -72,9 +80,7 @@ class SearchPage extends React.Component {
   render() {
     return (
       <div id="search-page">
-        <Sidebar
-          renderMap={this.renderMap}
-        />
+        <Sidebar renderMap={this.renderMap} />
         <Map />
       </div>
     );
@@ -82,12 +88,12 @@ class SearchPage extends React.Component {
 }
 
 function loadScript(url) {
-  let index = window.document.getElementsByTagName("script")[0]
-  let script = window.document.createElement('script')
-  script.src = url
-  script.async = true
-  script.defer = true
-  index.parentNode.insertBefore(script, index)
+  let index = window.document.getElementsByTagName("script")[0];
+  let script = window.document.createElement("script");
+  script.src = url;
+  script.async = true;
+  script.defer = true;
+  index.parentNode.insertBefore(script, index);
 }
 
 const mapDispatchToProps = {};
@@ -95,7 +101,8 @@ const mapDispatchToProps = {};
 function mapStateToProps(state) {
   return {
     // tool: state.tool
-    toolsSearched: state.tool.toolsSearched
+    toolsSearched: state.tool.toolsSearched,
+    user: state.user.user
   };
 }
 
