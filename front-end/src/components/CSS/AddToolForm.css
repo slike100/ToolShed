@@ -253,4 +253,8 @@ textarea {
   margin-left: auto;
   margin-right: 0em;
 }
-/* } */
+
+.add-tool-form-create-button {
+  width: 8em;
+  text-align: center;
+}

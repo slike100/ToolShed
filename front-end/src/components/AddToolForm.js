@@ -154,7 +154,7 @@ class AddToolForm extends React.Component {
                 <div className="formButtons">
 
                   <input
-                    className=" ts-green-button modal-close"
+                    className=" ts-green-button modal-close add-tool-form-create-button"
                     type=""
                     value="Create"
                     onClick={this.uploadPhoto}
