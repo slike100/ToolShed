@@ -115,6 +115,7 @@ class SearchLandingPage extends Component {
       <div class="container">
         <form class="col s12 search-landing-page-form-wrapper" onSubmit={this.handleSubmit}>
 
+          <p class="search-landing-page-p">What?</p>
           <div class="input-field col s3 sidebar-search-form-input-field">
             <input
               id="tool-name"
@@ -122,9 +123,10 @@ class SearchLandingPage extends Component {
               onChange={this.handleChange}
               value={this.state.searchLandingTool}
             />
-            <label for="tool-name">What?</label>
+            <label for="tool-name">Jackhammer</label>
           </div>
 
+          <p>Where?</p>
           <div class="input-field col s3 sidebar-search-form-input-field">
             <input
               id="address"
@@ -132,9 +134,10 @@ class SearchLandingPage extends Component {
               onChange={this.handleChange}
               value={this.state.searchLandingAddress}
             />
-            <label for="address">Where?</label>
+            <label for="address">Denver, CO</label>
           </div>
 
+          <p>How far?</p>
           <div class="input-field col s3 sidebar-search-form-input-field">
             <input
               id="distance"
@@ -142,7 +145,7 @@ class SearchLandingPage extends Component {
               onChange={this.handleChange}
               value={this.state.searchLandingDistance}
             />
-            <label for="distance">How far?</label>
+            <label for="distance">40 miles</label>
           </div>
 
           <div class="input-field col s3 sidebar-search-form-input-field">
