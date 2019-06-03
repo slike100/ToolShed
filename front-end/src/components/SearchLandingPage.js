@@ -61,7 +61,7 @@ class SearchLandingPage extends Component {
       // <div className="form">
       <form className="row searchForm col s12" onSubmit={this.handleSubmit}>
         <div className="row1">
-          <label className="searchLabel" for="tool-name">What:</label>
+          <label className="searchLabel col" for="tool-name">What:</label>
           <div className="input-field col">
             {/* <i className="material-icons prefix">account_circle</i> */}
             <div className="input-field">
@@ -70,7 +70,7 @@ class SearchLandingPage extends Component {
               <label for="tool-name">Portable Sand Blaster</label>
             </div>
           </div>
-          <label className="searchLabel" for="tool-name">Where:</label>
+          <label className="searchLabel col" for="tool-name">Where:</label>
 
           <div className="input-field col">
             {/* <i className="material-icons prefix">email</i> */}
@@ -79,7 +79,7 @@ class SearchLandingPage extends Component {
               <label for="address">Denver, CO</label>
             </div>
           </div>
-          <label className="searchLabel" for="tool-name">How Far:</label>
+          <label className="searchLabel col" for="tool-name">How Far:</label>
 
           <div className="input-field col">
             {/* <i className="material-icons prefix">email</i> */}
