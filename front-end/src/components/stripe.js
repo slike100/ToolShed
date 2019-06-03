@@ -174,7 +174,10 @@ class CheckoutForm extends Component {
             }
           }}
         />
-        {changeButton}
+        <div className="checkoutBtn">
+          {changeButton}
+
+        </div>
         <div>
           <ConfirmationModal
             tool={this.props.tool}

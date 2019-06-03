@@ -30,7 +30,7 @@ class AddToolForm extends React.Component {
     var file = e.target.files[0];
     console.log(file);
     var reader = new FileReader();
-    reader.onloadend = function() {
+    reader.onloadend = function () {
       preview.src = reader.result;
     };
     if (file) {
@@ -50,7 +50,7 @@ class AddToolForm extends React.Component {
 
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
-      function(snapshot) {
+      function (snapshot) {
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
             console.log("Upload is paused");
@@ -60,7 +60,7 @@ class AddToolForm extends React.Component {
             break;
         }
       },
-      function(error) {
+      function (error) {
         switch (error.code) {
           case "storage/unauthorized":
             console.log(`You do not have permission to upload this photo.`);
@@ -77,8 +77,8 @@ class AddToolForm extends React.Component {
             break;
         }
       },
-      function() {
-        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      function () {
+        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
           console.log("File available at", downloadURL);
           _this.setState({
             photoURL: downloadURL
@@ -122,7 +122,7 @@ class AddToolForm extends React.Component {
                 <div className="photo">
                   <img className="photo" id="toolImage" />
                 </div>
-                <div className="button">
+                <div className="inputFile">
                   <input
                     type="file"
                     name="file"
@@ -151,22 +151,23 @@ class AddToolForm extends React.Component {
                   id="description"
                   placeholder="ex: 7-1/4&#8243; blade, cordless saw with 1 extra battery and charging station.."
                 />
-              </form>
-              <div className="formButtons">
-                <button
-                  id="close-button"
-                  className="-action modal-close waves-effect waves-green btn-flat"
-                >
-                  Cancel
-                </button>
+                <div className="formButtons">
 
-                <input
-                  className="button save modal-close"
-                  type="submit"
-                  value="Create"
-                  onClick={this.uploadPhoto}
-                />
-              </div>
+                  <input
+                    className=" waves-light btn-small save modal-close"
+                    type=""
+                    value="Create"
+                    onClick={this.uploadPhoto}
+                  />
+                  <button
+                    id="closeBtn"
+                    className="-action modal-close btn-small #e53935 red darken-1"
+                  >
+                    Cancel
+                </button>
+                </div>
+              </form>
+
             </div>
 
             <section className="tgrid3" id="rental-section">

@@ -26,10 +26,13 @@ class About extends Component {
             </p>
             <p className="question">How does ToolShed Work?</p>
             <p className="answer">
-              Search for tools to rent near a location of your choice. <br />{" "}
-              Choose a tool and use in-app payment to check it out. <br /> Get
-              in contact with the tool owner to organize pick up and drop off
-              times.{" "}
+              Search for tools to rent near your location.
+              <br />
+              Choose a tool and use our easy in-app payment to reserve it.{" "}
+              <br />
+              Contact the tool owner to organize pick up and drop off times.{" "}
+              <br /> Make extra cash by posting your own tools for others to
+              rent. <br />
             </p>
           </div>
 

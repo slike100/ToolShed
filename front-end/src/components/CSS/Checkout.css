@@ -3,35 +3,49 @@
   justify-content: center;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-label {
+
+.checkoutForm h5 {
   font-family: "Kanit", sans-serif;
   color: #3c493f;
-  margin-top: 0.2em;
-  margin-left: 0.8em;
+  margin-top: 0.6em;
+  margin-left: 1em;
+  font-size: 1.2em;
 }
 
 h1 {
   font-weight: 300;
 }
 
-h3 {
-  margin: 0 auto 0.5em;
+.checkoutForm h3 {
+  margin-left: 0.2em;
+  margin-top: 0.2em;
   color: #7e8d85;
   font-weight: 500;
+}
+
+.checkoutForm .daysInput {
+  width: 35%;
+  margin-left: 1.5em;
+  font-size: 1.5em;
 }
 
 p,
 ul,
 li,
-a,
-label {
-  font-family: "Open Sans", sans-serif;
+a {
+  font-family: "Kanit", sans-serif;
   color: #3c493f;
+ 
+}
+
+.checkoutForm .checkOutLabel {
+  font-family: "Kanit", sans-serif;
+  color: #3c493f;
+  padding-top: 1.5em;
+  margin-left: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 1.5em;
+
 }
 
 .checkoutForm .borderRadius {
@@ -44,7 +58,8 @@ label {
 
 .checkoutForm {
   box-sizing: border-box;
-  width: 30rem;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   background-color: #f2f2f2;
   border: 1px solid #b3bfb8;
@@ -53,6 +68,8 @@ label {
   top: 0;
   left: 0;
   z-index: 1000;
+  padding: 0.5em;
+  padding-right: 1em;
   /* justify-content: center; */
 }
 
@@ -111,10 +128,10 @@ form textarea:focus {
   width: 80%;
 }
 
-.checkoutForm label {
+/* .checkoutForm label {
   font-size: 1.2em;
   color: #3c493f;
-}
+} */
 
 .checkoutForm input[type="text"],
 select,

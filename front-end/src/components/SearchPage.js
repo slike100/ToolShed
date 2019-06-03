@@ -25,7 +25,8 @@ class SearchPage extends React.Component {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: 40.0150, lng: -105.2705 },
       zoom: 13,
-      mapTypeControl: false
+      mapTypeControl: false,
+
     });
 
     let infowindow = new window.google.maps.InfoWindow();

@@ -25,36 +25,35 @@ class Checkout extends React.Component {
     console.log(this.props);
     return (
       <div id="checkoutModal" class="modal">
-        <div class="modal-content" />
+        <div className="modal-content" />
         <div className="checkoutForm">
-          <form className="borderRadius">
-            <h3>Rental Details</h3>
+          {/* <form className="borderRadius"> */}
+          <h3>Rental Details</h3>
 
-            <label for="toolModel">Tool Description:</label>
-            <h5>{this.props.fullTool.description}</h5>
+          <label className="checkOutLabel" for="toolModel">Tool Description:</label>
+          <h5>{this.props.fullTool.description}</h5>
 
-            <label for="toolModel">Rental Duration In Days:</label>
-            <input placeholder="Please enter full day amount here!" />
+          <label className="checkOutLabel" for="toolModel">Price Per Day:
+            <label className="checkOutLabel">${this.props.fullTool.priceRatePerDay}</label>
+          </label>
+          <br />
+          <label className="checkOutLabel" for="toolModel">Rental Duration In Days:</label>
 
-            <label for="toolModel">Total Per Day:</label>
-            <h5>$ {this.props.fullTool.priceRatePerDay}</h5>
+          <input className="daysInput" placeholder="Enter number of days!" />
+          <br />
 
-            <div className="">
-              <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
-                <div className="example">
-                  <Elements>
-                    <CheckoutForm tool={this.props.fullTool} />
-                  </Elements>
-                </div>
-              </StripeProvider>
-            </div>
-          </form>
-          <button
-            id="close-button"
-            className="-action modal-close waves-effect waves-green btn-flat"
-          >
-            close
-          </button>
+          <label className="checkOutLabel" for="toolModel">Credit Card Info:</label>
+
+          <div className="">
+            <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
+              <div className="example">
+                <Elements>
+                  <CheckoutForm tool={this.props.fullTool} />
+                </Elements>
+              </div>
+            </StripeProvider>
+          </div>
+          {/* </form> */}
         </div>
       </div>
     );

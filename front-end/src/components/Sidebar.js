@@ -39,7 +39,6 @@ class Sidebar extends React.Component {
     this.props.renderMap();
   };
 
-
   addressToLatLng = async location => {
     const getResult = await axios.get(
       "https://maps.googleapis.com/maps/api/geocode/json",
@@ -47,7 +46,7 @@ class Sidebar extends React.Component {
         params: {
           address: location,
 
-          key: API_KEY,
+          key: API_KEY
         }
       }
     );
@@ -85,7 +84,9 @@ class Sidebar extends React.Component {
           <h5 className="sidebar-search-form-h5">Search for Tools</h5>
           <div id="sidebar-search-form-inner">
             <div className="input-field" id="margin-fix">
-              <label htmlFor="search-tool">What tool do you want to rent?</label>
+              <label htmlFor="search-tool">
+                What tool do you want to rent?
+              </label>
               <input
                 type="text"
                 id="search-form-tool"
@@ -96,7 +97,9 @@ class Sidebar extends React.Component {
               />
             </div>
             <div className="input-field">
-              <label htmlFor="search-form-address">What is your City and State?</label>
+              <label htmlFor="search-form-address">
+                What is your City and State?
+              </label>
               <input
                 type="text"
                 id="search-form-address"
@@ -107,7 +110,9 @@ class Sidebar extends React.Component {
               />
             </div>
             <div className="input-field">
-              <label htmlFor="search-form-distance">How many miles will you travel?</label>
+              <label htmlFor="search-form-distance">
+                How many miles will you travel?
+              </label>
               <input
                 type="text"
                 id="search-form-distance"
@@ -130,7 +135,6 @@ class Sidebar extends React.Component {
         </form>
 
         <SearchCard />
-
       </div>
     );
   }

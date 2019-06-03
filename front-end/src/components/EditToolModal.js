@@ -20,7 +20,15 @@ class EditToolModal extends React.Component {
 
   componentDidMount() {
     const elems = document.querySelectorAll(".modal");
-    const instances = M.Modal.init(elems, options);
+    const instances = M.Modal.init(elems, {
+      onOpenStart: function() {
+        console.log(
+          `I trigger as soon as the page is loaded, current props: `,
+          this.props
+        );
+      }
+    });
+
     this.setState({ photoURL: this.props.tool.photo }, function() {
       console.log(this.state.photoURL);
     });
@@ -178,25 +186,25 @@ class EditToolModal extends React.Component {
                   required={true}
                   type="text"
                 />
+                <div className="formButtons">
+                  <button
+                    className="waves-light btn-small save modal-close"
+                    type="submit"
+                    onClick={this.sendAction}
+                    required={true}
+                    type="text"
+                    id="editToolSave"
+                  >
+                    Save
+                  </button>
+                  {/* <button
+                    id="closeBtn"
+                    className="-action modal-close btn-small #e53935 red darken-1"
+                  >
+                    Cancel
+                </button> */}
+                </div>
               </form>
-              <div className="formButtons">
-                <button
-                  id="close-button"
-                  className="-action modal-close waves-effect waves-green btn-flat "
-                >
-                  Cancel
-                </button>
-
-                <button
-                  className="button save modal-close"
-                  type="submit"
-                  onClick={this.sendAction}
-                  required={true}
-                  type="text"
-                >
-                  Save
-                </button>
-              </div>
             </div>
 
             <section className="tgrid3" id="rental-section">
