@@ -48,35 +48,36 @@ class SearchCard extends React.Component {
       );
     } else {
       return this.props.toolsSearched.map((tool, index) => {
-        if (tool.uid === this.props.user.uid) {
-          return;
-        } else {
-          if (!tool.isRented) {
-            return (
-              <div class="sidebar-card position-relative" key={index}>
-                <img className="sidebar-card-img" src={tool.photo} alt="" />
-                <p className="sidebar-card-name">{tool.name}</p>
-                <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
-                <div
-                  className="sidebar-card-overlay modal-trigger webkit-appearance-none"
-                  type="submit"
-                  name="action"
-                  data-id={tool.toolId}
-                  data-target="checkoutModal"
-                  onClick={this.getFullTool}
-                />
-              </div>
-            );
-          } else if (tool.isRented) {
-            return (
-              <div class="sidebar-card modal-trigger" key={index}>
-                <img className="sidebar-card-img" src={tool.photo} alt="" />
-                <p className="sidebar-card-name">{tool.name}</p>
-                <i className="fas fa-exclamation-triangle fa-2x sidebar-card-triangle-margin-right sidebar-card-btn-orange" />
-              </div>
-            );
-          }
+        // if ((this.props.user.uid == null) || (tool.uid == this.props.user.uid)) { BUG: app will crash if you search w/o logging in
+        //   return;
+        // } else {
+        console.log(this.props.user);
+        if (!tool.isRented) {
+          return (
+            <div class="sidebar-card position-relative" key={index}>
+              <img className="sidebar-card-img" src={tool.photo} alt="" />
+              <p className="sidebar-card-name">{tool.name}</p>
+              <p className="sidebar-card-price">${tool.priceRatePerDay}</p>
+              <div
+                className="sidebar-card-overlay modal-trigger webkit-appearance-none"
+                type="submit"
+                name="action"
+                data-id={tool.toolId}
+                data-target="checkoutModal"
+                onClick={this.getFullTool}
+              />
+            </div>
+          );
+        } else if (tool.isRented) {
+          return (
+            <div class="sidebar-card modal-trigger" key={index}>
+              <img className="sidebar-card-img" src={tool.photo} alt="" />
+              <p className="sidebar-card-name">{tool.name}</p>
+              <i className="fas fa-exclamation-triangle fa-2x sidebar-card-triangle-margin-right sidebar-card-btn-orange" />
+            </div>
+          );
         }
+        // }
       });
     }
   };

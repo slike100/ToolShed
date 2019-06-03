@@ -37,7 +37,6 @@ class SearchPage extends React.Component {
 
     if (toolsSearched) {
       toolsSearched.forEach(location => {
-        console.log(location.priceRatePerDay)
         let dailyRate = `$${location.priceRatePerDay}`;
         let marker = new window.google.maps.Marker({
           position: { lat: location.lat, lng: location.long },
