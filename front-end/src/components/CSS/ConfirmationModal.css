@@ -13,6 +13,10 @@
   height: 150%;
 }
 
+.confirmation-modal-close-button {
+  width: 10em;
+}
+
 .modal #confirmationToolModal {
   overflow-x: hidden;
   overflow-y: hidden !important;

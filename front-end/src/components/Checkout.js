@@ -34,7 +34,6 @@ class Checkout extends React.Component {
             Tool Description:
           </label>
           <h5>{this.props.fullTool.description}</h5>
-
           <label className="checkOutLabel" for="toolModel">
             Price Per Day:
             <label className="checkOutLabel">
@@ -46,9 +45,8 @@ class Checkout extends React.Component {
             Rental Duration In Days:
           </label>
 
-          <input className="daysInput" placeholder="Enter number of days!" />
+          <input className="daysInput" placeholder="ex: 3" />
           <br />
-
           <label className="checkOutLabel" for="toolModel">
             Credit Card Info:
           </label>
