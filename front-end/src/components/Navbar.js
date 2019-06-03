@@ -33,6 +33,7 @@ class Navbar extends React.Component {
   //checkForExistingUser fires for both login and sign-up buttons
   //It would be good to add if user clicks sign-up and they already have an account, an alert or modal informing them that their account already exists.
   checkForExistingUser = e => {
+    var _this = this;
     firebaseAuth.signInWithPopup(provider).then(async result => {
       return await axios
         .get(`${userBaseUrl}userData/${result.user.uid}`)
@@ -46,7 +47,6 @@ class Navbar extends React.Component {
           } else {
             this.signUp(result);
             console.log("This is a new user");
-            return false;
           }
         })
         .catch(err => {

@@ -23,7 +23,6 @@ toolController.post("/newTool", (req, res) => {
   });
   try {
     db.collection("Tools").add(tool).then(ref => {
-      // req.body.toolsOwned.push(ref.id);
       db.collection("User").doc(req.body.uid).update({
         toolsOwned: firebase.firestore.FieldValue.arrayUnion(ref.id)
       }).then(() => {
