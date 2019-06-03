@@ -205,4 +205,5 @@ export const toolSearchLocation = searchObj => {
     type: TOOL_SEARCH,
     payload: searchObj
   };
+  return action;
 };

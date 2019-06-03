@@ -31,9 +31,23 @@ class SearchPage extends React.Component {
     //   var userLat = this.props.user.lat;
     //   var userLng = this.props.user.lng;
     // }
+    var displayLat;
+    var displayLng;
+
+    if (this.props.toolLocation) {
+      displayLat = this.props.toolLocation.lat;
+      displayLng = this.props.toolLocation.long;
+    } else if (this.props.user && !this.props.toolLocation) {
+      displayLat = this.props.user.lat;
+      displayLng = this.props.user.lng;
+    } else {
+      displayLat = 40.01164;
+      displayLng = -105.13027;
+    }
+
     let map = new window.google.maps.Map(document.getElementById("map"), {
       zoom: 13,
-      center: { lat: 40, lng: -105 },
+      center: { lat: displayLat, lng: displayLng },
       mapTypeControl: false
     });
 
@@ -103,6 +117,7 @@ function mapStateToProps(state) {
   return {
     // tool: state.tool
     toolsSearched: state.tool.toolsSearched,
+    toolLocation: state.toolLocation,
     user: state.user.user
   };
 }
