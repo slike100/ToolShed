@@ -128,7 +128,10 @@ class UserToolCard extends React.Component {
           );
         }
         return (
-          <div className="user-tool-card-wrapper" key={tool.name + index.toString()}>
+          <div
+            className="user-tool-card-wrapper"
+            key={tool.name + index.toString()}
+          >
             <div className="card toolCard">
               <div className="card-image">
                 <img id="toolImage" src={tool.photo} />
@@ -159,13 +162,19 @@ class UserToolCard extends React.Component {
 
   render() {
     if (this.props.tools.length == 0) {
-      return <div className="tool-card-no-tool-message">
-        <p className="tool-card-no-tool-message-p">Add your tools to make extra cash!  &nbsp;<i class="fas fa-money-bill-wave"></i></p>
-      </div>
+      return (
+        <div className="tool-card-no-tool-message">
+          <p className="tool-card-no-tool-message-p">
+            Add your tools to make extra cash! &nbsp;
+            <i class="fas fa-money-bill-wave" />
+          </p>
+        </div>
+      );
     }
     return (
       <div>
         <div>{this.createToolOwnedCards()}</div>
+        <EditToolModal tool={this.state.tool} />
       </div>
     );
   }
