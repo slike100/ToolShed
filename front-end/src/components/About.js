@@ -7,6 +7,11 @@ import picture1 from "../assets/img/undraw_connected_8wvi.svg";
 import picture2 from "../assets/img/undraw_celebration_0jvk.svg";
 import picture3 from "../assets/img/vincent-van-zalinge-396729-unsplash.jpg";
 import picture4 from "../assets/img/luke-tanis-454346-unsplash.jpg";
+import picture5 from "../assets/img/pug.jpeg";
+import picture6 from "../assets/img/fox.jpeg";
+import picture7 from "../assets/img/sheep.jpeg";
+import picture8 from "../assets/img/frog.jpeg";
+import picture9 from "../assets/img/oxen.jpeg";
 class About extends Component {
   render() {
     return (
@@ -52,7 +57,7 @@ class About extends Component {
             </p>
           </div>
           <div className="lionContainer connectionPicture">
-            <img src={picture4} alt="Monkey" />
+            <img src={picture9} alt="Monkey" />
             <p className="name">David Brown</p>
           </div>
 
@@ -90,7 +95,7 @@ class About extends Component {
           </div>
 
           <div className="fourthPicture">
-            <img src={picture3} alt="Monkey" />
+            <img src={picture6} alt="Monkey" />
             <p className="name">Sam Morgan</p>
           </div>
 
@@ -110,7 +115,7 @@ class About extends Component {
             </p>
           </div>
           <div className="fifthPicture">
-            <img src={picture3} alt="Monkey" />
+            <img src={picture7} alt="Monkey" />
             <p className="name">Dan Scanland</p>
           </div>
 
@@ -124,7 +129,7 @@ class About extends Component {
             <p className="answer">Tinkering around on old cars.</p>
           </div>
           <div className="sixthPicture">
-            <img src={picture3} alt="Monkey" />
+            <img src={picture8} alt="Monkey" />
             <p className="name">Nathaniel Wendt</p>
           </div>
 
@@ -140,7 +145,7 @@ class About extends Component {
             <p className="answer">Cutting up rebar with my rebar cutter.</p>
           </div>
           <div className="seventhPicture">
-            <img src={picture3} alt="Monkey" />
+            <img src={picture5} alt="Monkey" />
             <p className="name">Sam Slike</p>
           </div>
         </section>
