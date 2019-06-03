@@ -1,11 +1,56 @@
 * {
   font-family: Kanit, sans-serif;
 }
+.frontSlogan {
+  font-size: 7em;
+  /* 
+  font-family: Kanit, sans-serif;
+  color: #f2f2f2;
+  position: absolute;
+  left: 10%;
+  top: 10%; */
+  color: #ffffff;
+  margin-bottom: 0;
+  font-weight: 500;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+
+
+}
+
+.frontBanner {
+  position: absolute;
+  width: 100%;
+  /* left: 20%; */
+  top: 10%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+
+}
+
+.underSlogan {
+  /* position: absolute;
+  left: 20%;
+  top: 35%; */
+  justify-content: center;
+  color: #f2f2f2;
+  margin-bottom: 0;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+
+}
+
 .background {
-  height: 44em;
+  height: 57.5em;
+  /* height: 100v */
   overflow: hidden;
   width: 100%;
-  background-image: url("https://images.unsplash.com/photo-1426927308491-6380b6a9936f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80");
+  /* background-image: url("https://images.unsplash.com/photo-1426927308491-6380b6a9936f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80"); */
+  background-image: url('../../assets/img/hero-img.png');
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
@@ -21,22 +66,20 @@
 }
 
 .searchForm {
- 
   position: absolute;
-  left: 14%;
+  left: 15%;
   top: 50%;
 
   padding: 0.1em;
   display: flex;
   justify-content: space-between;
-  width: 72%;
+  width: 70%;
   height: 4em;
   /* border-radius: 200px; */
 }
 .row1 {
   width: 100%;
   border-radius: 200px;
-
 }
 .col {
   overflow: hidden;
@@ -50,8 +93,8 @@
   position: relative;
   margin-top: 0rem;
   margin-bottom: 0rem;
-  width: 15rem;
-  margin-left: 0.8rem;
+  /* width: 15rem; */
+  margin-left: 0rem;
   margin-right: 0.5rem;
 }
 
@@ -63,7 +106,6 @@
   margin-left: 0.8rem;
   margin-right: 0rem;
 }
-
 
 .row1 .col .s4 {
   overflow: hidden;
@@ -92,4 +134,3 @@
 /* #distance {
   width: 10rem;
 } */
-

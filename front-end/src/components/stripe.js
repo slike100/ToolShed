@@ -23,7 +23,8 @@ class CheckoutForm extends Component {
       tool: this.props.tool,
       ownerEmail: "",
       ownerName: "",
-      dueDate: ""
+      dueDate: "",
+      days: "",
     };
   }
 
@@ -46,7 +47,20 @@ class CheckoutForm extends Component {
 
   submit = async e => {
     e.preventDefault();
-    var days = e.target.childNodes[0].parentElement.form[0].value;
+    // console.log(
+    //   e.target.parentElement.parentElement.parentElement.parentElement
+    //     .parentElement.childNodes[6].value
+    // );
+    var days =
+      e.target.parentElement.parentElement.parentElement.parentElement
+        .parentElement.childNodes[6].value;
+
+    console.log("this is days", days);
+
+    this.setState({
+      days: days
+    })
+
     let { token } = await this.props.stripe.createToken({
       name: this.props.user.displayName
     });
@@ -66,8 +80,6 @@ class CheckoutForm extends Component {
 
     await this.getUserData(this.props.tool.uid);
   };
-
-
 
   createRecord = async (days, token) => {
     console.log("this is tool", this.props.tool);
@@ -143,7 +155,7 @@ class CheckoutForm extends Component {
 
     this.setState({
       dueDate: new Date(dueDate).toDateString()
-    })
+    });
   };
 
   render() {
@@ -154,6 +166,7 @@ class CheckoutForm extends Component {
           className="ts-green-button modal-trigger checkout-form-submit-button"
           onClick={this.submit}
           data-target="confirmationToolModal"
+          id="bookNowBtn"
         >
           BOOK NOW
         </button>
@@ -174,16 +187,14 @@ class CheckoutForm extends Component {
             }
           }}
         />
-        <div className="checkoutBtn">
-          {changeButton}
-
-        </div>
+        <div className="checkoutBtn">{changeButton}</div>
         <div>
           <ConfirmationModal
             tool={this.props.tool}
             dueDate={this.state.dueDate}
             ownerName={this.state.ownerName}
             ownerEmail={this.state.ownerEmail}
+            days={this.state.days}
           />
         </div>
       </div>

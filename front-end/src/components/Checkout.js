@@ -30,19 +30,26 @@ class Checkout extends React.Component {
           {/* <form className="borderRadius"> */}
           <h3>Rental Details</h3>
 
-          <label className="checkOutLabel" for="toolModel">Tool Description:</label>
+          <label className="checkOutLabel" for="toolModel">
+            Tool Description:
+          </label>
           <h5>{this.props.fullTool.description}</h5>
-
-          <label className="checkOutLabel" for="toolModel">Rental Cost Per Day:
-            <label className="checkOutLabel">${this.props.fullTool.priceRatePerDay}</label>
+          <label className="checkOutLabel" for="toolModel">
+            Price Per Day:
+            <label className="checkOutLabel">
+              ${this.props.fullTool.priceRatePerDay}
+            </label>
           </label>
           <br />
-          <label className="checkOutLabel" for="toolModel">Rental Duration (in days)</label>
+          <label className="checkOutLabel" for="toolModel">
+            Rental Duration In Days:
+          </label>
 
           <input className="daysInput" placeholder="ex: 3" />
           <br />
-
-          <label className="checkOutLabel" for="toolModel">Enter your Credit Card Information:</label>
+          <label className="checkOutLabel" for="toolModel">
+            Credit Card Info:
+          </label>
 
           <div className="">
             <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
