@@ -18,7 +18,7 @@
 
 .user-profile-page-wrapper {
   background-color: #F0F7F4;
-  height: 93.3vh;
+  height: 92vh;
   width: 100%;
   margin: 0;
 
@@ -34,7 +34,7 @@
   border: 1px solid #B3BFB8;
   background-color: #FAFAFA;
   border-radius: 5px;
-  margin: 0 auto;
+  margin: 2em auto 0;
   width: 75%;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .user-profile-page-column-header {
-  margin: 0 auto 0.8em;
+  margin: 2em auto 0.8em;
   text-align: center;
   width: 90%;
   border: 1px solid #B3BFB8;
