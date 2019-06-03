@@ -110,12 +110,14 @@ userController.get("/userData/:uid", (req, res) => {
       .then(userDoc => {
         if (!userDoc.exists) {
           console.log("This user does not exist.");
+          return res.status(200).send('This user does not exist');
         } else {
           return res.status(200).send(userDoc.data());
         }
       })
       .catch(err => {
         console.log("Could not find this user.", err);
+        return res.status(500).send('Did not work');
       });
   } catch (err) {
     return res.status(500).send("Could not connect to database.", err);
