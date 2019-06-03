@@ -25,5 +25,8 @@
 
 .nav-right {
   margin-right: 2em;
+}
 
+.nav-wrapper {
+  border-bottom: 1px solid #B3BFB8;
 }

@@ -6,7 +6,12 @@ import logo from "../assets/img/logo.png";
 import { NavLink } from "react-router-dom";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import { connect } from "react-redux";
-import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
+import {
+  getToolsOwned,
+  getToolsRented,
+  toolSearchLocation,
+  clearToolSearch
+} from "../redux/actions/toolActions";
 import axios from "axios";
 import { userBaseUrl } from "../utils/globalConstants";
 import {
@@ -83,6 +88,7 @@ class Navbar extends React.Component {
   logout = () => {
     firebaseAuth.signOut().then(() => {
       this.props.logoutUser();
+      this.props.clearToolSearch();
     });
   };
 
@@ -99,7 +105,7 @@ class Navbar extends React.Component {
       maximumAge: 0
     };
     navigator.geolocation.getCurrentPosition(
-      function(position) {
+      function (position) {
         let objLocation = {
           lat: position.coords.latitude, // Latitude
           lng: position.coords.longitude // Longitude
@@ -107,11 +113,11 @@ class Navbar extends React.Component {
 
         change_state(objLocation); //Invoke Function to change the local state
       },
-      function(error) {
+      function (error) {
         if (error.code == 1) {
-          alert("Error: Access is denied!");
+          // alert("Error: Access is denied!");
         } else if (error.code == 2) {
-          alert("Error: Position is unavailable!");
+          // alert("Error: Position is unavailable!");
         }
       },
       options
@@ -143,7 +149,7 @@ class Navbar extends React.Component {
 
     return (
       <nav className="nav-wrapper grey lighten-5">
-        <NavLink to="/">
+        <NavLink to="/" onClick={this.props.clearToolSearch}>
           <img className="siteLogo" src={logo} />
         </NavLink>
         <ul className="right nav-list">
@@ -166,6 +172,7 @@ class Navbar extends React.Component {
               <li>
                 <NavLink
                   to="/userProfilePage"
+                  onClick={this.props.clearToolSearch}
                   className="btn btn-floating blue lighten-1"
                   style={{
                     backgroundImage: profilePhoto,
@@ -175,31 +182,31 @@ class Navbar extends React.Component {
               </li>
             </React.Fragment>
           ) : (
-            <React.Fragment>
-              <li>
-                <NavLink to="/search" className="grey-text text-darken-3">
-                  Search
+              <React.Fragment>
+                <li>
+                  <NavLink to="/search" className="grey-text text-darken-3">
+                    Search
                 </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/"
-                  className="grey-text text-darken-3"
-                  onClick={this.checkForExistingUser}
-                >
-                  Sign Up
+                </li>
+                <li>
+                  <NavLink
+                    to="/"
+                    className="grey-text text-darken-3"
+                    onClick={this.checkForExistingUser}
+                  >
+                    Sign Up
                 </NavLink>
-              </li>
-              <li>
-                <img
-                  id="googleLogin"
-                  className="loginBtn nav-right"
-                  src={loginButton}
-                  onClick={this.checkForExistingUser}
-                />
-              </li>
-            </React.Fragment>
-          )}
+                </li>
+                <li>
+                  <img
+                    id="googleLogin"
+                    className="loginBtn nav-right"
+                    src={loginButton}
+                    onClick={this.checkForExistingUser}
+                  />
+                </li>
+              </React.Fragment>
+            )}
         </ul>
       </nav>
     );
@@ -218,7 +225,9 @@ const mapDispatchToProps = {
   updateUser,
   getToolsOwned,
   getToolsRented,
-  addNewUser
+  addNewUser,
+  toolSearchLocation,
+  clearToolSearch
 };
 
 export default connect(

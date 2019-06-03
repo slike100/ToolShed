@@ -48,9 +48,8 @@ class SearchCard extends React.Component {
       );
     } else {
       return this.props.toolsSearched.map((tool, index) => {
-        if (tool.uid === this.props.user.uid) {
-          return;
-        } else {
+        console.log(tool);
+        if (!this.props.auth || tool.uid !== this.props.user.uid) {
           if (!tool.isRented) {
             return (
               <div class="sidebar-card position-relative" key={index}>
@@ -76,6 +75,8 @@ class SearchCard extends React.Component {
               </div>
             );
           }
+        } else {
+          return;
         }
       });
     }

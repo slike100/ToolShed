@@ -15,6 +15,7 @@ import RentedToolCard from "./RentedToolCard";
 import AddToolForm from "./AddToolForm";
 import Checkout from "./Checkout";
 import { deleteUser } from "../redux/actions/userActions";
+import "./CSS/Global.css";
 
 class UserProfilePage extends React.Component {
   constructor(props) {
@@ -104,6 +105,7 @@ class UserProfilePage extends React.Component {
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
     if (this.props.auth) {
+      console.log(this.props.user);
       profilePhoto = `url(${this.props.auth.photoURL})`;
     }
 
@@ -111,48 +113,55 @@ class UserProfilePage extends React.Component {
       return <div>Loading...</div>;
     } else
       return (
-        <div className="body">
-          <div className="row profileScroll">
-            <div className="col s4">
-              <div className="col s12">
-                <div className="user1">
-                  <img
-                    className="circle responsive-img userImg z-depth-3"
-                    src={this.props.user.avatar}
-                    alt=""
-                  />
-                </div>
-                <h5>{this.props.user.displayName}</h5>
-                <h6>{this.props.user.email}</h6>
-                <button
-                  className="btn-small waves-effect #e53935 red darken-1 deleteUser"
-                  type="submit"
-                  name="action"
-                  onClick={this.deleteUser}
-                >
-                  Delete Account
-                </button>
-              </div>
-              {modal}
-
-              <button
-                class="btn-large waves-effect waves-light btn modal-trigger"
+        <div className="row user-profile-page-wrapper">
+          <div className="col s4 profile-column-container">
+            <div id="user-profile-page-user-card" className="col s10">
+              <img
+                className="circle responsive-img userImg z-depth-1"
+                src={this.props.user.avatar}
+                alt=""
+              />
+              <h5 className="user-profile-page-user-name">{this.props.user.userName}</h5>
+              <h6 className="user-profile-page-user-email">{this.props.user.email}</h6>
+              {/* <button
+                className="btn-small waves-effect #e53935 red darken-1 deleteUser"
                 type="submit"
                 name="action"
-                data-target="addToolModal"
-                // onClick={this.toggle}
+                onClick={this.deleteUser}
+              > */}
+              <button
+                className="user-profile-page-delete-profile-button ts-red-button"
+                type="submit"
+                name="action"
+                onClick={this.deleteUser}
               >
-                Add A Tool
+                Delete Account
+                </button>
+            </div>
+            {modal}
+
+            <button
+              // class="btn-large btn modal-trigger"
+              class="modal-trigger ts-green-button user-profile-page-add-tool-button"
+              type="submit"
+              name="action"
+              data-target="addToolModal"
+            // onClick={this.toggle}
+            >
+              Add A Tool
               </button>
+          </div>
+          <div className="col s4 toolsOwned" id="tool-scroll">
+            <div className="user-profile-page-column-header">
+              <p>Tools You Own &nbsp;<i className="far fa-hand-point-down"></i></p>
             </div>
-            <div className="col s4 toolsOwned" id="tool-scroll">
-              Tools Owned
-              <UserToolCard />
+            <UserToolCard />
+          </div>
+          <div className="col s4 toolsRenting" id="tool-scroll">
+            <div className="user-profile-page-column-header">
+              <p>Tools you are Renting &nbsp;<i className="far fa-hand-point-down"></i></p>
             </div>
-            <div className="col s4 toolsRenting" id="tool-scroll">
-              Tools Rented
-              <RentedToolCard />
-            </div>
+            <RentedToolCard />
           </div>
           {modal}
         </div>

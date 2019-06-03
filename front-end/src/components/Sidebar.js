@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getToolData } from "../redux/actions/toolActions";
+import { getToolData, toolSearchLocation } from "../redux/actions/toolActions";
 import Checkout from "./Checkout";
 import axios from "axios";
 import SearchCard from "./SearchCard";
-import { API_KEY } from "../utils/firebaseConfig";
+import { API_KEY } from '../utils/firebaseConfig';
+import "./CSS/Global.css"
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -60,7 +61,7 @@ class Sidebar extends React.Component {
       name: searchTool,
       distance: searchDistance
     };
-
+    this.props.toolSearchLocation(searchObj);
     await this.props.getToolData(searchObj);
   };
 
@@ -125,7 +126,7 @@ class Sidebar extends React.Component {
             </div>
             <div className="sidebar-search-form-button">
               <input
-                className="sidebar-search-form-submit"
+                className="sidebar-search-form-submit ts-green-button"
                 type="submit"
                 value="Search"
               />
@@ -140,7 +141,8 @@ class Sidebar extends React.Component {
 }
 
 const mapDispatchToProps = {
-  getToolData
+  getToolData,
+  toolSearchLocation
 };
 
 function mapStateToProps(state) {

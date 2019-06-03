@@ -28,7 +28,6 @@ class EditToolModal extends React.Component {
         );
       }
     });
-
     this.setState({ photoURL: this.props.tool.photo }, function() {
       console.log(this.state.photoURL);
     });
