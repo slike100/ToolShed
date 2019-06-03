@@ -4,7 +4,8 @@ import { getToolData } from "../redux/actions/toolActions";
 import Checkout from "./Checkout";
 import axios from "axios";
 import SearchCard from "./SearchCard";
-import { API_KEY } from "../utils/firebaseConfig";
+import { API_KEY } from '../utils/firebaseConfig';
+import "./CSS/Global.css"
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -125,7 +126,7 @@ class Sidebar extends React.Component {
             </div>
             <div className="sidebar-search-form-button">
               <input
-                className="sidebar-search-form-submit"
+                className="sidebar-search-form-submit ts-green-button"
                 type="submit"
                 value="Search"
               />
