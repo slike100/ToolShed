@@ -6,7 +6,12 @@ import logo from "../assets/img/logo.png";
 import { NavLink } from "react-router-dom";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import { connect } from "react-redux";
-import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
+import {
+  getToolsOwned,
+  getToolsRented,
+  toolSearchLocation,
+  clearToolSearch
+} from "../redux/actions/toolActions";
 import axios from "axios";
 import { userBaseUrl } from "../utils/globalConstants";
 import {
@@ -83,6 +88,7 @@ class Navbar extends React.Component {
   logout = () => {
     firebaseAuth.signOut().then(() => {
       this.props.logoutUser();
+      this.props.clearToolSearch();
     });
   };
 
@@ -143,7 +149,7 @@ class Navbar extends React.Component {
 
     return (
       <nav className="nav-wrapper grey lighten-5">
-        <NavLink to="/">
+        <NavLink to="/" onClick={this.props.clearToolSearch}>
           <img className="siteLogo" src={logo} />
         </NavLink>
         <ul className="right nav-list">
@@ -166,6 +172,7 @@ class Navbar extends React.Component {
               <li>
                 <NavLink
                   to="/userProfilePage"
+                  onClick={this.props.clearToolSearch}
                   className="btn btn-floating blue lighten-1"
                   style={{
                     backgroundImage: profilePhoto,
@@ -218,7 +225,9 @@ const mapDispatchToProps = {
   updateUser,
   getToolsOwned,
   getToolsRented,
-  addNewUser
+  addNewUser,
+  toolSearchLocation,
+  clearToolSearch
 };
 
 export default connect(
