@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar.js";
 import Map from "./Map.js";
 import { connect } from "react-redux";
 import { API_KEY } from "../utils/firebaseConfig";
+import { toolSearchLocation } from "../redux/actions/toolActions";
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -40,11 +41,12 @@ class SearchPage extends React.Component {
       displayLng = this.props.toolLocation.long;
     } else if (this.props.user && !this.props.toolLocation) {
       displayLat = this.props.user.lat;
-      displayLng = this.props.user.lng;
+      displayLng = this.props.user.long;
     } else {
       displayLat = 40.02123;
       displayLng = -105.217416;
     }
+
     console.log(displayLat, displayLng);
 
     let map = new window.google.maps.Map(document.getElementById("map"), {
@@ -94,6 +96,14 @@ class SearchPage extends React.Component {
     this.renderMap();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.user) {
+      console.log("prevProps: ", prevProps, "Current props: ", this.props);
+      //     // this.props.toolSearchLocation({ lat: 0, long: 0 });
+      //     this.renderMap();
+    }
+  }
+
   render() {
     return (
       <div id="search-page">
@@ -113,7 +123,9 @@ function loadScript(url) {
   index.parentNode.insertBefore(script, index);
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  toolSearchLocation
+};
 
 function mapStateToProps(state) {
   return {

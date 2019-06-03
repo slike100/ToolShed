@@ -6,7 +6,12 @@ import logo from "../assets/img/logo.png";
 import { NavLink } from "react-router-dom";
 import { auth as firebaseAuth, provider } from "../utils/firebaseConfig";
 import { connect } from "react-redux";
-import { getToolsOwned, getToolsRented } from "../redux/actions/toolActions";
+import {
+  getToolsOwned,
+  getToolsRented,
+  toolSearchLocation,
+  clearToolSearch
+} from "../redux/actions/toolActions";
 import axios from "axios";
 import { userBaseUrl } from "../utils/globalConstants";
 import {
@@ -134,6 +139,9 @@ class Navbar extends React.Component {
   //   });
   // }
 
+  // handleClick = () => {
+  //   this.props.clearToolSearch();
+  // };
   render() {
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
@@ -143,7 +151,10 @@ class Navbar extends React.Component {
 
     return (
       <nav className="nav-wrapper grey lighten-5">
-        <NavLink to="/">
+        <NavLink
+          to="/"
+          // onClick={this.handleClick}
+        >
           <img className="siteLogo" src={logo} />
         </NavLink>
         <ul className="right nav-list">
@@ -218,7 +229,9 @@ const mapDispatchToProps = {
   updateUser,
   getToolsOwned,
   getToolsRented,
-  addNewUser
+  addNewUser,
+  toolSearchLocation,
+  clearToolSearch
 };
 
 export default connect(

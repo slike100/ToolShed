@@ -5,7 +5,8 @@ import {
   EDIT_TOOL,
   TOOLS_OWNED,
   TOOLS_RENTED,
-  TOOL_SEARCH
+  TOOL_SEARCH,
+  CLEAR_SEARCH
 } from "../types/toolTypes";
 
 const initialState = {
@@ -41,6 +42,8 @@ export default function toolReducer(state = initialState, action) {
 
     case TOOL_SEARCH:
       return { ...state, toolSearchLocation: payload };
+    case CLEAR_SEARCH:
+      return { ...state, toolSearchLocation: null, toolsSearched: null };
     default:
       return state;
   }

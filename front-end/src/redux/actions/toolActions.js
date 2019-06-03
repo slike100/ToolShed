@@ -9,7 +9,8 @@ import {
   EDIT_TOOL,
   TOOLS_OWNED,
   TOOLS_RENTED,
-  TOOL_SEARCH
+  TOOL_SEARCH,
+  CLEAR_SEARCH
 } from "../types/toolTypes";
 
 //CREATE A NEW TOOL AXIOS REQUEST
@@ -206,4 +207,10 @@ export const toolSearchLocation = searchObj => {
     payload: searchObj
   };
   return action;
+};
+
+export const clearToolSearch = () => {
+  const action = {
+    type: CLEAR_SEARCH
+  };
 };
