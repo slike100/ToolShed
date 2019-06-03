@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar.js";
 import Map from "./Map.js";
 import { connect } from "react-redux";
 import { API_KEY } from '../utils/firebaseConfig';
+import mapIcon from '../assets/img/map_icon.png';
 
 
 class SearchPage extends React.Component {
@@ -36,34 +37,28 @@ class SearchPage extends React.Component {
 
     if (toolsSearched) {
       toolsSearched.forEach(location => {
+        console.log(location.priceRatePerDay)
+        let dailyRate = `$${location.priceRatePerDay}`;
         let marker = new window.google.maps.Marker({
           position: { lat: location.lat, lng: location.long },
           map: map,
+          label: dailyRate,
           title: location.uid,
+          icon: mapIcon,
           animation: window.google.maps.Animation.DROP,
         })
-
-        let cardInfo = `<h6 data-id=${location.toolId}>$${location.priceRatePerDay}</h6>`;
+        let cardInfo = `<div style="width:200px"><img className="sidebar-card-img" style="display:block;width:100%;height:auto;" src=${location.photo} alt="" /></div>`
 
         marker.addListener('click', () => {
-          marker.setAnimation(window.google.maps.Animation.BOUNCE);
           window.setTimeout(marker.setAnimation(false), 1000);
           infowindow.setContent(cardInfo);
           infowindow.open(map, marker);
         })
         renderMarkers[renderMarkers.length] = marker;
-        infowindow.setContent(cardInfo);
-        infowindow.open(map, marker);
       })
       this.setState({ markers: renderMarkers });
     }
-
-
   }
-
-  // centerMarker = (latlng) => {
-  //   map.setCenter(latlng);
-  // }
 
   componentDidMount() {
     this.renderMap();
