@@ -12,6 +12,10 @@
   cursor: pointer;
 }
 
+.ts-green-button:active {
+  background-color: #229287;
+}
+
 .ts-red-button {
   margin: 2em auto;
   height: 2.8em;
@@ -26,6 +30,10 @@
   cursor: pointer;
 }
 
+.ts-red-button:active {
+  background-color: #a32929;
+}
+
 .ts-orange-button {
   margin: 2em auto;
   height: 2.8em;
@@ -38,4 +46,8 @@
   text-shadow: 0px -1px #e68800;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.ts-orange-button:active {
+  background-color: #e68800;
 }
