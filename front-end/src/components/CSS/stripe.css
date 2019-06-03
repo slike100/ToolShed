@@ -9,3 +9,7 @@
   justify-content: center;
   align-content: center;
 }
+
+.checkout-form-submit-button {
+  width: 12em;
+}

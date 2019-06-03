@@ -154,14 +154,14 @@ class AddToolForm extends React.Component {
                 <div className="formButtons">
 
                   <input
-                    className=" waves-light btn-small save modal-close"
+                    className=" ts-green-button modal-close"
                     type=""
                     value="Create"
                     onClick={this.uploadPhoto}
                   />
                   <button
                     id="closeBtn"
-                    className="-action modal-close btn-small #e53935 red darken-1"
+                    className="modal-close ts-red-button"
                   >
                     Cancel
                 </button>

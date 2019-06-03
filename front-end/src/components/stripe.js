@@ -151,7 +151,7 @@ class CheckoutForm extends Component {
     if (this.props.auth === true) {
       changeButton = (
         <button
-          className="btn-large waves-effect waves-light btn modal-trigger submitBtn"
+          className="ts-green-button modal-trigger checkout-form-submit-button"
           onClick={this.submit}
           data-target="confirmationToolModal"
         >
@@ -160,8 +160,8 @@ class CheckoutForm extends Component {
       );
     } else if (this.props.auth == false) {
       changeButton = (
-        <p className="btn-large waves-effect waves-light btn">
-          Please Sign in to Book
+        <p className="">
+          You must be signed in to rent a tool.
         </p>
       );
     }

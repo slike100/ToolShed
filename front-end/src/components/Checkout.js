@@ -33,16 +33,16 @@ class Checkout extends React.Component {
           <label className="checkOutLabel" for="toolModel">Tool Description:</label>
           <h5>{this.props.fullTool.description}</h5>
 
-          <label className="checkOutLabel" for="toolModel">Price Per Day:
+          <label className="checkOutLabel" for="toolModel">Rental Cost Per Day:
             <label className="checkOutLabel">${this.props.fullTool.priceRatePerDay}</label>
           </label>
           <br />
-          <label className="checkOutLabel" for="toolModel">Rental Duration In Days:</label>
+          <label className="checkOutLabel" for="toolModel">Rental Duration (in days)</label>
 
-          <input className="daysInput" placeholder="Enter number of days!" />
+          <input className="daysInput" placeholder="ex: 3" />
           <br />
 
-          <label className="checkOutLabel" for="toolModel">Credit Card Info:</label>
+          <label className="checkOutLabel" for="toolModel">Enter your Credit Card Information:</label>
 
           <div className="">
             <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
