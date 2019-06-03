@@ -23,8 +23,13 @@ class ConfirmationModal extends React.Component {
     const instances = M.Modal.init(elems, options);
   }
 
+
   render() {
     console.log("conf props", this.props);
+
+    const totalPrice = this.props.tool.priceRatePerDay * this.props.days;
+
+    console.log(totalPrice);
 
     return (
       <div id="confirmationToolModal" class="modal confirmModal">
@@ -40,11 +45,11 @@ class ConfirmationModal extends React.Component {
                 Please contact the owner below to set up pick-up arrangements.
               </h6>
               <h5 className="confFont">
-                Total Price: ${this.props.tool.priceRatePerDay}
+                Total Price: ${totalPrice}
               </h5>
               <h5 className="confFont">Due Date: {this.props.dueDate}</h5>
               <h5 className="confFont">Owner: {this.props.ownerName}</h5>
-              <h5 className="confFont">Onwer Email: {this.props.ownerEmail}</h5>
+              <h5 className="confFont">Owner Email: {this.props.ownerEmail}</h5>
               <Link to="/">
                 <button className="btn-small red darken-1">Close</button>
               </Link>

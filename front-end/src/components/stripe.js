@@ -23,7 +23,8 @@ class CheckoutForm extends Component {
       tool: this.props.tool,
       ownerEmail: "",
       ownerName: "",
-      dueDate: ""
+      dueDate: "",
+      days: "",
     };
   }
 
@@ -53,6 +54,13 @@ class CheckoutForm extends Component {
     var days =
       e.target.parentElement.parentElement.parentElement.parentElement
         .parentElement.childNodes[6].value;
+
+    console.log("this is days", days);
+
+    this.setState({
+      days: days
+    })
+
     let { token } = await this.props.stripe.createToken({
       name: this.props.user.displayName
     });
@@ -104,7 +112,7 @@ class CheckoutForm extends Component {
       .catch(err => console.log(err));
     var updatedTool = await axios.put(
       `https://us-central1-toolshed-1dd98.cloudfunctions.net/tool/updateTool/${
-        this.props.tool.toolId
+      this.props.tool.toolId
       }`,
       {
         isRented: true
@@ -118,7 +126,7 @@ class CheckoutForm extends Component {
     await axios
       .put(
         `https://us-central1-toolshed-1dd98.cloudfunctions.net/user/updateUser/${
-          this.props.user.uid
+        this.props.user.uid
         }`,
         { toolsBeingRented: arr }
       )
@@ -135,9 +143,9 @@ class CheckoutForm extends Component {
     stripeObj.amount = amountToPay;
     stripeObj.description = `User (UID:${
       this.props.user.uid
-    }) has paid ${amountToDisplay}. They have rented TOOL-ID: ${
+      }) has paid ${amountToDisplay}. They have rented TOOL-ID: ${
       this.props.tool.toolId
-    } for ${days}`;
+      } for ${days}`;
     stripeObj.source = token.id;
     await this.props.payStripe(stripeObj);
     console.log(
@@ -186,6 +194,7 @@ class CheckoutForm extends Component {
             dueDate={this.state.dueDate}
             ownerName={this.state.ownerName}
             ownerEmail={this.state.ownerEmail}
+            days={this.state.days}
           />
         </div>
       </div>
