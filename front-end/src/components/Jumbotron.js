@@ -15,20 +15,9 @@ class Jumbotron extends Component {
         <div className="frontBanner">
           <h1 className="frontSlogan">Never Buy Another Tool</h1>
           <h4 className="underSlogan">A new way to rent tools from members of your community</h4>
-          {/* A new way rent tools in your community */}
-
+          <SearchLandingPage />
         </div>
-
-        {/* <img src={image} className="jumbo" /> */}
-        <SearchLandingPage />
-        {/* <p className="baseline-text-bg">Way better than buying tools</p>
-        <p class="baseline-text-bg">
-          Rent thousands of tools from people all over your neighborhood
-        </p> */}
-
       </div>
-
-      // {/* <img src={image} className="responsive-img"/> */}
     );
   }
 }
