@@ -52,7 +52,7 @@
   overflow: hidden;
   width: 100%;
   /* background-image: url("https://images.unsplash.com/photo-1426927308491-6380b6a9936f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80"); */
-  background-image: url('../../assets/img/hero-img.png');
+  background-image: url('../../assets/img/hero-img.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
@@ -145,6 +145,7 @@
 }
 
 .sidebar-search-form-submit {
+  width: 12em;
   margin-right: 2.5em;
 }
 

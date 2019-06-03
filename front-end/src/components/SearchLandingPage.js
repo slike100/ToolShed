@@ -152,7 +152,7 @@ class SearchLandingPage extends Component {
             <input
               className="sidebar-search-form-submit ts-green-button"
               type="submit"
-              value="Search"
+              value="Search Tools"
             />
           </div>
         </form>
