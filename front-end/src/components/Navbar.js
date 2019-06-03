@@ -88,6 +88,7 @@ class Navbar extends React.Component {
   logout = () => {
     firebaseAuth.signOut().then(() => {
       this.props.logoutUser();
+      this.props.clearToolSearch();
     });
   };
 
@@ -139,9 +140,6 @@ class Navbar extends React.Component {
   //   });
   // }
 
-  // handleClick = () => {
-  //   this.props.clearToolSearch();
-  // };
   render() {
     // grab and place google photo as profile button background-image
     var profilePhoto = "none";
@@ -151,10 +149,7 @@ class Navbar extends React.Component {
 
     return (
       <nav className="nav-wrapper grey lighten-5">
-        <NavLink
-          to="/"
-          // onClick={this.handleClick}
-        >
+        <NavLink to="/" onClick={this.props.clearToolSearch}>
           <img className="siteLogo" src={logo} />
         </NavLink>
         <ul className="right nav-list">
@@ -177,6 +172,7 @@ class Navbar extends React.Component {
               <li>
                 <NavLink
                   to="/userProfilePage"
+                  onClick={this.props.clearToolSearch}
                   className="btn btn-floating blue lighten-1"
                   style={{
                     backgroundImage: profilePhoto,

@@ -213,4 +213,5 @@ export const clearToolSearch = () => {
   const action = {
     type: CLEAR_SEARCH
   };
+  return action;
 };
