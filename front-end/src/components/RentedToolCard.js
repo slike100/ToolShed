@@ -20,9 +20,9 @@ class RentedToolCard extends React.Component {
     }
     var _this = this;
     var records = [];
-    console.log(this.props.tools);
+
     for (let i = 0; i < this.props.tools.length; i++) {
-      console.log(this.props.tools[i]);
+
       var record = await axios.get(
         `https://us-central1-toolshed-1dd98.cloudfunctions.net/toolRentalRecord/rentalRecord/${
         this.props.tools[i].toolId
@@ -42,34 +42,34 @@ class RentedToolCard extends React.Component {
   };
 
   createToolRentingCards = () => {
-    console.log(this.props.tools);
     if (this.state.records.length == 0) {
-      return <div>You are not currently renting any tools</div>;
+      return <div className="tool-card-no-tool-message">
+        <p className="tool-card-no-tool-message-p">You're not currently renting any tools &nbsp;<i class="far fa-frown-open"></i></p>
+      </div>
     } else {
-      console.log(this.state.records[0].dueDate);
       var newDate = new Date(this.state.records[0].dueDate);
       var newDateString = newDate.toDateString();
       return this.props.tools.map((tool, index) => {
-        console.log(tool.isRented);
-        var rented;
-        if (tool.isRented == false || !tool.isRented) {
-          var rented = "Yes";
-        } else {
-          var rented = "No";
-        }
+
+        // var rented; // Saving for MVP 2.0 - for now, when an owner marks a tool as returned it will not show up in the tools array.
+        // if (tool.isRented == false || !tool.isRented) {
+        //   var rented = "Yes";
+        // } else {
+        //   var rented = "No";
+        // }
         return (
-          <div className="row1">
+          <div className="user-tool-card-wrapper">
             <div className="card toolCard">
               <div className="card-image">
                 <img src={tool.photo} />
               </div>
               <div className="card-content">
                 <span className="card-title">{tool.name}</span>
-                <h6>Due Date: {newDateString}</h6>
-                <h6>Checked In: {rented}</h6>
+                <h6>Please return this tool by {newDateString}</h6>
+                {/* <h6>Owner marked as Returned? &nbsp;&nbsp;{rented}</h6> */}
               </div>
-              <div className="card-action return">
-                <h6>Owner Email: {this.state.records[0].ownerEmail}</h6>
+              <div className="card-action">
+                <p>Owner Email: &nbsp;<a href={`mailto:${this.state.records[0].ownerEmail}`}>{this.state.records[0].ownerEmail}</a></p>
               </div>
             </div>
           </div>
@@ -87,14 +87,9 @@ class RentedToolCard extends React.Component {
   }
 
   render() {
-    // grab and place google photo as profile button background-image
-    var profilePhoto = "none";
-    if (this.props.auth) {
-      profilePhoto = `url(${this.props.auth.photoURL})`;
-    }
     return <div>{this.createToolRentingCards()}</div>;
   }
-}
+};
 
 const mapDispatchToProps = {};
 

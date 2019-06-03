@@ -78,6 +78,7 @@ class SearchCard extends React.Component {
         } else {
           return;
         }
+        // }
       });
     }
   };

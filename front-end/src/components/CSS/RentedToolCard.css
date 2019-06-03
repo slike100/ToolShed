@@ -1,17 +1,18 @@
 .toolCard {
-  width: 80%;
-}
-
-.return {
-  width: 100%;
-  
+  width: 90%;
 }
 
 .card-action {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  border-radius: 5px;
 }
-.row1 {
-  display: flex;
-  justify-content: center;
+
+.tool-card-no-tool-message {
+  margin: 0.8em auto;
+  text-align: center;
+  padding: 0 2em;
+  border: 1px solid #B3BFB8;
+  background-color: #FAFAFA;
+  border-radius: 5px;
 }
