@@ -14,7 +14,8 @@ class Jumbotron extends Component {
       <div className="background">
         <div className="frontBanner">
           <h1 className="frontSlogan">Never Buy Another Tool</h1>
-          <h4 className="underSlogan">A new way rent tools in your community</h4>
+          <h4 className="underSlogan">A new way to rent tools from members of your community</h4>
+          {/* A new way rent tools in your community */}
 
         </div>
 

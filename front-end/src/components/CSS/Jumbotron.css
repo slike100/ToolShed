@@ -12,7 +12,8 @@
   color: #ffffff;
   margin-bottom: 0;
   font-weight: 500;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-shadow: 2px 2px 5px black;
+  
 
 
 
@@ -22,7 +23,7 @@
   position: absolute;
   width: 100%;
   /* left: 20%; */
-  top: 10%;
+  top: 15%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -37,9 +38,10 @@
   left: 20%;
   top: 35%; */
   justify-content: center;
+  font-size: 2em;
   color: #f2f2f2;
   margin-bottom: 0;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-shadow: 2px 2px 5px black;;
 
 
 }

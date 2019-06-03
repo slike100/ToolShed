@@ -50,7 +50,7 @@ class ConfirmationModal extends React.Component {
               <h5 className="confFont">Due Date: {this.props.dueDate}</h5>
               <h5 className="confFont">Owner: {this.props.ownerName}</h5>
               <h5 className="confFont">Owner Email: {this.props.ownerEmail}</h5>
-              <Link to="/">
+              <Link to="/userProfilePage">
                 <button className="ts-orange-button confirmation-modal-close-button">
                   Close
                 </button>
