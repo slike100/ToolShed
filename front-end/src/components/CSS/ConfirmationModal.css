@@ -10,9 +10,20 @@
   /* width: 50em;
   height: 30em; */
   width: 100%;
-  height: 100%;
+  height: 150%;
 }
 
-.modal {
-  height: 49em;
+.modal #confirmationToolModal {
+  overflow-x: hidden;
+  overflow-y: hidden !important;
+  min-height: 85%;
 }
+
+/* @media only screen and (min-width: 1500px) {
+  .modal #confirmationToolModal {
+    height: 100%;
+    width: 90%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+} */

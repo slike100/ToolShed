@@ -27,11 +27,11 @@ class ConfirmationModal extends React.Component {
     console.log("conf props", this.props);
 
     return (
-      <div id="confirmationToolModal" class="modal">
+      <div id="confirmationToolModal" class="modal confirmModal">
         <div className="card horizontal confirm z-depth-4">
-          <div className="card-image">
+          {/* <div className="card-image">
             <img className="toolImage" src={this.props.tool.photo} />
-          </div>
+          </div> */}
           <div className="card-stacked">
             <div className="card-content">
               <h3>Hooray!</h3>

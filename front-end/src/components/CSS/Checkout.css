@@ -3,7 +3,6 @@
   justify-content: center;
 }
 
-
 .checkoutForm h5 {
   font-family: "Kanit", sans-serif;
   color: #3c493f;
@@ -35,7 +34,6 @@ li,
 a {
   font-family: "Kanit", sans-serif;
   color: #3c493f;
- 
 }
 
 .checkoutForm .checkOutLabel {
@@ -45,7 +43,6 @@ a {
   margin-left: 0.8em;
   padding-bottom: 0.8em;
   font-size: 1.5em;
-
 }
 
 .checkoutForm .borderRadius {
@@ -174,6 +171,9 @@ textarea {
   padding: 15px;
   justify-content: center;
   display: grid;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  min-height: 40em;
 }
 
 #close-button {
