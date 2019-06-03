@@ -5,6 +5,7 @@ import Map from "./Map.js";
 import { connect } from "react-redux";
 import { API_KEY } from "../utils/firebaseConfig";
 import mapIcon from "../assets/img/map_icon.png";
+import { toolSearchLocation } from "../redux/actions/toolActions";
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class SearchPage extends React.Component {
     console.log(displayLat, displayLng);
 
     let map = new window.google.maps.Map(document.getElementById("map"), {
-      zoom: 10,
+      zoom: 11,
       center: { lat: displayLat, lng: displayLng },
       mapTypeControl: false
     });
