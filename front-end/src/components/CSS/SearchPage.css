@@ -17,6 +17,7 @@
   position: fixed;
   z-index: 100;
   background-color: #F0F7F4;
+  border-right: 1px solid #B3BFB8;
   overflow: scroll;
 }
 
@@ -51,7 +52,7 @@
 }
 
 .sidebar-search-form-submit {
-  max-width: 10em;
+  width: 10em;
   margin: 0 auto;
 }
 

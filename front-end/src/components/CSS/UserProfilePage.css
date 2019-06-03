@@ -2,9 +2,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #f2f2f2;
+  background-color: #F0F7F4;
   overflow: auto;
-  /* height: 100vh; */
 }
 
 .manage {
@@ -12,19 +11,17 @@
 }
 
 .userImg {
+  margin-top: 2em;
   height: 200px;
   width: 200px;
 }
 
-.profileScroll {
-  display: flex;
-  overflow: auto;
-}
-
-.body {
-  background-color: #f2f2f2;
-  height: 90vh;
+.user-profile-page-wrapper {
+  background-color: #F0F7F4;
+  height: 93.3vh;
   width: 100%;
+  margin: 0;
+
   display: flex;
   overflow: auto;
 }
@@ -33,4 +30,32 @@
   overflow: auto;
 }
 
-/* hi */
+#user-profile-page-user-card {
+  border: 1px solid #B3BFB8;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 75%;
+}
+
+.user-profile-page-delete-profile-button {
+  width: 12em;
+}
+
+.user-profile-page-user-name {
+  margin: 1em 0 0.2em;
+}
+
+.user-profile-page-add-tool-button {
+  width: 12em;
+  margin-top: 2.4em;
+}
+
+.user-profile-page-column-header {
+  margin: 0 auto 0.8em;
+  text-align: center;
+  width: 90%;
+  border: 1px solid #B3BFB8;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+}

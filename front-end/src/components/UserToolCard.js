@@ -96,7 +96,6 @@ class UserToolCard extends React.Component {
   };
 
   createToolOwnedCards = () => {
-    console.log(this.props.tools);
     var button;
     if (!this.props.tools) {
       return <img src={image} />;
@@ -106,7 +105,7 @@ class UserToolCard extends React.Component {
         if (tool.isRented) {
           button = (
             <button
-              className="btn-small waves-effect #e53935 red darken-1"
+              className="ts-green-button user-tool-card-button"
               type="submit"
               name="action"
               data-id={tool.toolId}
@@ -118,7 +117,7 @@ class UserToolCard extends React.Component {
         } else {
           button = (
             <button
-              className="btn-small waves-effect #e53935 red darken-1"
+              className="ts-red-button user-tool-card-button"
               type="submit"
               name="action"
               data-id={tool.toolId}
@@ -129,7 +128,7 @@ class UserToolCard extends React.Component {
           );
         }
         return (
-          <div className="row1" key={tool.name + index.toString()}>
+          <div className="user-tool-card-wrapper" key={tool.name + index.toString()}>
             <div className="card toolCard">
               <div className="card-image">
                 <img id="toolImage" src={tool.photo} />
@@ -141,7 +140,7 @@ class UserToolCard extends React.Component {
               </div>
               <div className="card-action">
                 <button
-                  class="btn-small waves-effect waves-light btn modal-trigger edit-button"
+                  className="modal-trigger ts-orange-button user-tool-card-button"
                   type="submit"
                   name="action"
                   data-id={tool.toolId}
@@ -160,12 +159,13 @@ class UserToolCard extends React.Component {
 
   render() {
     if (this.props.tools.length == 0) {
-      return <h1>Post some tools to make some extra cash!</h1>;
+      return <div className="tool-card-no-tool-message">
+        <p className="tool-card-no-tool-message-p">Add your tools to make extra cash!  &nbsp;<i class="fas fa-money-bill-wave"></i></p>
+      </div>
     }
     return (
       <div>
         <div>{this.createToolOwnedCards()}</div>
-        {/* <EditToolModal tool={this.state.tool} /> */}
       </div>
     );
   }
