@@ -110,7 +110,8 @@ class EditToolModal extends React.Component {
     );
   };
 
-  sendAction = async () => {
+  sendAction = async e => {
+    e.preventDefault();
     console.log("hi");
     let editedToolObj = {
       name: document.getElementById("editToolType").value,

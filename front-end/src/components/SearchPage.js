@@ -51,7 +51,7 @@ class SearchPage extends React.Component {
     console.log(displayLat, displayLng);
 
     let map = new window.google.maps.Map(document.getElementById("map"), {
-      zoom: 11,
+      zoom: 12,
       center: { lat: displayLat, lng: displayLng },
       mapTypeControl: false
     });
