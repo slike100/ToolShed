@@ -3,26 +3,15 @@
 }
 .frontSlogan {
   font-size: 7em;
-  /* 
-  font-family: Kanit, sans-serif;
-  color: #f2f2f2;
-  position: absolute;
-  left: 10%;
-  top: 10%; */
   color: #ffffff;
   margin-bottom: 0;
   font-weight: 500;
   text-shadow: 2px 2px 5px black;
-  
-
-
-
 }
 
 .frontBanner {
   position: absolute;
   width: 100%;
-  /* left: 20%; */
   top: 15%;
   display: flex;
   justify-content: center;
@@ -34,9 +23,6 @@
 }
 
 .underSlogan {
-  /* position: absolute;
-  left: 20%;
-  top: 35%; */
   justify-content: center;
   font-size: 2em;
   color: #f2f2f2;
@@ -48,10 +34,8 @@
 
 .background {
   height: 57.5em;
-  /* height: 100v */
   overflow: hidden;
   width: 100%;
-  /* background-image: url("https://images.unsplash.com/photo-1426927308491-6380b6a9936f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80"); */
   background-image: url('../../assets/img/hero-img.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -79,48 +63,7 @@
 .search-landing-page-input-field {
   position: relative;
   margin: 0 0.5em 0 0;
-  /* margin-top: 0rem;
-  margin-bottom: 0rem;searchBtn 
-  margin-left: 0rem;
-  margin-right: 0.5rem; */
 }
-
-/* #toolname, #address, #distance {
-  position: relative;
-  margin-top: 0rem;
-  margin-bottom: 0rem;
-  width: 10rem;
-  margin-left: 0.8rem;
-  margin-right: 0rem;
-} */
-
-/* .row1 .col .s4 {
-  overflow: hidden;
-  padding: 0.5rem;
-} */
-/* .row1 .col .s2 {
-  overflow: hidden;
-  padding: 0.5rem;
-  left: 0.7rem;
-} */
-
-/* .row1 .col .s1 {
-  width: 20%;
-  left: auto;
-  right: auto;
-  overflow: visible;
-  /* margin-left: 1.1rem; */
-  /* margin-top: 1rem; */
-  /* padding-left: 3rem;
-} */
-/* 
-.searchBtn {
-  margin-top: 0.7em;
-  margin-left: 0em;
-} */
-/* #distance {
-  width: 10rem;
-} */
 
 
 .search-landing-page-form-wrapper {
@@ -133,7 +76,6 @@
 
 .sidebar-search-form-input-field {
   margin: 0 auto;
-  /* background-color: red; */
 }
 
 .search-landing-page-form-row {
@@ -144,11 +86,17 @@
   margin: 0;
 }
 
-.sidebar-search-form-submit {
+.search-landing-page-form-submit {
   width: 12em;
   margin-right: 2.5em;
 }
 
 .search-landing-page-p {
   margin-left: 3em;
+}
+
+.jumbotron-down-chevron {
+  color: white;
+  margin-top: 2.7em;
+  text-shadow: 2px 2px 5px black;
 }

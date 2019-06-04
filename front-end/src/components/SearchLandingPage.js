@@ -58,60 +58,6 @@ class SearchLandingPage extends Component {
 
   render() {
     return (
-      // // <div className="form">
-      // <form className="row searchForm col s12" onSubmit={this.handleSubmit}>
-      //   <div className="row1">
-      //     {/* <label className="searchLabel col" for="tool-name">What:</label> */}
-      //     <div className="input-field col search-landing-page-input-field">
-      //       {/* <i className="material-icons prefix">account_circle</i> */}
-      //       <div className="input-field">
-
-      //         <input id="tool-name" name="searchLandingTool" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingTool} />
-      //         <label for="tool-name">Portable Sand Blaster</label>
-      //       </div>
-      //     </div>
-      //     {/* <label className="searchLabel col" for="tool-name">Where:</label> */}
-
-      //     <div className="input-field col search-landing-page-input-field">
-      //       {/* <i className="material-icons prefix">email</i> */}
-      //       <div className="input-field">
-      //         <input id="address" name="searchLandingAddress" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingAddress} />
-      //         <label for="address">Denver, CO</label>
-      //       </div>
-      //     </div>
-      //     {/* <label className="searchLabel col" for="tool-name">How Far:</label> */}
-
-      //     <div className="input-field col search-landing-page-input-field">
-      //       {/* <i className="material-icons prefix">email</i> */}
-      //       <div className="input-field">
-      //         <input id="distance" name="searchLandingDistance" type="text" className="validate" onChange={this.handleChange} value={this.state.searchLandingDistance} />
-      //         <label for="distance">3O mi</label>
-      //       </div>
-      //     </div>
-      //     {/* <div className="col"> */}
-      //     <button class="ts-green-button search-landing-page-search-button">Search</button>
-      //     {/* <input className="sidebar-search-btn" type="submit" value="Search" /> */}
-      //     {/* </div> */}
-
-      //   </div>
-      // </form>
-      // // </div>
-
-
-      // <form onSubmit={this.handleSubmit}>
-
-      //   <label for="First_Name">What?</label>
-      //   <input name="first_name" id="First_Name" type="text" />
-
-      //   <label for="Name">Where?</label>
-      //   <input name="last_name" id="Last_Name" type="text" />
-
-      //   <label for="Email">How far?</label>
-      //   <input name="email" id="Email" type="email" />
-
-      //   <input type="submit" value="Search" />
-      // </form>
-
       <div class="container">
         <form class="col s12 search-landing-page-form-wrapper" onSubmit={this.handleSubmit}>
 
@@ -120,6 +66,7 @@ class SearchLandingPage extends Component {
             <input
               id="tool-name"
               type="text"
+              name="searchLandingTool"
               onChange={this.handleChange}
               value={this.state.searchLandingTool}
             />
@@ -131,6 +78,7 @@ class SearchLandingPage extends Component {
             <input
               id="address"
               type="text"
+              name="searchLandingAddress"
               onChange={this.handleChange}
               value={this.state.searchLandingAddress}
             />
@@ -142,6 +90,7 @@ class SearchLandingPage extends Component {
             <input
               id="distance"
               type="text"
+              name="searchLandingDistance"
               onChange={this.handleChange}
               value={this.state.searchLandingDistance}
             />
@@ -150,7 +99,7 @@ class SearchLandingPage extends Component {
 
           <div class="input-field col s3 sidebar-search-form-input-field">
             <input
-              className="sidebar-search-form-submit ts-green-button"
+              className="search-landing-page-form-submit ts-green-button"
               type="submit"
               value="Search Tools"
             />

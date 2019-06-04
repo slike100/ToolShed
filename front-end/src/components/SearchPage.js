@@ -26,14 +26,6 @@ class SearchPage extends React.Component {
 
   initMap = () => {
     console.log("initMap fired");
-    // console.log(this.props.user.lat);
-    // if (!this.props.user) {
-    //   var userLat = 40;
-    //   var userLng = -105;
-    // } else {
-    //   var userLat = this.props.user.lat;
-    //   var userLng = this.props.user.lng;
-    // }
     var displayLat;
     var displayLng;
 
@@ -70,8 +62,7 @@ class SearchPage extends React.Component {
           map: map,
           label: dailyRate,
           title: location.uid,
-          icon: mapIcon,
-          animation: window.google.maps.Animation.DROP
+          icon: mapIcon
         });
         let cardInfo = `<div style="width:200px"><img className="sidebar-card-img" style="display:block;width:100%;height:auto;" src=${
           location.photo

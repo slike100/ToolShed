@@ -173,20 +173,23 @@ class CheckoutForm extends Component {
       );
     } else if (this.props.auth == false) {
       changeButton = (
-        <p className="">
-          You must be signed in to rent a tool.
-        </p>
+        <p className="checkout-form-no-user-message">
+          <i className="fas fa-exclamation-triangle sidebar-card-btn-orange" />
+          &nbsp;&nbsp; You must be signed in to rent a tool. &nbsp;&nbsp;
+          <i className="fas fa-exclamation-triangle sidebar-card-btn-orange" /></p>
       );
     }
     return (
       <div className="checkout">
-        <CardElement
-          style={{
-            base: {
-              fontSize: "20px"
-            }
-          }}
-        />
+        <div className="stripe-credit-card-bottom-border">
+          <CardElement
+            style={{
+              base: {
+                fontSize: "20px"
+              }
+            }}
+          />
+        </div>
         <div className="checkoutBtn">{changeButton}</div>
         <div>
           <ConfirmationModal
