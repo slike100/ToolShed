@@ -120,6 +120,7 @@ class SearchLandingPage extends Component {
             <input
               id="tool-name"
               type="text"
+              name="searchLandingTool"
               onChange={this.handleChange}
               value={this.state.searchLandingTool}
             />
@@ -131,6 +132,7 @@ class SearchLandingPage extends Component {
             <input
               id="address"
               type="text"
+              name="searchLandingAddress"
               onChange={this.handleChange}
               value={this.state.searchLandingAddress}
             />
@@ -142,6 +144,7 @@ class SearchLandingPage extends Component {
             <input
               id="distance"
               type="text"
+              name="searchLandingDistance"
               onChange={this.handleChange}
               value={this.state.searchLandingDistance}
             />
