@@ -94,3 +94,9 @@
 .search-landing-page-p {
   margin-left: 3em;
 }
+
+.jumbotron-down-chevron {
+  color: white;
+  margin-top: 2.7em;
+  text-shadow: 2px 2px 5px black;
+}

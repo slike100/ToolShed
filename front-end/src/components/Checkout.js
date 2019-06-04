@@ -51,7 +51,7 @@ class Checkout extends React.Component {
             Credit Card Info:
           </label>
 
-          <div className="">
+          <div className="stripe-credit-card-border ">
             <StripeProvider apiKey="pk_test_MOtKUdvLk0HzhkWZ5l8gtg6j00j5CMoeeI">
               <div className="example">
                 <Elements>

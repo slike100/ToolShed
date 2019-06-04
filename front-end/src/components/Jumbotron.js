@@ -16,6 +16,7 @@ class Jumbotron extends Component {
           <h1 className="frontSlogan">Never Buy Another Tool</h1>
           <h4 className="underSlogan">A new way to rent tools from members of your community</h4>
           <SearchLandingPage />
+          <i class="fas fa-chevron-down fa-5x jumbotron-down-chevron"></i>
         </div>
       </div>
     );
