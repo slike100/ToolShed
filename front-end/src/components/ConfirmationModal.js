@@ -23,7 +23,6 @@ class ConfirmationModal extends React.Component {
     const instances = M.Modal.init(elems, options);
   }
 
-
   render() {
     console.log("conf props", this.props);
 
@@ -44,9 +43,7 @@ class ConfirmationModal extends React.Component {
               <h6 className="confFont">
                 Please contact the owner below to set up pick-up arrangements.
               </h6>
-              <h5 className="confFont">
-                Total Price: ${totalPrice}
-              </h5>
+              <h5 className="confFont">Total Price: ${totalPrice}</h5>
               <h5 className="confFont">Due Date: {this.props.dueDate}</h5>
               <h5 className="confFont">Owner: {this.props.ownerName}</h5>
               <h5 className="confFont">Owner Email: {this.props.ownerEmail}</h5>

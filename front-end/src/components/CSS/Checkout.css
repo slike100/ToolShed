@@ -101,12 +101,12 @@ form textarea:focus {
 }
 
 .stripe-credit-card-border {
-  border: 1px solid #B3BFB8;
+  border: 1px solid #b3bfb8;
   border-radius: 5px;
 }
 
 .stripe-credit-card-bottom-border {
-  border-bottom: 1px solid #B3BFB8;
+  border-bottom: 1px solid #b3bfb8;
 }
 
 /* -- form styling -- */
@@ -160,7 +160,7 @@ textarea {
   margin-right: auto;
 }
 
-.modal .modal-content {
+#checkoutModal {
   padding: 15px;
   justify-content: center;
   display: grid;

@@ -17,10 +17,10 @@
   width: 10em;
 }
 
-.modal #confirmationToolModal {
+#confirmationToolModal {
   overflow-x: hidden;
-  overflow-y: hidden !important;
-  min-height: 85%;
+  overflow-y: hidden;
+  min-height: 98%;
 }
 
 /* @media only screen and (min-width: 1500px) {
